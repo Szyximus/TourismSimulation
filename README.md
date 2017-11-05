@@ -1,2 +1,5 @@
 # TourismSimulation
-a simulation of a group of tourists in a City.
+
+A simulation of a group of tourists in a large city written in Python.
+
+
