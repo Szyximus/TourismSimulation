@@ -1,16 +1,16 @@
 import pyglet
 from agent import Agent
+from spawn_point import SpawnPoint
 
 
 class Simulation:
 
     def __init__(self):
-        self.agents=[]
-
-    def generate_agent(self, posx=0, posy=0, velx=0, vely=0):
-        self.agents.append(Agent(posx, posy, velx, vely))
+        self.agents = []
+        self.spawn_points = [SpawnPoint(0, 0, 1)]
 
     def update(self, dt):
+        list(map(lambda spawn_point: spawn_point.update(self.agents), self.spawn_points))
         list(map(lambda agent: agent.update(dt), self.agents))
 
     def draw(self, windowx, windowy):
