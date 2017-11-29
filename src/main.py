@@ -20,7 +20,7 @@ class Window(pyglet.window.Window):
         self.simulation = Simulation()
 
     def on_mouse_drag(self, x, y, dx, dy, buttons, modifiers):
-        if (buttons & mouse.LEFT) or (buttons & mouse.MIDDLE) :
+        if (buttons & mouse.LEFT) or (buttons & mouse.MIDDLE):
             self.x = self.x + dx
             self.y = self.y + dy
             if self.x > 1120:

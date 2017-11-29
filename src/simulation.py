@@ -2,17 +2,15 @@ import pyglet
 from agent import Agent
 
 
-class Simulation():
+class Simulation:
 
     def __init__(self):
-        self.agent = Agent(100, 100)
-        self.agent.velx = 5
-        self.agent.vely= 3
+        self.agent = Agent(-438, 600)
+        self.agent.velx = -1
+        self.agent.vely= 9
 
     def update(self, dt):
         self.agent.update(dt)
 
-    def draw(self, x, y):
-        self.agent.posx = x
-        self.agent.posy = y
-        self.agent.draw()
+    def draw(self, windowx, windowy):
+        self.agent.draw(windowx, windowy)
