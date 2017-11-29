@@ -1,5 +1,5 @@
 import pyglet
-
+from pyglet.window import mouse
 from map import Map
 
 
@@ -14,8 +14,29 @@ class Window(pyglet.window.Window):
         self.map = Map(self.width, self.height)
         self.set_visible(True)
 
-        self.x = 1100
-        self.y = 1200
+        self.x = 800
+        self.y = -800
+
+    def on_mouse_drag(self, x, y, dx, dy, buttons, modifiers):
+        if buttons & mouse.LEFT:
+            self.x = self.x + dx
+            self.y = self.y + dy
+            if self.x > 1120:
+                self.x = 1120
+                pass
+
+            if self.x < self.width - 1120:
+                self.x = self.width - 1120
+                pass
+
+            if self.y > 1760:
+                self.y = 1760
+                pass
+            pass
+
+        if self.y < self.height - 1760:
+            self.y = self.height - 1760
+            pass
 
     def on_draw(self):
         self.clear()
