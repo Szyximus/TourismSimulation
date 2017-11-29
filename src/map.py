@@ -1,5 +1,4 @@
 import pyglet
-
 from label import Label;
 
 watermark = 'Modelowanie i symulacja systemów, Szymon Jakóbczyk, Mateusz Kuźmik, Paweł Płatek'
