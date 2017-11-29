@@ -46,11 +46,18 @@ class Window(pyglet.window.Window):
     def on_draw(self):
         self.clear()
         self.map.draw(self.width, self.height, self.x, self.y)
-        self.simulation.draw(self.x, self.y)
+        self.simulation.draw((self.x, self.y))
 
 
 if __name__ == '__main__':
 
     window = Window()
+
+    window.simulation.append_agent((-400, 500), (-2, 9))
+    window.simulation.append_agent((0, 500), (5, 9))
+    window.simulation.append_agent((-50, 540), (8, 9))
+    window.simulation.append_agent((-111, 345), (7, 9))
+    window.simulation.append_agent((-453, 234), (-10, 9))
+
     pyglet.clock.schedule_interval(window.update, window.frame_rate)
     pyglet.app.run()

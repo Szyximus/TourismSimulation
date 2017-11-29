@@ -5,12 +5,15 @@ from agent import Agent
 class Simulation:
 
     def __init__(self):
-        self.agent = Agent(-438, 600)
-        self.agent.velx = -1
-        self.agent.vely= 9
+        self.agents = []
+
+    def append_agent(self, position, velocity):
+        self.agents.append(Agent(position, velocity))
 
     def update(self, dt):
-        self.agent.update(dt)
+        for agent in self.agents:
+            agent.update(dt)
 
-    def draw(self, windowx, windowy):
-        self.agent.draw(windowx, windowy)
+    def draw(self, window_position):
+        for agent in self.agents:
+            agent.draw(window_position)
