@@ -15,14 +15,14 @@ class Simulation:
                              SpawnPoint(350, 1450, 'Dworzec Główny', 0.5),
                              SpawnPoint(-270, 1750, 'Stary Kleparz', 0.2)]
 
-        self.pois = [PointOfInterest(-660, 1070, 'McDonald\'s', 5, 2, 4),
+        self.pois = [PointOfInterest(-660, 1077, 'McDonald\'s', 5, 2, 4),
                      PointOfInterest(-480, 990, 'Sukiennice', 7, 0, 2),
-                     PointOfInterest(-575, 1125, 'Polonia Wax Museum', 2, 8, 5),
-                     PointOfInterest(-540, 1200, 'Bobby Burger', 6, 5, 4),
-                     PointOfInterest(-310, 982, 'Bazylika Mariacka', 3, 0, 8),
+                     PointOfInterest(-571, 1125, 'Polonia Wax Museum', 2, 8, 5),
+                     PointOfInterest(-540, 1195, 'Bobby Burger', 6, 5, 4),
+                     PointOfInterest(-315, 982, 'Bazylika Mariacka', 3, 0, 8),
                      PointOfInterest(-410, 955, 'Pomnik Adama Mickiewicza', 2, 0, 1),
-                     PointOfInterest(-315, 1080, 'Pijalnia Czekolady E. Wedel', 6, 7, 6),
-                     PointOfInterest(-438, 854, 'Kościół Świętego Wojciecha', 2, 0, 5),
+                     PointOfInterest(-315, 1075, 'Pijalnia Czekolady E. Wedel', 6, 7, 6),
+                     PointOfInterest(-440, 851, 'Kościół Świętego Wojciecha', 2, 0, 5),
                      PointOfInterest(-585, 955, 'Wieża Ratuszowa', 2, 1, 3)]
 
 
