@@ -52,5 +52,12 @@ class Window(pyglet.window.Window):
 if __name__ == '__main__':
 
     window = Window()
+
+    window.simulation.generate_agent(50, 13, 2, 2)
+    window.simulation.generate_agent(20, 65, 2, 3)
+    window.simulation.generate_agent(-10, 34, 2, 4)
+    window.simulation.generate_agent(200, 100, 2, 6)
+    window.simulation.generate_agent(10, 12, 2, 7)
+
     pyglet.clock.schedule_interval(window.update, window.frame_rate)
     pyglet.app.run()

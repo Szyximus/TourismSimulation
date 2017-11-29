@@ -5,12 +5,13 @@ from agent import Agent
 class Simulation:
 
     def __init__(self):
-        self.agent = Agent(-438, 600)
-        self.agent.velx = -1
-        self.agent.vely= 9
+        self.agents=[]
+
+    def generate_agent(self, posx=0, posy=0, velx=0, vely=0):
+        self.agents.append(Agent(posx, posy, velx, vely))
 
     def update(self, dt):
-        self.agent.update(dt)
+        list(map(lambda agent: agent.update(dt), self.agents))
 
     def draw(self, windowx, windowy):
-        self.agent.draw(windowx, windowy)
+        list(map(lambda agent: agent.draw(windowx, windowy), self.agents))
