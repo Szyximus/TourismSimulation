@@ -1,3 +1,4 @@
+import pyglet
 import time
 from agent import Agent
 from random import randint
@@ -16,5 +17,15 @@ class SpawnPoint:
 
         self.last_activation_time = current_milli_time()
 
+        self.img = pyglet.image.load('./graphics/Spawn.png')
+        self.img.anchor_x = self.img.width // 2
+        self.img.anchor_y = self.img.height // 2
+        self.sprite = pyglet.sprite.Sprite(self.img, x=self.x, y=self.y)
+
+    def draw(self, windowx, windowy):
+        self.sprite.x = windowx + self.x
+        self.sprite.y = windowy + self.y
+        self.sprite.draw()
+
     def update(self, agents):
-        agents.append(Agent(self.x, self.y, randint(-10, 10), randint(-10, 10)))
+        agents.append(Agent(self.x, self.y, randint(-1, 8), randint(-6, 1)))
