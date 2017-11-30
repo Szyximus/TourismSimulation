@@ -4,9 +4,10 @@ from poilabel import PoiLabel
 
 class PointOfInterest:
 
-    def __init__(self, x, y,name, attractiveness, price, time_needed):
+    def __init__(self, x, y, name, attractiveness, price, time_needed):
         self.x = x
         self.y = y
+
         self.name = name
         self.attractiveness = attractiveness
         self.price = price
