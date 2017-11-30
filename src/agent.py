@@ -5,7 +5,7 @@ import numpy as np
 
 class Agent:
 
-    def __init__(self, simulation, posx, posy, age, wealth, concentration, intoxication, schedule):
+    def __init__(self, simulation, posx, posy, age, wealth, domestic, education, strictness, intoxication, fear, schedule):
         self.posx = posx
         self.posy = posy
 
@@ -13,13 +13,19 @@ class Agent:
 
         self.age = age
         self.wealth = wealth
-        self.concentration = concentration
+        self.domestic = domestic
+        self.education = education
+        self.strictness = strictness
         self.intoxication = intoxication
+        self.fear = fear
         self.schedule = schedule
 
         self.speed = self.compute_speed()
-        self.current_poi = self.schedule[0]
+        self.current_poi = self.schedule.pop()
         self.previous_move = (0, 0)
+
+        self.inside_poi = False
+        self.time_to_spend = None
 
         self.img = pyglet.image.load('./graphics/Pin.png')
         self.img.anchor_x = self.img.width // 2
@@ -34,6 +40,27 @@ class Agent:
         if 18 < self.age < 24:
             speed += 0.7
         return round(speed * self.simulation.pixels_per_meter)
+
+    def poi_reached(self):
+        base_probability_to_enter_poi = 80
+        if (self.wealth - self.current_poi.price)*10 < base_probability_to_enter_poi:
+            return
+
+        self.inside_poi = True
+        print("Inside poi " + self.current_poi.name)
+        self.time_to_spend = self.current_poi.time_needed * 10
+        self.img = pyglet.image.load('./graphics/Pin2.png')
+        self.sprite = pyglet.sprite.Sprite(self.img, x=self.posx, y=self.posy)
+
+    def poi_leaved(self):
+        self.inside_poi = False
+        print("Leave poi " + self.current_poi.name)
+        if len(self.schedule) > 0:
+            self.current_poi = self.schedule.pop()
+        else:
+            self.current_poi = self.simulation.pois[randint(0, len(self.simulation.pois)-1)]
+        self.img = pyglet.image.load('./graphics/Pin.png')
+        self.sprite = pyglet.sprite.Sprite(self.img, x=self.posx, y=self.posy)
 
     def draw(self, windowx, windowy):
         self.sprite.x = windowx + self.posx
@@ -68,18 +95,33 @@ class Agent:
         return self.current_poi.x, self.current_poi.y
 
     def calculate_direction(self, new_tmp_target):
+        min_distance_to_walk = randint(5, 100)
+
         direction_x = 0
-        if new_tmp_target[0] > self.posx:
+        precision = 10
+        if new_tmp_target[0] - precision > self.posx:
             direction_x = 1
-        elif new_tmp_target[0] < self.posx:
+        elif new_tmp_target[0] < self.posx - precision:
             direction_x = -1
 
         direction_y = 0
-        if new_tmp_target[1] > self.posy:
+        if new_tmp_target[1] - precision > self.posy:
             direction_y = 1
-        elif new_tmp_target[1] < self.posy:
+        elif new_tmp_target[1] < self.posy - precision:
             direction_y = -1
 
+        destination = (direction_x*min_distance_to_walk, direction_y*min_distance_to_walk)
+        if self.simulation.map_raster[destination[1]][destination[0]] == 0:
+            if abs(self.posx - self.current_poi.x) > abs(self.posy - self.current_poi.y):
+                if randint(0, 3) != 0:
+                    direction_y = (direction_y + 1) % 2
+                else:
+                    direction_x = (direction_x + 1) % 2
+            else:
+                if randint(0, 4) != 0:
+                    direction_x = (direction_x + 1) % 2
+                else:
+                    direction_y = (direction_y + 1) % 2
         return direction_x, direction_y
 
     def calculate_distance(self, target):
@@ -92,8 +134,17 @@ class Agent:
         #     print(new_tmp_target, (self.current_poi.x, self.current_poi.y))
         #     self.previous_move = self.calculate_direction(new_tmp_target)
 
-        change_route_probability = 20
+        if self.inside_poi:
+            if self.time_to_spend == 1:
+                self.poi_leaved()
+            self.time_to_spend -= 1
+            return
 
+        if abs(self.posx - self.current_poi.x) < 30 and abs(self.posy - self.current_poi.y) < 30:
+            self.poi_reached()
+            return
+
+        change_route_probability = 20
         if self.previous_move == (0, 0) or randint(0, 100) <= change_route_probability:
             direction_x, direction_y = self.calculate_direction((self.current_poi.x, self.current_poi.y))
         else:
@@ -107,4 +158,5 @@ class Agent:
             self.posx += self.speed * direction_x
             self.posy += self.speed * direction_y
             self.previous_move = (direction_x, direction_y)
+
 

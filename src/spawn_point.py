@@ -41,9 +41,14 @@ class SpawnPoint:
         if self.i == 0:
             self.i = self.counter
             age = randint(5, 70)
-            wealth = 0
+            wealth = randint(0, 10)
             concentration = randint(10, 100)
             intoxication = randint(0, 20)
+            domestic = 0
+            education = 0
+            strictness = 0
+            fear = None
             schedule = schedules_generator.generate()
-            agents.append(Agent(simulation, self.x, self.y, age, wealth, concentration, intoxication, schedule))
+            agents.append(Agent(simulation, self.x, self.y, age, wealth, domestic, education, strictness,
+                                intoxication, fear, schedule))
             pass
