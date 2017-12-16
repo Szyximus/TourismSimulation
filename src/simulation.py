@@ -2,6 +2,7 @@ import pyglet
 from agent import Agent
 from spawn_point import SpawnPoint
 from point_of_interest import PointOfInterest
+from timebox import Timebox
 
 from math import floor
 import numpy as np
@@ -11,7 +12,7 @@ from PIL import Image
 class Simulation:
     DEBUG = True
 
-    def __init__(self, size_x, size_y):
+    def __init__(self, size_x, size_y, window_width, window_height):
         self.agents = []
         self.spawn_points = [SpawnPoint(-990, 1300, 'Teatr Bagatela', 1),
                              SpawnPoint(-900, 540, 'Filharmonia', 0.2),
@@ -38,14 +39,16 @@ class Simulation:
         self.pixels_per_meter = 1.5
 
         # time speed multiplier. 2 means that one second in real is two seconds in simulation
-        self.time_speed = 5
+        self.time_speed = 4
 
         # how often (in simulation time) update will take place
         self.time_density = 1
         self.simulation_delta_time = 0
         self.real_time = 0
 
-        self.timestamp = 1513426631.0
+        # timestamp = 1513426631.0
+        timestamp = 0
+        self.timebox = Timebox(timestamp, window_width, window_height)
 
         # how much grid is smaller than map
         # not used, probably won't help efficiency
@@ -74,13 +77,14 @@ class Simulation:
                 print("Real time:", round(self.real_time, 2),
                       "  |  Simulation time:", round(self.real_time * self.time_speed, 2),
                       "  |  Time delta: ", round(self.simulation_delta_time, 2))
-            self.timestamp += self.simulation_delta_time
+
             list(map(lambda spawn_point: spawn_point.update(self.simulation_delta_time, self), self.spawn_points))
             list(map(lambda agent: agent.update(self.simulation_delta_time), self.agents))
+            self.timebox.update(self.simulation_delta_time)
             self.simulation_delta_time = 0
 
     def draw(self, windowx, windowy):
         list(map(lambda agent: agent.draw(windowx, windowy), self.agents))
         list(map(lambda spawn: spawn.draw(windowx, windowy), self.spawn_points))
         list(map(lambda poi: poi.draw(windowx, windowy), self.pois))
-
+        self.timebox.draw()
