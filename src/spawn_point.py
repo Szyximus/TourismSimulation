@@ -1,9 +1,9 @@
 import pyglet
 import time
-from agent import Agent
+from src.agent import Agent
 from random import randint
-from poilabel import PoiLabel
-from schedules_generator import SchedulesGenerator
+from src.poilabel import PoiLabel
+from src.schedules_generator import SchedulesGenerator
 
 
 def current_milli_time():
@@ -20,7 +20,7 @@ class SpawnPoint:
 
         self.last_activation_time = current_milli_time()
 
-        self.img = pyglet.image.load('./graphics/Spawn.png')
+        self.img = pyglet.image.load('../graphics/Spawn.png')
         self.img.anchor_x = self.img.width // 2
         self.img.anchor_y = self.img.height // 2
         self.sprite = pyglet.sprite.Sprite(self.img, x=self.x, y=self.y)

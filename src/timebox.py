@@ -10,7 +10,7 @@ class Timebox:
         self.x = x
         self.y = y
 
-        self.img = pyglet.image.load('./graphics/timebox.png')
+        self.img = pyglet.image.load('../graphics/timebox.png')
         self.img.anchor_x = 0
         self.img.anchor_y = 0
         self.sprite = pyglet.sprite.Sprite(self.img, x=self.x-self.img.width, y=self.y-self.img.height)

@@ -1,7 +1,7 @@
 import pyglet
 from pyglet.window import mouse
-from map import Map
-from simulation import Simulation
+from src.map import Map
+from src.simulation import Simulation
 
 class Window(pyglet.window.Window):
 
