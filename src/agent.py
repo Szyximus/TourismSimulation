@@ -74,7 +74,7 @@ class Agent:
         for jump in range(1, checks+1):
             px = min(round(self.posx + (self.simulation.size_x // 2) + (jump_x * jump)), self.simulation.size_x-1)
             py = min(round(self.posy + (self.simulation.size_y // 2) + (jump_y * jump)), self.simulation.size_y-1)
-            if self.simulation.map_raster[py][px] == 0:
+            if self.simulation.grid[py][px] == 0:
                 return True
         return False
 
@@ -111,7 +111,7 @@ class Agent:
             direction_y = -1
 
         destination = (direction_x*min_distance_to_walk, direction_y*min_distance_to_walk)
-        if self.simulation.map_raster[destination[1]][destination[0]] == 0:
+        if self.simulation.grid[destination[1]][destination[0]] == 0:
             if abs(self.posx - self.current_poi.x) > abs(self.posy - self.current_poi.y):
                 if randint(0, 3) != 0:
                     direction_y = (direction_y + 1) % 2
@@ -152,7 +152,7 @@ class Agent:
 
         new_pos_x = self.posx + self.speed * direction_x
         new_pos_y = self.posy + self.speed * direction_y
-        if self.simulation.map_raster[new_pos_y + (self.simulation.size_y // 2)][new_pos_x + (self.simulation.size_x // 2)] == 0:
+        if self.simulation.grid[new_pos_y + (self.simulation.size_y // 2)][new_pos_x + (self.simulation.size_x // 2)] == 0:
             self.previous_move = (randint(0,2)-1, randint(0,2)-1)
         else:
             self.posx += self.speed * direction_x

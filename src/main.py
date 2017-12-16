@@ -9,7 +9,7 @@ class Window(pyglet.window.Window):
         super().__init__(resizable=True, caption='Tourism Simulation', visible=False)
         self.set_minimum_size(640, 480)
         self.set_maximum_size(2260, 3540)
-        self.frame_rate = 1/60.0
+        self.frame_rate = 0.1
 
         self.map = Map(self.width, self.height)
         self.set_visible(True)
@@ -17,7 +17,7 @@ class Window(pyglet.window.Window):
         self.x = 800
         self.y = -800
 
-        self.simulation = Simulation(2260, 3540)
+        self.simulation = Simulation(2260, 3540, self.width, self.height)
 
     def on_mouse_drag(self, x, y, dx, dy, buttons, modifiers):
         if (buttons & mouse.LEFT) or (buttons & mouse.MIDDLE):
@@ -52,6 +52,5 @@ class Window(pyglet.window.Window):
 if __name__ == '__main__':
 
     window = Window()
-
     pyglet.clock.schedule_interval(window.update, window.frame_rate)
     pyglet.app.run()

@@ -5,6 +5,7 @@ from random import randint
 from poilabel import PoiLabel
 from schedules_generator import SchedulesGenerator
 
+
 def current_milli_time():
     return int(round(time.time() * 1000))
 
@@ -35,7 +36,7 @@ class SpawnPoint:
         self.sprite.draw()
         self.label.draw(self.sprite.x, self.sprite.y)
 
-    def update(self, agents, simulation):
+    def update(self, dt, simulation):
         self.i -= 1
         schedules_generator = SchedulesGenerator(simulation.pois)
         if self.i == 0:
@@ -49,6 +50,6 @@ class SpawnPoint:
             strictness = 0
             fear = None
             schedule = schedules_generator.generate()
-            agents.append(Agent(simulation, self.x, self.y, age, wealth, domestic, education, strictness,
-                                intoxication, fear, schedule))
+            simulation.agents.append(Agent(simulation, self.x, self.y, age, wealth, domestic, education, strictness,
+                                           intoxication, fear, schedule))
             pass
