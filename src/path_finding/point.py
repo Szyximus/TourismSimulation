@@ -24,5 +24,8 @@ class Point:
     def diff(self, point):
         return Point(self.x - point.x, self.y - point.y)
 
+    def add(self, direction):
+        return Point(round(self.x + direction.x), round(self.y + direction.y))
+
     def to_touple(self):
         return self.x, self.y

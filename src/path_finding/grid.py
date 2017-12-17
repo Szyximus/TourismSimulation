@@ -12,3 +12,9 @@ class Grid:
             return True
         else:
             return False
+
+    def set_walkability(self, x, y, walkable):
+        if walkable:
+            self.grid[y + (self.simulation_size_y // 2)][x + (self.simulation_size_x // 2)] = 255
+        else:
+            self.grid[y + (self.simulation_size_y // 2)][x + (self.simulation_size_x // 2)] = 0

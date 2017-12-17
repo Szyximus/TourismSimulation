@@ -27,12 +27,14 @@ class Agent:
         self.current_poi = self.schedule.pop()
         self.previous_move = (0, 0)
         self.grid = Grid(self.simulation.grid, self.simulation.size_x, self.simulation.size_y)
-        self.walkpath = Walkpath.from_agent(self, 1)
+        self.walkpath = Walkpath.from_agent(self)
 
         self.inside_poi = False
         self.time_to_spend = None
 
-        self.img = pyglet.image.load('../graphics/Pin.png')
+        self.walking_img = pyglet.image.load('../graphics/Pin.png')
+        self.inside_poi_img = pyglet.image.load('../graphics/Pin2.png')
+        self.img = self.walking_img
         self.img.anchor_x = self.img.width // 2
         self.img.anchor_y = self.img.height // 2
         self.sprite = pyglet.sprite.Sprite(self.img, x=self.posx, y=self.posy)
@@ -55,13 +57,13 @@ class Agent:
         self.inside_poi = True
         print("Inside poi " + self.current_poi.name)
         self.time_to_spend = self.current_poi.time_needed * 10
-        self.img = pyglet.image.load('../graphics/Pin2.png')
+        self.img = self.inside_poi_img
         self.sprite = pyglet.sprite.Sprite(self.img, x=self.posx, y=self.posy)
 
     def next_poi(self):
         if len(self.schedule) > 0:
             self.current_poi = self.schedule.pop()
-            self.walkpath = Walkpath.from_agent(self, 1)
+            self.walkpath = Walkpath.from_agent(self)
 
     def poi_leaved(self):
         self.inside_poi = False
@@ -70,7 +72,7 @@ class Agent:
             self.current_poi = self.schedule.pop()
         else:
             self.current_poi = self.simulation.pois[randint(0, len(self.simulation.pois)-1)]
-        self.img = pyglet.image.load('../graphics/Pin.png')
+        self.img = self.walking_img
         self.sprite = pyglet.sprite.Sprite(self.img, x=self.posx, y=self.posy)
 
     def draw(self, windowx, windowy):
@@ -129,14 +131,14 @@ class Agent:
         # if self.previous_move == (0, 0) or random_true(change_route_probability):
         #     direction_x, direction_y = self.calculate_direction((self.current_poi.x, self.current_poi.y))
         # else:
-        direction_x, direction_y = self.walkpath.get_direction(self.posx, self.posy)
+        direction_x, direction_y = self.walkpath.get_direction(self.posx, self.posy, self.speed)
 
-        new_pos_x = int(self.posx + self.speed * direction_x)
-        new_pos_y = int(self.posy + self.speed * direction_y)
+        new_pos_x = round(self.posx + self.speed * direction_x)
+        new_pos_y = round(self.posy + self.speed * direction_y)
 
         if self.grid.is_walkable(new_pos_x, new_pos_y):
-            self.posx += self.speed * direction_x
-            self.posy += self.speed * direction_y
+            self.posx = new_pos_x
+            self.posy = new_pos_y
             self.previous_move = (direction_x, direction_y)
         else:
             self.previous_move = (randint(0, 2) - 1, randint(0, 2) - 1)
