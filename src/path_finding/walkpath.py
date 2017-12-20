@@ -1,13 +1,8 @@
-from src.path_finding.point import Point
-import math
 import random
-from src.path_finding.path_finder import PathFinder
-from src.path_finding.grid import Grid
 
-# TODO
-# what if agent out of path, calculate again?
-# what if user not moved (roadblock), calculate again?
-# what if poi unreachable, Exception?
+from src.path_finding.path_finders.heavy_path_finder import HeavyPathFinder
+from src.path_finding.point import Point
+
 
 class Walkpath:
 
@@ -15,13 +10,12 @@ class Walkpath:
         self.start_point = start_point
         self.end_point = end_point
         self.grid = grid
-        self.path_finder = PathFinder(self.grid)
+        self.path_finder = HeavyPathFinder(self.grid)
+        self.end_point_range = end_point_range
 
-        self.end_point_range = end_point_range  # TODO  modify
         self.walk_queue = []
-        self.precision = 2
 
-        self.calculate_walk_queue()
+        self.__calculate_walk_queue()
 
     @staticmethod
     def from_agent(agent):
@@ -29,9 +23,9 @@ class Walkpath:
             Point(agent.posx, agent.posy),
             Point(agent.current_poi.x, agent.current_poi.y),
             agent.grid,
-            agent.current_poi.range)  # TODO modify
+            agent.current_poi.range)
 
-    def get_direction(self, x, y, speed):
+    def get_direction(self, x, y):
         try:
             next_checkpoint = self.update_then_return_next_checkpoint(x, y)
         except Exception:
@@ -48,20 +42,19 @@ class Walkpath:
     def draw(self, winx, winy):
         list(map(lambda point: point.draw(winx, winy), self.walk_queue))
 
-    def calculate_walk_queue(self):
-        self.make_end_point_reachable()
+    def __calculate_walk_queue(self):
+        self.__make_end_point_reachable()
         self.walk_queue = self.path_finder.get_path(self.start_point, self.end_point)
         return
 
-    def make_end_point_reachable(self):
-        # TODO optimize
-        for r in range(self.end_point_range):
-            for theta in range(360):
-                angle = math.radians(theta)
-                x = self.end_point.x + int(math.ceil(r * math.cos(angle)))
-                y = self.end_point.y + int(math.ceil(r * math.sin(angle)))
-                if self.grid.is_walkable(x, y):
-                    self.end_point = Point(x, y)
+    def __make_end_point_reachable(self):
+        for x in range(self.end_point_range + 1):
+            for y in range(self.end_point_range + 1):
+                checked = self.end_point.add(Point(x, y))
+                walkable = self.grid.is_walkable(checked.x, checked.y)
+                distance_from = self.end_point.distance_from(checked)
+                if walkable & (distance_from <= self.end_point_range):
+                    self.end_point = checked
                     return
         raise NotReachableEndPointException(self.end_point)
 

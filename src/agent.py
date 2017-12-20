@@ -131,7 +131,7 @@ class Agent:
         # if self.previous_move == (0, 0) or random_true(change_route_probability):
         #     direction_x, direction_y = self.calculate_direction((self.current_poi.x, self.current_poi.y))
         # else:
-        direction_x, direction_y = self.walkpath.get_direction(self.posx, self.posy, self.speed)
+        direction_x, direction_y = self.walkpath.get_direction(self.posx, self.posy)
 
         new_pos_x = round(self.posx + self.speed * direction_x)
         new_pos_y = round(self.posy + self.speed * direction_y)

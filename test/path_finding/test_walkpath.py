@@ -1,7 +1,7 @@
 import unittest
 import math
 import numpy as np
-from src.path_finding.walkpath import *
+from src.path_finding import *
 
 
 class WalkpathTest(unittest.TestCase):
@@ -29,7 +29,7 @@ class WalkpathTest(unittest.TestCase):
         grid.set_walkability(accessible_point.x, accessible_point.y, True)
 
         start_point = Point(3, 3)
-        walkpath = Walkpath(start_point, end_point, grid, 10, end_point_range)
+        walkpath = Walkpath(start_point, end_point, grid, end_point_range)
 
         # when
         walkpath.make_end_point_reachable()
@@ -46,7 +46,7 @@ class WalkpathTest(unittest.TestCase):
         walkpath = Walkpath(start_point, end_point, grid, 10, 1)
 
         # when
-        actual_result = walkpath.is_path_walkable(start_point, end_point)
+        actual_result = walkpath.__is_path_walkable(start_point, end_point)
 
         # exp
         self.assertEqual(actual_result, True)

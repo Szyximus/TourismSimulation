@@ -24,11 +24,11 @@ class Simulation:
         self.pois = [PointOfInterest(-500, 1077, 'McDonald\'s', 5, 2, 3, None)]
                      # PointOfInterest(-520, 1005, 'Sukiennice', 7, 0, 2, None),
                      # PointOfInterest(-571, 1125, 'Polonia Wax Museum', 2, 8, 5, None),
-                     # PointOfInterest(-540, 1195, 'Bobby Burger', 6, 5, 4, None),
+                     #PointOfInterest(-540, 1195, 'Bobby Burger', 6, 5, 4, None)]
                      # PointOfInterest(-315, 982, 'Bazylika Mariacka', 3, 0, 8, None),
                      # PointOfInterest(-410, 955, 'Pomnik Adama Mickiewicza', 2, 0, 1, None),
-                     # PointOfInterest(-315, 1075, 'Pijalnia Czekolady E. Wedel', 6, 7, 6, None),
-                     # PointOfInterest(-440, 851, 'Kościół Świętego Wojciecha', 2, 0, 5, None),
+                     # PointOfInterest(-315, 1075, 'Pijalnia Czekolady E. Wedel', 6, 7, 6, None)]
+                     # PointOfInterest(-440, 851, 'Kościół Świętego Wojciecha', 2, 0, 5, None)]
                      # PointOfInterest(-585, 955, 'Wieża Ratuszowa', 2, 1, 3, None)]
 
 
@@ -56,7 +56,7 @@ class Simulation:
         self.grid_scale = 1
 
         # TODO delete when path-finding is ready
-        self.agents.append(Agent(self, -950, 1300, 20, 5, 0, 0, 0, 0, None, list(self.pois)))
+        self.agents.append(Agent(self, -990, 1300, 20, 5, 0, 0, 0, 0, None, list(self.pois)))
 
     def prepare_grid(self):
         krakow_map_gray = Image.open('../graphics/Navigation.png')
