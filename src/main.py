@@ -9,13 +9,18 @@ class Window(pyglet.window.Window):
         super().__init__(resizable=True, caption='Tourism Simulation', visible=False)
         self.set_minimum_size(640, 480)
         self.set_maximum_size(2260, 3540)
-        self.frame_rate = 0.1
+        self.frame_rate = 1/60
 
         self.map = Map(self.width, self.height)
         self.set_visible(True)
 
         self.x = 800
         self.y = -800
+
+        self.label = pyglet.text.Label(
+            "", font_name='Calibri',
+            font_size=9, x=0,
+            y=0, anchor_x='left', anchor_y='top')
 
         self.simulation = Simulation(2260, 3540, self.width, self.height)
 
@@ -40,6 +45,12 @@ class Window(pyglet.window.Window):
             self.y = self.height - 1760
             pass
 
+    def on_mouse_press(self, x, y, button, modifiers):
+        self.label = pyglet.text.Label(
+            "x:" + str(self.x + x) + " y:" + str(self.y + y), font_name='Calibri',
+            font_size=9, color=[255,0,0,255], x=x,
+            y=y, anchor_x='left', anchor_y='top')
+
     def update(self, dt):
         self.simulation.update(dt)
 
@@ -47,6 +58,7 @@ class Window(pyglet.window.Window):
         self.clear()
         self.map.draw(self.width, self.height, self.x, self.y)
         self.simulation.draw(self.x, self.y)
+        self.label.draw()
 
 
 if __name__ == '__main__':

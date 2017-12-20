@@ -91,6 +91,7 @@ class Simulation:
         list(map(lambda agent: agent.draw(windowx, windowy), self.agents))
         list(map(lambda spawn: spawn.draw(windowx, windowy), self.spawn_points))
         list(map(lambda poi: poi.draw(windowx, windowy), self.pois))
-        self.timebox.draw()
+        # self.timebox.draw()
 
-        PointOfInterest(-920, 1077, 'Wieża Ratuszowa', 2, 1, 3, None).draw(windowx, windowy)
+        # TODO delete, debugging only
+        self.agents[0].walkpath.draw(windowx, windowy)
