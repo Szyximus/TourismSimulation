@@ -1,4 +1,6 @@
 import math
+import pyglet
+
 
 class Point:
 
@@ -6,11 +8,20 @@ class Point:
         self.x = x
         self.y = y
 
+        # TODO debug cases
+        self.sprite_inited = False
+
+
     def __str__(self):
         return "x:" + str(self.x) + " y:" + str(self.y)
 
     def __eq__(self, other):
         return (self.x == other.x) & (self.y == other.y)
+
+    def init_sprite(self):
+        self.point_img = pyglet.image.load('../graphics/Pin2.png')
+        self.sprite = pyglet.sprite.Sprite(self.point_img, x=self.x, y=self.y)
+        self.sprite_inited = True
 
     def distance_from(self, point):
         return math.sqrt(abs(self.x - point.x) ** 2 + abs(self.y - point.y) ** 2)
@@ -29,3 +40,11 @@ class Point:
 
     def to_touple(self):
         return self.x, self.y
+
+    def draw(self, winx, winy):
+        if not self.sprite_inited:
+            self.init_sprite()
+        # TODO debug cases
+        self.sprite.x = winx + self.x
+        self.sprite.y = winy + self.y
+        self.sprite.draw()

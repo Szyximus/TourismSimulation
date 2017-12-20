@@ -1,5 +1,6 @@
 from src.path_finding.point import Point
 import math
+import random
 from src.path_finding.grid import Grid
 
 # TODO
@@ -37,8 +38,7 @@ class Walkpath:
         desired_direction = next_checkpoint.diff(Point(x, y)).normalized_vector()
 
         if not self.is_point_walkable(Point(x, y).add(desired_direction)):
-            self.calculate_walk_queue()
-            return (0, 0)
+            return random.uniform(0.0,1.0), random.uniform(0.0,1.0)
 
         return desired_direction.to_touple()
 
