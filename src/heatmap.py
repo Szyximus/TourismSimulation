@@ -27,12 +27,12 @@ class Heatmap:
     def draw(self):
         self.image = Image.fromarray(np.uint8(self.array * 255)).filter(ImageFilter.GaussianBlur(radius=5))
         self.image.putpalette([
-            0, 0, 0,
-            0, 0, 36,
-            0, 0, 72,
-            0, 0, 108,
+            0, 0, 128,
             0, 0, 144,
-            0, 0, 180,
+            0, 0, 150,
+            0, 0, 166,
+            0, 0, 182,
+            0, 0, 194,
             0, 0, 216,
             0, 0, 255,
             0, 4, 255,
