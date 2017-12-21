@@ -1,0 +1,71 @@
+McDonald's:
+    x: -660
+    y: 1077
+    attractiveness: 5
+    price: 2
+    time_needed: 4
+    poi_type: None
+    
+Sukiennice:
+    x: -480
+    y: 990
+    attractiveness: 7
+    price: 0
+    time_needed: 2
+    poi_type: None
+
+Polonia Wax Museum:
+    x: -571
+    y: 1125
+    attractiveness: 2
+    price: 8
+    time_needed: 5
+    poi_type: None
+
+Bobby Burger:
+    x: -540
+    y: 1195
+    attractiveness: 6
+    price: 5
+    time_needed: 4
+    poi_type: None
+
+Bazylika Mariacka:
+    x: -315
+    y: 982
+    attractiveness: 3
+    price: 0
+    time_needed: 8
+    poi_type: None
+
+Pomnik Adama Mickiewicza:
+    x: -410
+    y: 955
+    attractiveness: 2
+    price: 0
+    time_needed: 1
+    poi_type: None
+
+Pijalnia Czekolady E. Wedel:
+    x: -315
+    y: 1075
+    attractiveness: 6
+    price: 7
+    time_needed: 6
+    poi_type: None
+
+Kościół Świętego Wojciecha:
+    x: -440
+    y: 851
+    attractiveness: 2
+    price: 0
+    time_needed: 5
+    poi_type: None
+
+Wieża Ratuszowa:
+    x: -585
+    y: 955
+    attractiveness: 2
+    price: 1
+    time_needed: 3
+    poi_type: None
