@@ -1,13 +1,15 @@
 import numpy as np
 from PIL import Image
 
+
 class Heatmap:
 
-
     def __init__(self, width, height):
-        self.image = Image.new('I', {width, height}, 0)
+        self.image = Image.new('I', (width, height), 0)
 
-    def draw(self, window_width, window_height, x, y):
+   # def update (self, agents):
+    #    image = image +100
 
-        self.krakow_map.blit(x, y)
-        self.label.draw(window_width)
+    def draw(self):
+        self.image.show()
+

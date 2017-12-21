@@ -2,6 +2,9 @@ import pyglet
 from agent import Agent
 from spawn_point import SpawnPoint
 from point_of_interest import PointOfInterest
+from heatmap import Heatmap
+import atexit
+
 
 import numpy as np
 from PIL import Image
@@ -34,6 +37,8 @@ class Simulation:
 
         self.pixels_per_meter = 1.5
 
+        self.heatmap = Heatmap(size_x, size_y)
+
     def prepare_map_raster(self):
         krakow_map_gray = Image.open('./graphics/Navigation.png')
         krakow_map_gray = krakow_map_gray.convert('L')
@@ -49,4 +54,10 @@ class Simulation:
         list(map(lambda agent: agent.draw(windowx, windowy), self.agents))
         list(map(lambda spawn: spawn.draw(windowx, windowy), self.spawn_points))
         list(map(lambda poi: poi.draw(windowx, windowy), self.pois))
+
+
+
+
+
+
 

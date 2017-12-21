@@ -67,6 +67,7 @@ class Agent:
         self.sprite.y = windowy + self.posy
         self.sprite.draw()
 
+
     def something_on_the_way(self, sx, sy):
         checks = randint(5, 20)
         jump_x = (sx - self.posx) / checks
