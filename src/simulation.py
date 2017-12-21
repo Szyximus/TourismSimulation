@@ -3,10 +3,8 @@ from agent import Agent
 from spawn_point import SpawnPoint
 from point_of_interest import PointOfInterest
 from heatmap import Heatmap
-import atexit
-
-
 import numpy as np
+
 from PIL import Image
 
 
@@ -54,10 +52,4 @@ class Simulation:
         list(map(lambda agent: agent.draw(windowx, windowy), self.agents))
         list(map(lambda spawn: spawn.draw(windowx, windowy), self.spawn_points))
         list(map(lambda poi: poi.draw(windowx, windowy), self.pois))
-
-
-
-
-
-
-
+        self.heatmap.update(self.agents)
