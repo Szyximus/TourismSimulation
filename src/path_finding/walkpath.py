@@ -2,6 +2,7 @@ import random
 
 from src.path_finding.path_finders.heavy_path_finder import HeavyPathFinder
 from src.path_finding.point import Point
+from src.path_finding.path_cache import PathCache, PathNotInCacheException
 
 
 class Walkpath:
@@ -43,8 +44,12 @@ class Walkpath:
         list(map(lambda point: point.draw(winx, winy), self.walk_queue))
 
     def __calculate_walk_queue(self):
-        self.__make_end_point_reachable()
-        self.walk_queue = self.path_finder.get_path(self.start_point, self.end_point)
+        try:
+            self.walk_queue = PathCache().get(self.start_point, self.end_point)
+        except PathNotInCacheException:
+            self.__make_end_point_reachable()
+            self.walk_queue = self.path_finder.get_path(self.start_point, self.end_point)
+            PathCache().put(self.start_point, self.end_point, self.walk_queue)
         return
 
     def __make_end_point_reachable(self):

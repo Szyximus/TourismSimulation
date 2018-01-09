@@ -28,6 +28,9 @@ class Point:
     def __eq__(self, other):
         return (self.x == other.x) & (self.y == other.y)
 
+    def __hash__(self) -> int:
+        return int(self.x + self.y)
+
     def distance_from(self, point):
         return math.sqrt(abs(self.x - point.x) ** 2 + abs(self.y - point.y) ** 2)
 

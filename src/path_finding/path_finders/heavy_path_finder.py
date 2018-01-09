@@ -24,9 +24,9 @@ class HeavyPathFinder(PathFinderBase):
         while start_point.distance_from(checked_point) > self.step:
 
             points_to_examine = [checked_point.add(Point(0, self.step)),
-                       checked_point.add(Point(0, -self.step)),
-                       checked_point.add(Point(self.step, 0)),
-                       checked_point.add(Point(-self.step, 0))]
+                                 checked_point.add(Point(0, -self.step)),
+                                 checked_point.add(Point(self.step, 0)),
+                                 checked_point.add(Point(-self.step, 0))]
 
             for point in points_to_examine:
                 if self.is_path_walkable(checked_point, point):
@@ -37,19 +37,6 @@ class HeavyPathFinder(PathFinderBase):
             counter = next_point[1] + 1
 
         path = path_finding_queue.get_path()
-        return self.__optimize(path)
-
-    def __optimize(self, path):
-        index = 0
-        while len(path) > 3 & (len(path) > (index + 4)):
-
-            if (index + 2) < len(path):
-                while self.is_path_walkable(path[index], path[index + 2]):
-                    path.pop(index + 1)
-                    if (index + 2) < len(path):
-                        break
-
-            index += 1
         return path
 
 
@@ -93,9 +80,9 @@ class PathFindingQueue:
             abs2 = abs(last_point.y - self.points_queue[index].y)
             counter = self.counter_queue[index]
             if (counter == current_counter) & (abs1 <= self.step) & (abs2 <= self.step):
-                    last_point = self.points_queue[index]
-                    points.insert(0, last_point)
-                    current_counter = current_counter - 1
+                last_point = self.points_queue[index]
+                points.insert(0, last_point)
+                current_counter = current_counter - 1
             if counter < current_counter:
                 rand_index = int(random.uniform(0, len(same_level_points)))
                 last_point = same_level_points[rand_index]
