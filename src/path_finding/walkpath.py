@@ -34,9 +34,9 @@ class Walkpath:
 
         desired_direction = next_checkpoint.diff(Point(x, y)).normalized_vector()
 
-        expected_position = Point(x, y).add(desired_direction).to_touple()
-        if not self.grid.is_walkable(expected_position[0], expected_position[1]):
-            return random.uniform(0.0,1.0), random.uniform(0.0,1.0)
+        # expected_position = Point(x, y).add(desired_direction).to_touple()
+        # if not self.grid.is_walkable(expected_position[0], expected_position[1]):
+        #     return random.uniform(0.0,1.0), random.uniform(0.0,1.0)
 
         return desired_direction.to_touple()
 

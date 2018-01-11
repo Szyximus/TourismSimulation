@@ -18,9 +18,6 @@ class HeavyPathFinder(PathFinderBase):
         checked_point = path_finding_queue.get_next()[0]
         counter = 1
 
-        if not self.is_point_walkable(start_point):
-            raise StartPointNotWalkableException
-
         while start_point.distance_from(checked_point) > self.step:
 
             points_to_examine = [checked_point.add(Point(0, self.step)),
@@ -31,6 +28,8 @@ class HeavyPathFinder(PathFinderBase):
             for point in points_to_examine:
                 if self.is_path_walkable(checked_point, point):
                     path_finding_queue.put(point, counter)
+                    if start_point.distance_from(point) <= self.step:
+                        return path_finding_queue.get_path()
 
             next_point = path_finding_queue.get_next()
             checked_point = next_point[0]
@@ -64,10 +63,7 @@ class PathFindingQueue:
             raise EndPointUnreachableException()
 
     def get_path(self):
-        # TODO refactoring
-        # TODO get random when counter the same
-        # HERE change
-        index = self.current_index
+        index = len(self.points_queue) -1
         last_point = self.points_queue[index]
         points = [last_point]
         current_counter = self.counter_queue[index] - 1

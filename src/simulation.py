@@ -14,16 +14,17 @@ class Simulation:
 
     def __init__(self, size_x, size_y, window_width, window_height):
         self.agents = []
-        self.spawn_points = [] #[SpawnPoint(-990, 1300, 'Teatr Bagatela', 1)]
-                             # SpawnPoint(-900, 540, 'Filharmonia', 0.2),
-                             # SpawnPoint(-430, 555, 'Plac Wszystkich Świętych', 0.5),
+        self.spawn_points = [SpawnPoint(-430, 555, 'Plac Wszystkich Świętych', 0.5)]
+            #[SpawnPoint(-990, 1300, 'Teatr Bagatela', 1),
+                             #SpawnPoint(-900, 540, 'Filharmonia', 0.2),
+
                              # SpawnPoint(35, 625, 'Poczta Główna', 0.8),
                              # SpawnPoint(350, 1450, 'Dworzec Główny', 0.5),
                              # SpawnPoint(-270, 1750, 'Stary Kleparz', 0.2)]
 
-        self.pois = [PointOfInterest(-500, 1077, 'McDonald\'s', 5, 2, 3, None)]
-                     # PointOfInterest(-520, 1005, 'Sukiennice', 7, 0, 2, None),
-                     # PointOfInterest(-571, 1125, 'Polonia Wax Museum', 2, 8, 5, None),
+        self.pois = [PointOfInterest(-500, 1077, 'McDonald\'s', 5, 2, 3, None),
+                     PointOfInterest(-520, 1005, 'Sukiennice', 7, 0, 2, None),
+                     PointOfInterest(-571, 1125, 'Polonia Wax Museum', 2, 8, 5, None)]
                      #PointOfInterest(-540, 1195, 'Bobby Burger', 6, 5, 4, None)]
                      # PointOfInterest(-315, 982, 'Bazylika Mariacka', 3, 0, 8, None),
                      # PointOfInterest(-410, 955, 'Pomnik Adama Mickiewicza', 2, 0, 1, None),
@@ -54,9 +55,6 @@ class Simulation:
         # how much grid is smaller than map
         # not used, probably won't help efficiency
         self.grid_scale = 1
-
-        # TODO delete when path-finding is ready
-        self.agents.append(Agent(self, -990, 1300, 20, 5, 0, 0, 0, 0, None, list(self.pois)))
 
     def prepare_grid(self):
         krakow_map_gray = Image.open('../graphics/Navigation.png')
@@ -94,4 +92,5 @@ class Simulation:
         # self.timebox.draw()
 
         # TODO delete, debugging only
-        self.agents[0].walkpath.draw(windowx, windowy)
+        list(map(lambda agent: agent.walkpath.draw(windowx, windowy), self.agents))
+        #self.agents[0].walkpath.draw(windowx, windowy)

@@ -136,12 +136,15 @@ class Agent:
         new_pos_x = round(self.posx + self.speed * direction_x)
         new_pos_y = round(self.posy + self.speed * direction_y)
 
-        if self.grid.is_walkable(new_pos_x, new_pos_y):
-            self.posx = new_pos_x
-            self.posy = new_pos_y
-            self.previous_move = (direction_x, direction_y)
-        else:
-            self.previous_move = (randint(0, 2) - 1, randint(0, 2) - 1)
+        self.posx = new_pos_x
+        self.posy = new_pos_y
+
+        # if self.grid.is_walkable(new_pos_x, new_pos_y):
+        #     self.posx = new_pos_x
+        #     self.posy = new_pos_y
+        #     self.previous_move = (direction_x, direction_y)
+        # else:
+        #     self.previous_move = (randint(0, 2) - 1, randint(0, 2) - 1)
 
     def is_poi_reached(self):
         distance_from_poi = Point(self.posx, self.posy).distance_from(Point(self.current_poi.x, self.current_poi.y))

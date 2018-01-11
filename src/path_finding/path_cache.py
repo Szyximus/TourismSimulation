@@ -20,6 +20,7 @@ class PathCache(metaclass=Singleton):
         self.cache = dict()
 
     def put(self, start_point, end_point, walk_queue):
+        # TODO add also reversed version end_point -> start_point
         self.cache[(start_point, end_point)] = list(walk_queue)
 
     def get(self, start_point, end_point):
@@ -35,7 +36,3 @@ class PathCache(metaclass=Singleton):
 
 class PathNotInCacheException(Exception):
     pass
-
-
-PathCache().put(Point(1, 2), Point(3, 4), 'walkpath')
-PathCache().get(Point(1, 2), Point(3, 4))
