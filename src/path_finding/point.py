@@ -1,6 +1,6 @@
-import math
 import pyglet
 import math
+
 
 class Point:
 

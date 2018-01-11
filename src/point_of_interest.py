@@ -13,7 +13,6 @@ class PointOfInterest:
         self.price = price
         self.time_needed = time_needed
         self.type = type
-        self.range = 30  # TODO cannot be hardcoded
 
         self.img = pyglet.image.load('../graphics/POI.png')
         self.img.anchor_x = self.img.width // 2

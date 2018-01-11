@@ -1,6 +1,3 @@
-from src.path_finding.point import Point
-
-
 class Singleton(type):
 
     _instances = {}
@@ -20,8 +17,8 @@ class PathCache(metaclass=Singleton):
         self.cache = dict()
 
     def put(self, start_point, end_point, walk_queue):
-        # TODO add also reversed version end_point -> start_point
         self.cache[(start_point, end_point)] = list(walk_queue)
+        self.cache[(end_point, start_point)] = list(reversed(walk_queue))
 
     def get(self, start_point, end_point):
         key = (start_point, end_point)
