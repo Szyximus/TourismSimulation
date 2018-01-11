@@ -39,7 +39,11 @@ class Walkpath:
         try:
             self.walk_queue = PathCache().get(self.start_point, self.end_point)
         except PathNotInCacheException:
-            self.walk_queue = self.path_finder.get_path(self.start_point, self.end_point)
+            try:
+                self.walk_queue = self.path_finder.get_path(self.start_point, self.end_point)
+            except:
+                print('ERROR: Not able to generate walkpath from {} to {}'.format(self.start_point, self.end_point))
+                self.walk_queue = [self.end_point]
             PathCache().put(self.start_point, self.end_point, self.walk_queue)
         return
 

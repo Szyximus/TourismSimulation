@@ -1,8 +1,6 @@
-import pyglet
 from src.spawn_point import SpawnPoint
 from src.point_of_interest import PointOfInterest
 from src.timebox import Timebox
-from src.agent import Agent
 
 from math import floor
 import numpy as np
@@ -14,24 +12,22 @@ class Simulation:
 
     def __init__(self, size_x, size_y, window_width, window_height):
         self.agents = []
-        self.spawn_points = [SpawnPoint(-430, 555, 'Plac Wszystkich Świętych', 0.5)]
-            #[SpawnPoint(-990, 1300, 'Teatr Bagatela', 1),
-                             #SpawnPoint(-900, 540, 'Filharmonia', 0.2),
-
+        self.spawn_points = [#SpawnPoint(-430, 555, 'Plac Wszystkich Świętych', 0.5),
+                             # SpawnPoint(-990, 1300, 'Teatr Bagatela', 1),
+                             # SpawnPoint(-900, 540, 'Filharmonia', 0.2),
                              # SpawnPoint(35, 625, 'Poczta Główna', 0.8),
-                             # SpawnPoint(350, 1450, 'Dworzec Główny', 0.5),
+                             SpawnPoint(350, 1450, 'Dworzec Główny', 0.5)]
                              # SpawnPoint(-270, 1750, 'Stary Kleparz', 0.2)]
 
         self.pois = [PointOfInterest(-500, 1077, 'McDonald\'s', 5, 2, 3, None),
                      PointOfInterest(-520, 1005, 'Sukiennice', 7, 0, 2, None),
-                     PointOfInterest(-571, 1125, 'Polonia Wax Museum', 2, 8, 5, None)]
-                     #PointOfInterest(-540, 1195, 'Bobby Burger', 6, 5, 4, None)]
-                     # PointOfInterest(-315, 982, 'Bazylika Mariacka', 3, 0, 8, None),
-                     # PointOfInterest(-410, 955, 'Pomnik Adama Mickiewicza', 2, 0, 1, None),
-                     # PointOfInterest(-315, 1075, 'Pijalnia Czekolady E. Wedel', 6, 7, 6, None)]
-                     # PointOfInterest(-440, 851, 'Kościół Świętego Wojciecha', 2, 0, 5, None)]
-                     # PointOfInterest(-585, 955, 'Wieża Ratuszowa', 2, 1, 3, None)]
-
+                     PointOfInterest(-571, 1125, 'Polonia Wax Museum', 2, 8, 5, None),
+                     PointOfInterest(-540, 1195, 'Bobby Burger', 6, 5, 4, None),
+                     PointOfInterest(-315, 982, 'Bazylika Mariacka', 3, 0, 8, None),
+                     PointOfInterest(-410, 955, 'Pomnik Adama Mickiewicza', 2, 0, 1, None),
+                     PointOfInterest(-315, 1075, 'Pijalnia Czekolady E. Wedel', 6, 7, 6, None),
+                     PointOfInterest(-440, 851, 'Kościół Świętego Wojciecha', 2, 0, 5, None),
+                     PointOfInterest(-585, 955, 'Wieża Ratuszowa', 2, 1, 3, None)]
 
         self.size_x, self.size_y = size_x, size_y
         self.grid = None
@@ -90,7 +86,3 @@ class Simulation:
         list(map(lambda spawn: spawn.draw(windowx, windowy), self.spawn_points))
         list(map(lambda poi: poi.draw(windowx, windowy), self.pois))
         # self.timebox.draw()
-
-        # TODO delete, debugging only
-        list(map(lambda agent: agent.walkpath.draw(windowx, windowy), self.agents))
-        #self.agents[0].walkpath.draw(windowx, windowy)

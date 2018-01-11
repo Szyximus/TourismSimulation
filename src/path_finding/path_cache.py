@@ -1,3 +1,6 @@
+import pickle
+
+
 class Singleton(type):
 
     _instances = {}
@@ -14,11 +17,20 @@ class PathCache(metaclass=Singleton):
     # (StartPoint, EndPoint) => WalkQueue
 
     def __init__(self):
-        self.cache = dict()
+        self.file_name = "path_cache.file"
+
+        try:
+            with open(self.file_name, "rb") as f:
+                self.cache = pickle.load(f)
+        except:
+            self.cache = dict()
 
     def put(self, start_point, end_point, walk_queue):
         self.cache[(start_point, end_point)] = list(walk_queue)
         self.cache[(end_point, start_point)] = list(reversed(walk_queue))
+
+        with open(self.file_name, "wb") as f:
+            pickle.dump(self.cache, f, pickle.HIGHEST_PROTOCOL)
 
     def get(self, start_point, end_point):
         key = (start_point, end_point)

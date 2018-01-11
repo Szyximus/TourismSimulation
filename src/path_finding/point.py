@@ -8,7 +8,7 @@ class Point:
         self.x = x
         self.y = y
 
-        # TODO debug cases
+        # debug cases
         self.sprite_inited = False
 
     @staticmethod
@@ -57,7 +57,7 @@ class Point:
     def draw(self, winx, winy):
         if not self.sprite_inited:
             self.init_sprite()
-        # TODO debug cases
+        # debug cases
         self.sprite.x = winx + self.x
         self.sprite.y = winy + self.y
         self.sprite.draw()

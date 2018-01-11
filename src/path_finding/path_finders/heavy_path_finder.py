@@ -9,7 +9,7 @@ class HeavyPathFinder(PathFinderBase):
         super().__init__(grid)
 
         # algorithm parameters
-        self.step = 10
+        self.step = 5
 
     def get_path(self, start_point, end_point):
         path_finding_queue = PathFindingQueue(self.step)

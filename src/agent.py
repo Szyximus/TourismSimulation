@@ -4,7 +4,6 @@ from src.path_finding.walkpath import Walkpath
 from src.path_finding.point import Point
 from src.path_finding.grid import Grid
 
-precision = 30
 
 class Agent:
 
@@ -49,6 +48,9 @@ class Agent:
         return round(speed * self.simulation.pixels_per_meter)
 
     def poi_reached(self):
+        self.posx = self.current_poi.x
+        self.posy = self.current_poi.y
+
         base_probability_to_enter_poi = 80
         if (self.wealth - self.current_poi.price)*10 < base_probability_to_enter_poi:
             self.next_poi()
@@ -111,11 +113,6 @@ class Agent:
         return direction_x, direction_y
 
     def update(self, dt):
-        # looking around  - not work
-        # if self.previous_move == (0, 0):
-        #     new_tmp_target = self.find_new_tmp_target()
-        #     print(new_tmp_target, (self.current_poi.x, self.current_poi.y))
-        #     self.previous_move = self.calculate_direction(new_tmp_target)
 
         if self.inside_poi:
             if self.time_to_spend == 1:
@@ -127,10 +124,6 @@ class Agent:
             self.poi_reached()
             return
 
-        # change_route_probability = 0.2
-        # if self.previous_move == (0, 0) or random_true(change_route_probability):
-        #     direction_x, direction_y = self.calculate_direction((self.current_poi.x, self.current_poi.y))
-        # else:
         direction_x, direction_y = self.walkpath.get_direction(self.posx, self.posy)
 
         new_pos_x = round(self.posx + self.speed * direction_x)
@@ -139,16 +132,11 @@ class Agent:
         self.posx = new_pos_x
         self.posy = new_pos_y
 
-        # if self.grid.is_walkable(new_pos_x, new_pos_y):
-        #     self.posx = new_pos_x
-        #     self.posy = new_pos_y
-        #     self.previous_move = (direction_x, direction_y)
-        # else:
-        #     self.previous_move = (randint(0, 2) - 1, randint(0, 2) - 1)
-
     def is_poi_reached(self):
         distance_from_poi = Point(self.posx, self.posy).distance_from(Point(self.current_poi.x, self.current_poi.y))
-        return distance_from_poi < self.current_poi.range
+        # TODO hardcoded precision, may be moved to configs
+        # cannot be lower than step in path-finding-algorithm
+        return distance_from_poi < 16
 
 
 def random_true(probability):
