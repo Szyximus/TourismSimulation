@@ -3,31 +3,42 @@ from src.point_of_interest import PointOfInterest
 from src.timebox import Timebox
 
 from math import floor
+import pyglet
+from src.agent import Agent
+from src.spawn_point import SpawnPoint
+from src.point_of_interest import PointOfInterest
+from src.heatmap import Heatmap
 import numpy as np
+import yaml
+
 from PIL import Image
 
 
 class Simulation:
     DEBUG = True
 
-    def __init__(self, size_x, size_y, window_width, window_height):
-        self.agents = []
-        self.spawn_points = [#SpawnPoint(-430, 555, 'Plac Wszystkich Świętych', 0.5),
-                             # SpawnPoint(-990, 1300, 'Teatr Bagatela', 1),
-                             # SpawnPoint(-900, 540, 'Filharmonia', 0.2),
-                             # SpawnPoint(35, 625, 'Poczta Główna', 0.8),
-                             SpawnPoint(350, 1450, 'Dworzec Główny', 0.5)]
-                             # SpawnPoint(-270, 1750, 'Stary Kleparz', 0.2)]
+    def __init__(self, size_x, size_y, window_width, window_height, config_file):
+        try:
+            with open(config_file, 'r') as config:
+                config =  yaml.safe_load(config)
+        except FileNotFoundError as e:
+            raise FileNotFoundError("Config file not found")
+        except yaml.YAMLError as e:
+            raise yaml.YAMLError("Config file error: {}".format(e))
 
-        self.pois = [PointOfInterest(-500, 1077, 'McDonald\'s', 5, 2, 3, None),
-                     PointOfInterest(-520, 1005, 'Sukiennice', 7, 0, 2, None),
-                     PointOfInterest(-571, 1125, 'Polonia Wax Museum', 2, 8, 5, None),
-                     PointOfInterest(-540, 1195, 'Bobby Burger', 6, 5, 4, None),
-                     PointOfInterest(-315, 982, 'Bazylika Mariacka', 3, 0, 8, None),
-                     PointOfInterest(-410, 955, 'Pomnik Adama Mickiewicza', 2, 0, 1, None),
-                     PointOfInterest(-315, 1075, 'Pijalnia Czekolady E. Wedel', 6, 7, 6, None),
-                     PointOfInterest(-440, 851, 'Kościół Świętego Wojciecha', 2, 0, 5, None),
-                     PointOfInterest(-585, 955, 'Wieża Ratuszowa', 2, 1, 3, None)]
+        if any(required not in config.keys() for required in ("pois_file", "spawn_points_file")):
+            raise ValueError("Required keys in config file not found")
+
+        with open(config["spawn_points_file"], 'r') as spawn_points:
+            spawn_points = yaml.safe_load(spawn_points)
+        self.spawn_points = [SpawnPoint.from_dict(sp_name, spawn_points[sp_name]) for sp_name in spawn_points.keys()]
+
+        with open(config["pois_file"], 'r') as pois:
+            pois = yaml.safe_load(pois)
+        self.pois = [PointOfInterest.from_dict(poi_name, pois[poi_name]) for poi_name in pois.keys()]
+
+        self.agents = []
+
 
         self.size_x, self.size_y = size_x, size_y
         self.grid = None
@@ -52,8 +63,10 @@ class Simulation:
         # not used, probably won't help efficiency
         self.grid_scale = 1
 
+        self.heatmap = Heatmap(size_x, size_y)
+
     def prepare_grid(self):
-        krakow_map_gray = Image.open('../graphics/Navigation.png')
+        krakow_map_gray = Image.open('./graphics/Navigation.png')
         krakow_map_gray = krakow_map_gray.convert('L')
         self.grid = np.array(krakow_map_gray)
         # PIL (0,0) is in upper left corner, pyglet and our map_raster in bottom left corner
@@ -86,3 +99,4 @@ class Simulation:
         list(map(lambda spawn: spawn.draw(windowx, windowy), self.spawn_points))
         list(map(lambda poi: poi.draw(windowx, windowy), self.pois))
         # self.timebox.draw()
+        self.heatmap.update(self.agents)

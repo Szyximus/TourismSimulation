@@ -31,8 +31,8 @@ class Agent:
         self.inside_poi = False
         self.time_to_spend = None
 
-        self.walking_img = pyglet.image.load('../graphics/Pin.png')
-        self.inside_poi_img = pyglet.image.load('../graphics/Pin2.png')
+        self.walking_img = pyglet.image.load('./graphics/Pin.png')
+        self.inside_poi_img = pyglet.image.load('./graphics/Pin2.png')
         self.img = self.walking_img
         self.img.anchor_x = self.img.width // 2
         self.img.anchor_y = self.img.height // 2
