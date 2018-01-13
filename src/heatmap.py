@@ -1,6 +1,7 @@
 import numpy as np
 from PIL import Image
 from PIL import ImageFilter
+import datetime
 
 
 class Heatmap:
@@ -12,7 +13,7 @@ class Heatmap:
         self.image = Image.fromarray(self.array, 'L')
         self.timer = 1000
 
-    def update (self, agents):
+    def update (self, agents, timebox):
         for agent in agents:
             x = agent.posx + (self.width // 2)
             y = (agent.posy - (self.height // 2)) * -1
@@ -20,11 +21,11 @@ class Heatmap:
 
         self.timer -= 1
 
-        if self.timer == 0:
+        if  (datetime.datetime.fromtimestamp(timebox.timestamp).strftime('%M%S')) == '0000':
             self.timer = 1000
-            self.draw()
+            self.draw(timebox)
 
-    def draw(self):
+    def draw(self, timebox):
         self.image = Image.fromarray(np.uint8(self.array * 255)).filter(ImageFilter.GaussianBlur(radius=5))
         self.image.putpalette([
             0, 0, 128,
@@ -284,6 +285,6 @@ class Heatmap:
             255, 4, 0,
             255, 0, 0,
             ])
-        self.image.save('graphics\HeatMap.png')
+        self.image.save('output\HeatMap_' + datetime.datetime.fromtimestamp(timebox.timestamp).strftime('%H_%M_%S') + '.png')
         self.image.show()
 

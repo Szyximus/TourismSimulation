@@ -46,7 +46,7 @@ class Window(pyglet.window.Window):
     def on_draw(self):
         self.clear()
         self.map.draw(self.width, self.height, self.x, self.y)
-        self.simulation.draw(self.x, self.y)
+        self.simulation.draw(self.x, self.y, self.width, self.height)
 
 
 if __name__ == '__main__':

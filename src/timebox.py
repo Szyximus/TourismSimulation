@@ -5,56 +5,40 @@ import datetime
 
 
 class Timebox:
-    def __init__(self, timestamp, x, y):
+    def __init__(self, timestamp, window_width, window_height):
         self.timestamp = timestamp
-        self.x = x
-        self.y = y
+        self.x=window_width
+        self.y=window_height
 
-        self.img = pyglet.image.load('./graphics/timebox.png')
-        self.img.anchor_x = 0
-        self.img.anchor_y = 0
-        self.sprite = pyglet.sprite.Sprite(self.img, x=self.x-self.img.width, y=self.y-self.img.height)
+        self.label = self.label = pyglet.text.Label(
+            self.to_string(), color=(255, 255, 255, 255),
+            font_name='Calibri', font_size=9,
+            x=self.x -4, y=self.y -3,
+            anchor_x='right', anchor_y='top')
 
-        self.label = TimeboxLabel(self.to_string(), self.x-self.img.width+30, self.y-self.img.height+45)
+        self.labelShadow = pyglet.text.Label(
+            self.to_string(), font_name='Calibri',
+            font_size=9, x=self.x -3, color=(0, 0, 0, 255),
+            y=self.y - 4, anchor_x='right', anchor_y='top')
+
 
     def to_string(self):
-        return datetime.datetime.fromtimestamp(self.timestamp).strftime('%Y-%m-%d %H:%M:%S')
+        return datetime.datetime.fromtimestamp(self.timestamp).strftime('%H:%M:%S')
 
     def update(self, dt):
         self.timestamp += dt
 
-    def draw(self):
-        self.sprite.draw()
-        self.label.draw(self.to_string())
-
-
-class TimeboxLabel:
-    def __init__(self, datetime_str, position_x, position_y):
-        self.position_x = position_x
-        self.position_y = position_y
-
-        self.label = pyglet.text.Label(
-            datetime_str, color=(0, 0, 0, 255),
-            font_name='Calibri', font_size=12,
-            x=position_x+7, y=position_y,
-            anchor_x='left', anchor_y='top')
+    def draw(self, x, y):
+        self.label = self.label = pyglet.text.Label(
+            self.to_string(), color=(255, 255, 255, 255),
+            font_name='Calibri', font_size=9,
+            x=x-8, y=y-8,
+            anchor_x='right', anchor_y='top')
 
         self.labelShadow = pyglet.text.Label(
-            datetime_str, font_name='Calibri',
-            font_size=9, x=position_x + 8, color=(255, 255, 255, 255),
-            y=position_y - 1, anchor_x='left', anchor_y='top')
-
-    def draw(self, datetime_str):
-        self.label = pyglet.text.Label(
-            datetime_str, color=(0, 0, 0, 255),
-            font_name='Calibri', font_size=12,
-            x=self.position_x+7, y=self.position_y,
-            anchor_x='left', anchor_y='top')
-
-        self.labelShadow = pyglet.text.Label(
-            datetime_str, font_name='Calibri',
-            font_size=9, x=self.position_x + 8, color=(255, 255, 255, 255),
-            y=self.position_y - 1, anchor_x='left', anchor_y='top')
+            self.to_string(), font_name='Calibri',
+            font_size=9, x=x -7, color=(0, 0, 0, 255),
+            y=y - 9, anchor_x='right', anchor_y='top')
 
         self.labelShadow.draw()
         self.label.draw()

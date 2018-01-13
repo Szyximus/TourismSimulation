@@ -56,7 +56,7 @@ class Simulation:
         self.real_time = 0
 
         # timestamp = 1513426631.0
-        timestamp = 0
+        timestamp = 1516298340
         self.timebox = Timebox(timestamp, window_width, window_height)
 
         # how much grid is smaller than map
@@ -94,9 +94,11 @@ class Simulation:
             self.timebox.update(self.simulation_delta_time)
             self.simulation_delta_time = 0
 
-    def draw(self, windowx, windowy):
+        self.heatmap.update(self.agents, self.timebox)
+
+    def draw(self, windowx, windowy, window_width, window_height):
         list(map(lambda agent: agent.draw(windowx, windowy), self.agents))
         list(map(lambda spawn: spawn.draw(windowx, windowy), self.spawn_points))
         list(map(lambda poi: poi.draw(windowx, windowy), self.pois))
-        # self.timebox.draw()
-        self.heatmap.update(self.agents)
+        self.timebox.draw(window_width, window_height)
+
