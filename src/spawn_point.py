@@ -1,9 +1,9 @@
 import pyglet
 import time
-from agent import Agent
+from src.agent import Agent
 from random import randint
-from poilabel import PoiLabel
-from schedules_generator import SchedulesGenerator
+from src.poilabel import PoiLabel
+from src.schedules_generator import SchedulesGenerator
 
 
 def current_milli_time():
@@ -29,6 +29,19 @@ class SpawnPoint:
 
         self.counter = int(16.666 / agents_per_sec)
         self.i = self.counter
+
+    @classmethod
+    def from_dict(cls, name, attributes):
+        required_all = ["x", "y", "agents_per_sec"]
+        for required in required_all:
+            if required not in attributes.keys():
+                raise ValueError("Required key in spawn points config file not found: {}".format(required))
+
+        if name == "" or name is None:
+            raise ValueError("Name can't be empty")
+        attributes["name"] = name
+        
+        return SpawnPoint(**attributes)
 
     def draw(self, windowx, windowy):
         self.sprite.x = windowx + self.x

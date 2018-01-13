@@ -1,6 +1,8 @@
 import pyglet
 from random import randint
-import numpy as np
+from src.path_finding.walkpath import Walkpath
+from src.path_finding.point import Point
+from src.path_finding.grid import Grid
 
 
 class Agent:
@@ -23,11 +25,15 @@ class Agent:
         self.speed = self.compute_speed()
         self.current_poi = self.schedule.pop()
         self.previous_move = (0, 0)
+        self.grid = Grid(self.simulation.grid, self.simulation.size_x, self.simulation.size_y)
+        self.walkpath = Walkpath.from_agent(self)
 
         self.inside_poi = False
         self.time_to_spend = None
 
-        self.img = pyglet.image.load('./graphics/Pin.png')
+        self.walking_img = pyglet.image.load('./graphics/Pin.png')
+        self.inside_poi_img = pyglet.image.load('./graphics/Pin2.png')
+        self.img = self.walking_img
         self.img.anchor_x = self.img.width // 2
         self.img.anchor_y = self.img.height // 2
         self.sprite = pyglet.sprite.Sprite(self.img, x=self.posx, y=self.posy)
@@ -42,15 +48,24 @@ class Agent:
         return round(speed * self.simulation.pixels_per_meter)
 
     def poi_reached(self):
+        self.posx = self.current_poi.x
+        self.posy = self.current_poi.y
+
         base_probability_to_enter_poi = 80
         if (self.wealth - self.current_poi.price)*10 < base_probability_to_enter_poi:
+            self.next_poi()
             return
 
         self.inside_poi = True
         print("Inside poi " + self.current_poi.name)
         self.time_to_spend = self.current_poi.time_needed * 10
-        self.img = pyglet.image.load('./graphics/Pin2.png')
+        self.img = self.inside_poi_img
         self.sprite = pyglet.sprite.Sprite(self.img, x=self.posx, y=self.posy)
+
+    def next_poi(self):
+        if len(self.schedule) > 0:
+            self.current_poi = self.schedule.pop()
+            self.walkpath = Walkpath.from_agent(self)
 
     def poi_leaved(self):
         self.inside_poi = False
@@ -59,40 +74,13 @@ class Agent:
             self.current_poi = self.schedule.pop()
         else:
             self.current_poi = self.simulation.pois[randint(0, len(self.simulation.pois)-1)]
-        self.img = pyglet.image.load('./graphics/Pin.png')
+        self.img = self.walking_img
         self.sprite = pyglet.sprite.Sprite(self.img, x=self.posx, y=self.posy)
 
     def draw(self, windowx, windowy):
         self.sprite.x = windowx + self.posx
         self.sprite.y = windowy + self.posy
         self.sprite.draw()
-
-    def something_on_the_way(self, sx, sy):
-        checks = randint(5, 20)
-        jump_x = (sx - self.posx) / checks
-        jump_y = (sy - self.posy) / checks
-        for jump in range(1, checks+1):
-            px = min(round(self.posx + (self.simulation.size_x // 2) + (jump_x * jump)), self.simulation.size_x-1)
-            py = min(round(self.posy + (self.simulation.size_y // 2) + (jump_y * jump)), self.simulation.size_y-1)
-            if self.simulation.grid[py][px] == 0:
-                return True
-        return False
-
-    def find_new_tmp_target(self):
-        checks_x, checks_y = randint(5, 30), randint(5, 30)
-        new_target_x, new_target_y = self.current_poi.x, self.current_poi.y
-        jump_size = randint(10, 50)
-        for jump_x in range(checks_x):
-            for jump_y in range(checks_y):
-                if not self.something_on_the_way(new_target_x + jump_x * jump_size, new_target_y + jump_y * jump_size):
-                    return new_target_x + jump_x * jump_size, new_target_y + jump_y * jump_size
-                if not self.something_on_the_way(new_target_x + jump_x * jump_size, new_target_y - jump_y * jump_size):
-                    return new_target_x + jump_x * jump_size, new_target_y - jump_y * jump_size
-                if not self.something_on_the_way(new_target_x - jump_x * jump_size, new_target_y + jump_y * jump_size):
-                    return new_target_x - jump_x * jump_size, new_target_y + jump_y * jump_size
-                if not self.something_on_the_way(new_target_x - jump_x * jump_size, new_target_y - jump_y * jump_size):
-                    return new_target_x - jump_x * jump_size, new_target_y - jump_y * jump_size
-        return self.current_poi.x, self.current_poi.y
 
     def calculate_direction(self, new_tmp_target):
         min_distance_to_walk = randint(5, 100)
@@ -124,15 +112,7 @@ class Agent:
                     direction_y = (direction_y + 1) % 2
         return direction_x, direction_y
 
-    def calculate_distance(self, target):
-        return (target[0] - self.posx)*(target[0] - self.posx) + (target[1] - self.posy)*(target[1] - self.posy)
-
     def update(self, dt):
-        # looking around  - not work
-        # if self.previous_move == (0, 0):
-        #     new_tmp_target = self.find_new_tmp_target()
-        #     print(new_tmp_target, (self.current_poi.x, self.current_poi.y))
-        #     self.previous_move = self.calculate_direction(new_tmp_target)
 
         if self.inside_poi:
             if self.time_to_spend == 1:
@@ -140,23 +120,29 @@ class Agent:
             self.time_to_spend -= 1
             return
 
-        if abs(self.posx - self.current_poi.x) < 30 and abs(self.posy - self.current_poi.y) < 30:
+        if self.is_poi_reached():
             self.poi_reached()
             return
 
-        change_route_probability = 20
-        if self.previous_move == (0, 0) or randint(0, 100) <= change_route_probability:
-            direction_x, direction_y = self.calculate_direction((self.current_poi.x, self.current_poi.y))
-        else:
-            direction_x, direction_y = self.previous_move
+        direction_x, direction_y = self.walkpath.get_direction(self.posx, self.posy)
 
-        new_pos_x = self.posx + self.speed * direction_x
-        new_pos_y = self.posy + self.speed * direction_y
-        if self.simulation.grid[new_pos_y + (self.simulation.size_y // 2)][new_pos_x + (self.simulation.size_x // 2)] == 0:
-            self.previous_move = (randint(0,2)-1, randint(0,2)-1)
-        else:
-            self.posx += self.speed * direction_x
-            self.posy += self.speed * direction_y
-            self.previous_move = (direction_x, direction_y)
+        new_pos_x = round(self.posx + self.speed * direction_x)
+        new_pos_y = round(self.posy + self.speed * direction_y)
+
+        self.posx = new_pos_x
+        self.posy = new_pos_y
+
+    def is_poi_reached(self):
+        distance_from_poi = Point(self.posx, self.posy).distance_from(Point(self.current_poi.x, self.current_poi.y))
+        # TODO hardcoded precision, may be moved to configs
+        # cannot be lower than step in path-finding-algorithm
+        return distance_from_poi < 16
 
 
+def random_true(probability):
+    if probability > 1 or probability < 0:
+        raise ValueError('Value of probability is out of 0 and 1.')
+    if randint(0,100) < probability*100:
+            return True
+    else:
+        return False

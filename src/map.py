@@ -3,6 +3,7 @@ from label import Label;
 
 watermark = 'Modelowanie i symulacja systemów, Szymon Jakóbczyk, Mateusz Kuźmik, Paweł Płatek'
 
+
 class Map:
 
     def __init__(self, window_width, window_height):
