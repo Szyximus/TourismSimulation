@@ -9,7 +9,7 @@ class HeavyPathFinder(PathFinderBase):
         super().__init__(grid)
 
         # algorithm parameters
-        self.step = 5
+        self.step = 10
 
     def get_path(self, start_point, end_point):
         path_finding_queue = PathFindingQueue(self.step)
@@ -31,9 +31,14 @@ class HeavyPathFinder(PathFinderBase):
                     if start_point.distance_from(point) <= self.step:
                         return path_finding_queue.get_path()
 
-            next_point = path_finding_queue.get_next()
-            checked_point = next_point[0]
-            counter = next_point[1] + 1
+            try:
+                next_point = path_finding_queue.get_next()
+                checked_point = next_point[0]
+                counter = next_point[1] + 1
+            except:
+                self.step = self.step - 2
+                return self.get_path(start_point, end_point)
+
 
         path = path_finding_queue.get_path()
         return path
@@ -63,7 +68,7 @@ class PathFindingQueue:
             raise EndPointUnreachableException()
 
     def get_path(self):
-        index = len(self.points_queue) -1
+        index = len(self.points_queue) - 1
         last_point = self.points_queue[index]
         points = [last_point]
         current_counter = self.counter_queue[index] - 1
