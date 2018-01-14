@@ -12,10 +12,10 @@ def current_milli_time():
 
 class SpawnPoint:
 
-    def __init__(self, x, y, name, agents_per_sec):
+    def __init__(self, x, y, name, agents_per_min):
         self.x = x
         self.y = y
-        self.agents_per_sec = agents_per_sec
+        self.agents_per_min = agents_per_min
         self.name = name
 
         self.last_activation_time = current_milli_time()
@@ -27,12 +27,12 @@ class SpawnPoint:
 
         self.label = PoiLabel(name, x, y)
 
-        self.counter = int(16.666 / agents_per_sec)
+        self.counter = 100
         self.i = self.counter
 
     @classmethod
     def from_dict(cls, name, attributes):
-        required_all = ["x", "y", "agents_per_sec"]
+        required_all = ["x", "y", "agents_per_min"]
         for required in required_all:
             if required not in attributes.keys():
                 raise ValueError("Required key in spawn points config file not found: {}".format(required))

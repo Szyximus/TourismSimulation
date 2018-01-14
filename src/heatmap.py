@@ -11,22 +11,61 @@ class Heatmap:
         self.height = height
         self.array = np.zeros((height, width))
         self.image = Image.fromarray(self.array, 'L')
-        self.timer = 1000
+        self.krakow_map = Image.open('./graphics/Krk.png')
+        self.timer = 20
 
-    def update (self, agents, timebox):
+
+
+    def update (self, agents, timestamp):
         for agent in agents:
             x = agent.posx + (self.width // 2)
             y = (agent.posy - (self.height // 2)) * -1
-            self.array[y][x] += 1.0
 
-        self.timer -= 1
+            #Pseudo Gaussian to prettify
 
-        if  (datetime.datetime.fromtimestamp(timebox.timestamp).strftime('%M%S')) == '0000':
-            self.timer = 1000
-            self.draw(timebox)
+            self.array[y + 2][x - 2] += 1
+            self.array[y + 2][x - 1] += 4
+            self.array[y + 2][x] += 6
+            self.array[y + 2][x + 1] += 4
+            self.array[y + 2][x + 2] += 1
 
-    def draw(self, timebox):
-        self.image = Image.fromarray(np.uint8(self.array * 255)).filter(ImageFilter.GaussianBlur(radius=5))
+            self.array[y + 1][x - 2] += 4
+            self.array[y + 1][x - 1] += 16
+            self.array[y + 1][x] += 20
+            self.array[y + 1][x + 1] += 16
+            self.array[y][x + 2] += 4
+
+            self.array[y][x - 2] += 6
+            self.array[y][x - 1] += 20
+            self.array[y][x] += 24
+            self.array[y][x + 1] += 20
+            self.array[y][x + 2] += 6
+
+            self.array[y - 2][x - 2] += 4
+            self.array[y - 1][x - 1] += 16
+            self.array[y][x] += 20
+            self.array[y + 1][x + 1] += 16
+            self.array[y + 2][x + 2] += 4
+
+            self.array[y - 2][x - 2] += 1
+            self.array[y - 2][x - 1] += 4
+            self.array[y - 2][x] += 6
+            self.array[y - 2][x + 1] += 4
+            self.array[y - 2][x + 2] += 1
+
+        if self.timer > 0:
+            self.timer -= 1
+
+        # Print at 18:00, 19:00 etc, timer prevents from printing to many maps
+        if  int(datetime.datetime.fromtimestamp(timestamp).minute) <= 2:
+            if self.timer <= 0:
+                self.draw(timestamp)
+                self.timer = 20
+
+    def draw(self, timestamp):
+        self.image = Image.fromarray(np.uint8(self.array)).filter(ImageFilter.GaussianBlur(radius=7))
+        self.image = Image.eval(self.image, lambda px: px * 2 if px * 2 <= 255 else 255 )
+        # LUT table for coloring:
         self.image.putpalette([
             0, 0, 128,
             0, 0, 144,
@@ -284,7 +323,12 @@ class Heatmap:
             255, 8, 0,
             255, 4, 0,
             255, 0, 0,
-            ])
-        self.image.save('output\HeatMap_' + datetime.datetime.fromtimestamp(timebox.timestamp).strftime('%H_%M_%S') + '.png')
-        self.image.show()
+        ])
+
+        #self.image.save('output/temp/temp.png')
+        #self.image = Image.open('output/temp/temp.png')
+
+        self.image = Image.blend(self.image.convert("RGBA"), self.krakow_map.convert("RGBA"), 0.2)
+
+        self.image.save('output\HeatMap_' + datetime.datetime.fromtimestamp(timestamp).strftime('%H_%M') + '.png')
 

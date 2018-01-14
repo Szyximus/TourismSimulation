@@ -4,14 +4,17 @@ from src.poilabel import PoiLabel
 
 class PointOfInterest:
 
-    def __init__(self, x, y, name, attractiveness, price, time_needed, poi_type):
+    def __init__(self, x, y, name, attractiveness, price, people_limit, time_needed, time_open, time_close, poi_type):
         self.x = x
         self.y = y
 
         self.name = name
         self.attractiveness = attractiveness
         self.price = price
+        self.people_limit = people_limit
         self.time_needed = time_needed
+        self.time_open = time_open
+        self.time_close = time_close
         self.type = poi_type
 
         self.img = pyglet.image.load('./graphics/POI.png')

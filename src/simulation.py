@@ -10,6 +10,8 @@ from src.point_of_interest import PointOfInterest
 from src.heatmap import Heatmap
 import numpy as np
 import yaml
+import datetime
+import time
 
 from PIL import Image
 
@@ -48,15 +50,16 @@ class Simulation:
         self.pixels_per_meter = 1.5
 
         # time speed multiplier. 2 means that one second in real is two seconds in simulation
-        self.time_speed = 4
+        self.time_speed = 100
 
         # how often (in simulation time) update will take place
         self.time_density = 1
         self.simulation_delta_time = 0
         self.real_time = 0
 
-        # timestamp = 1513426631.0
-        timestamp = 1516298340
+        # timestamp = 1516298340
+        # timestamp = config['current_time']
+        timestamp = int(time.mktime(time.strptime('18/01/2018 ' + config['start_time'], "%d/%m/%Y %H:%M")))
         self.timebox = Timebox(timestamp, window_width, window_height)
 
         # how much grid is smaller than map
@@ -94,7 +97,7 @@ class Simulation:
             self.timebox.update(self.simulation_delta_time)
             self.simulation_delta_time = 0
 
-        self.heatmap.update(self.agents, self.timebox)
+        self.heatmap.update(self.agents, self.timebox.timestamp)
 
     def draw(self, windowx, windowy, window_width, window_height):
         list(map(lambda agent: agent.draw(windowx, windowy), self.agents))

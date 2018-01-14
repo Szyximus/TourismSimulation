@@ -1,30 +1,30 @@
 Teatr Bagatela:
     x: -990
     y: 1300
-    agents_per_sec: 1
+    agents_per_min: 5
     
 Filharmonia:
     x: -900
     y: 540
-    agents_per_sec: 0.2
+    agents_per_min: 1
     
-Plac Wszystkich Świętych:
+Plac Wszystkich Swietych:
     x: -430
     y: 555
-    agents_per_sec: 0.5
+    agents_per_min: 3
     
-Poczta Główna:
+Poczta Glowna:
     x: 35
     y: 625
-    agents_per_sec: 0.8
+    agents_per_min: 4
     
-Dworzec Główny:
+Dworzec Glowny:
     x: 350
     y: 1450
-    agents_per_sec: 0.5
+    agents_per_min: 3
     
 Stary Kleparz:
     x: -270
     y: 1750
-    agents_per_sec: 0.2
+    agents_per_min: 1
     

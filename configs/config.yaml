@@ -1,3 +1,3 @@
 pois_file: configs/pois.yaml
 spawn_points_file: configs/spawn_points.yaml
-current_time: 1513839698
+start_time: '12:00'
