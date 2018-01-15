@@ -66,7 +66,9 @@ class Simulation:
         # not used, probably won't help efficiency
         self.grid_scale = 1
 
-        self.heatmap = Heatmap(size_x, size_y)
+        multiplier = config['heatmap_multiplier']
+
+        self.heatmap = Heatmap(size_x, size_y, multiplier)
 
     def prepare_grid(self):
         krakow_map_gray = Image.open('./graphics/Navigation.png')

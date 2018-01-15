@@ -6,13 +6,14 @@ import datetime
 
 class Heatmap:
 
-    def __init__(self, width, height):
+    def __init__(self, width, height, multiplier):
         self.width = width
         self.height = height
         self.array = np.zeros((height, width))
         self.image = Image.fromarray(self.array, 'L')
         self.krakow_map = Image.open('./graphics/Krk.png')
-        self.timer = 500
+        self.timer = 1000
+        self.multiplier = multiplier
 
 
 
@@ -56,15 +57,15 @@ class Heatmap:
         if self.timer > 0:
             self.timer -= 1
 
-        # Print at 18:00, 19:00 etc, timer prevents from printing to many maps
-        if int(datetime.datetime.fromtimestamp(timestamp).minute) <= 1:
-            if self.timer <= 0:
-                self.draw(timestamp)
-                self.timer = 500
+        # Print at 18:00, 18:30 etc, timer prevents from printing to many maps
+        #if (int(datetime.datetime.fromtimestamp(timestamp).minute) == 0) or (int(datetime.datetime.fromtimestamp(timestamp).minute) == 30):
+        if self.timer <= 0:
+            self.draw(timestamp)
+            self.timer = 1000
 
     def draw(self, timestamp):
         self.image = Image.fromarray(np.uint8(self.array)).filter(ImageFilter.GaussianBlur(radius=7))
-        self.image = Image.eval(self.image, lambda px: px * 2 if px * 2 <= 255 else 255 )
+        self.image = Image.eval(self.image, lambda px: round(px * self.multiplier) if round(px * self.multiplier) <= 255 else 255 )
         # LUT table for coloring:
         self.image.putpalette([
             0, 0, 128,

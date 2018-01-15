@@ -58,7 +58,7 @@ class Agent:
 
         self.inside_poi = True
         print("Inside poi " + self.current_poi.name)
-        self.time_to_spend = self.current_poi.time_needed * 10
+        self.time_to_spend = round(self.current_poi.time_needed / self.simulation.time_speed)
         #self.img = self.inside_poi_img
         self.sprite = pyglet.sprite.Sprite(self.img, x=self.posx, y=self.posy)
 
