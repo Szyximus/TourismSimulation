@@ -50,15 +50,15 @@ class Simulation:
         self.pixels_per_meter = 1.5
 
         # time speed multiplier. 2 means that one second in real is two seconds in simulation
-        self.time_speed = 100
+        self.time_speed = int(config['speed_multiplier'])
+        ## TODO: Walking is bugged if time_speed > 3
 
         # how often (in simulation time) update will take place
-        self.time_density = 1
+        self.time_density = 1.0 / self.time_speed
         self.simulation_delta_time = 0
         self.real_time = 0
 
         # timestamp = 1516298340
-        # timestamp = config['current_time']
         timestamp = int(time.mktime(time.strptime('18/01/2018 ' + config['start_time'], "%d/%m/%Y %H:%M")))
         self.timebox = Timebox(timestamp, window_width, window_height)
 

@@ -1,3 +1,4 @@
 pois_file: configs/pois.yaml
 spawn_points_file: configs/spawn_points.yaml
 start_time: '12:00'
+speed_multiplier: 3

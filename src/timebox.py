@@ -23,7 +23,7 @@ class Timebox:
 
 
     def to_string(self):
-        return datetime.datetime.fromtimestamp(self.timestamp).strftime('%H:%M')
+        return datetime.datetime.fromtimestamp(self.timestamp).strftime('%H:%M:%S')
 
     def update(self, dt):
         self.timestamp += dt

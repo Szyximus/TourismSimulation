@@ -18,6 +18,7 @@ class SpawnPoint:
         self.agents_per_min = agents_per_min
         self.name = name
 
+
         self.last_activation_time = current_milli_time()
 
         self.img = pyglet.image.load('./graphics/Spawn.png')
@@ -27,7 +28,7 @@ class SpawnPoint:
 
         self.label = PoiLabel(name, x, y)
 
-        self.counter = 100
+        self.counter = int(33 / agents_per_min)
         self.i = self.counter
 
     @classmethod

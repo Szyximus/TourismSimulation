@@ -45,7 +45,7 @@ class Agent:
             speed -= 0.7
         if 18 < self.age < 24:
             speed += 0.7
-        return round(speed * self.simulation.pixels_per_meter)
+        return round(speed * self.simulation.pixels_per_meter * self.simulation.time_speed)
 
     def poi_reached(self):
         self.posx = self.current_poi.x

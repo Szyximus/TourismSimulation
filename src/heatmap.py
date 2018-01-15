@@ -12,7 +12,7 @@ class Heatmap:
         self.array = np.zeros((height, width))
         self.image = Image.fromarray(self.array, 'L')
         self.krakow_map = Image.open('./graphics/Krk.png')
-        self.timer = 20
+        self.timer = 500
 
 
 
@@ -57,10 +57,10 @@ class Heatmap:
             self.timer -= 1
 
         # Print at 18:00, 19:00 etc, timer prevents from printing to many maps
-        if  int(datetime.datetime.fromtimestamp(timestamp).minute) <= 2:
+        if int(datetime.datetime.fromtimestamp(timestamp).minute) <= 1:
             if self.timer <= 0:
                 self.draw(timestamp)
-                self.timer = 20
+                self.timer = 500
 
     def draw(self, timestamp):
         self.image = Image.fromarray(np.uint8(self.array)).filter(ImageFilter.GaussianBlur(radius=7))
@@ -328,7 +328,7 @@ class Heatmap:
         #self.image.save('output/temp/temp.png')
         #self.image = Image.open('output/temp/temp.png')
 
-        self.image = Image.blend(self.image.convert("RGBA"), self.krakow_map.convert("RGBA"), 0.2)
+        self.image = Image.blend(self.image.convert("RGBA"), self.krakow_map.convert("RGBA"), 0.25)
 
         self.image.save('output\HeatMap_' + datetime.datetime.fromtimestamp(timestamp).strftime('%H_%M') + '.png')
 
