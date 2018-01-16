@@ -52,8 +52,7 @@ class SpawnPoint:
             simulation.agents.append(Agent.generate(simulation, self.x, self.y))
 
     def _agents_in_bus(self, simulation):
-        agents_amount = self.bus_average_number_of_passengers + \
-                            randint(max(-20, -self.bus_average_number_of_passengers + 1), 20)
+        agents_amount = self.bus_average_number_of_passengers + randint(-1, 1)
         if simulation.DEBUG:
             print("Bus arrived, point: {}, new agents: {}".format(self.name, agents_amount))
         return agents_amount
