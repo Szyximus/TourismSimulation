@@ -1,13 +1,15 @@
 import pyglet
 from random import randint
+
+from src import schedules_generator
 from src.path_finding.walkpath import Walkpath
 from src.path_finding.point import Point
 from src.path_finding.grid import Grid
-from math import  sqrt
+
 
 class Agent:
 
-    def __init__(self, simulation, posx, posy, age, wealth, domestic, education, strictness, intoxication, fear, schedule):
+    def __init__(self, simulation, posx, posy, age, wealth, domestic, education, strictness, intoxication, fear):
         self.posx = posx
         self.posy = posy
 
@@ -20,16 +22,16 @@ class Agent:
         self.strictness = strictness
         self.intoxication = intoxication
         self.fear = fear
-        self.schedule = schedule
-
         self.speed = self.compute_speed()
-        self.current_poi = self.schedule.pop()
+
         self.previous_move = (0, 0)
         self.grid = Grid(self.simulation.grid, self.simulation.size_x, self.simulation.size_y)
-        self.walkpath = Walkpath.from_agent(self)
+
+        self.schedule = None
+        self.current_poi = None
+        self.walkpath = None
 
         self.pixels_walked = 0
-
         self.inside_poi = False
         self.time_to_spend = None
 
@@ -39,6 +41,25 @@ class Agent:
         self.img.anchor_x = self.img.width // 2
         self.img.anchor_y = self.img.height // 2
         self.sprite = pyglet.sprite.Sprite(self.img, x=self.posx, y=self.posy)
+
+    @staticmethod
+    def generate(simulation, x, y):
+        age = randint(5, 70)
+        wealth = randint(0, 10)
+        intoxication = randint(0, 10)
+        domestic = randint(0, 10)
+        education = randint(0, 10)
+        strictness = randint(0, 10)
+        fear = randint(0, 3)
+
+        agent = Agent(simulation, x, y, age, wealth, domestic, education, strictness, intoxication, fear)
+        agent._generate_schedule(simulation.scheduler.generate(agent))
+        return agent
+
+    def _generate_schedule(self, schedule):
+        self.schedule = schedule
+        self.current_poi = self.schedule.pop()
+        self.walkpath = Walkpath.from_agent(self)
 
     def compute_speed(self):
         """ Returns amount of pixels that the agent should move in one simulation second

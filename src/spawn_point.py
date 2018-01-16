@@ -1,12 +1,7 @@
 import pyglet
-import time
 from src.agent import Agent
 from random import randint
 from src.poilabel import PoiLabel
-from src.schedules_generator import SchedulesGenerator
-
-
-
 
 
 class SpawnPoint:
@@ -54,18 +49,7 @@ class SpawnPoint:
 
     def _spawn_agents(self, simulation, agents_amount):
         for _ in range(agents_amount):
-            schedules_generator = SchedulesGenerator(simulation.pois)
-            age = randint(5, 70)
-            wealth = randint(0, 10)
-            concentration = randint(10, 100)
-            intoxication = randint(0, 20)
-            domestic = 0
-            education = 0
-            strictness = 0
-            fear = None
-            schedule = schedules_generator.generate()
-            simulation.agents.append(Agent(simulation, self.x, self.y, age, wealth, domestic, education, strictness,
-                                           intoxication, fear, schedule))
+            simulation.agents.append(Agent.generate(simulation, self.x, self.y))
 
     def _agents_in_bus(self, simulation):
         agents_amount = self.bus_average_number_of_passengers + \
