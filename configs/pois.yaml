@@ -1,8 +1,8 @@
 McDonald's:
     x: -660
     y: 1077
-    attractiveness: 40
-    price: 10
+    attractiveness: 40 #0-50 in google maps scale
+    price: 2 #0-10
     people_limit: 80
     time_needed: 10
     time_open: '08:00'
@@ -24,7 +24,7 @@ Polonia Wax Museum:
     x: -571
     y: 1125
     attractiveness: 2
-    price: 50
+    price: 10
     people_limit: 50
     time_needed: 30
     time_open: '09:00'
@@ -35,7 +35,7 @@ Bobby Burger:
     x: -540
     y: 1195
     attractiveness: 38
-    price: 20
+    price: 5
     people_limit: 20
     time_needed: 20
     time_open: '11:00'
@@ -68,7 +68,7 @@ Pijalnia Czekolady E. Wedel:
     x: -315
     y: 1075
     attractiveness: 43
-    price: 30
+    price: 6
     people_limit: 80
     time_needed: 30
     time_open: '09:00'
@@ -101,7 +101,7 @@ Klub Kulturalny:
     x: -835
     y: 1206
     attractiveness: 44
-    price: 15
+    price: 3
     people_limit: 50
     time_needed: 120
     time_open: '15:00'
@@ -112,7 +112,7 @@ BaniaLuka:
     x: -735
     y: 1140
     attractiveness: 43
-    price: 10
+    price: 3
     people_limit: 70
     time_needed: 20
     time_open: '09:00'
@@ -123,7 +123,7 @@ Teatro Cubano:
     x: -745
     y: 1102
     attractiveness: 42
-    price: 25
+    price: 6
     people_limit: 100
     time_needed: 100
     time_open: '14:00'
@@ -134,7 +134,7 @@ Galeria Sztuki Bunkier:
     x: -842
     y: 1272
     attractiveness: 43
-    price: 30
+    price: 7
     people_limit: 40
     time_needed: 60
     time_open: '11:00'
@@ -156,7 +156,7 @@ Muzeum Bursztynu:
     x: -372
     y: 1175
     attractiveness: 44
-    price: 20
+    price: 10
     people_limit: 20
     time_needed: 30
     time_open: '10:00'
@@ -189,7 +189,7 @@ Auschwitz Tours:
     x: -78
     y: 960
     attractiveness: 40
-    price: 50
+    price: 10
     people_limit: 20
     time_needed: 440
     time_open: '09:00'
@@ -200,7 +200,7 @@ Milkbar Tomasza:
     x: -20
     y: 1096
     attractiveness: 45
-    price: 50
+    price: 2
     people_limit: 50
     time_needed: 20
     time_open: '09:00'
@@ -211,7 +211,7 @@ Muzeum Historyczne Miasta Krakowa:
     x: -416
     y: 1050
     attractiveness: 45
-    price: 10
+    price: 6
     people_limit: 20
     time_needed: 30
     time_open: '10:00'
@@ -222,7 +222,7 @@ Kamienica Szolayskich:
     x: -620
     y: 1310
     attractiveness: 45
-    price: 30
+    price: 6
     people_limit: 25
     time_needed: 5
     time_open: '10:00'
@@ -233,7 +233,7 @@ Kuchnia U Babci Maliny:
     x: -374
     y: 1465
     attractiveness: 38
-    price: 30
+    price: 4
     people_limit: 30
     time_needed: 40
     time_open: '11:00'
@@ -244,7 +244,7 @@ Muzeum XX. Czartoryskich:
     x: -208
     y: 1508
     attractiveness: 45
-    price: 20
+    price: 6
     people_limit: 40
     time_needed: 60
     time_open: '10:00'
@@ -322,7 +322,7 @@ Starbucks:
     x: -675
     y: 951
     attractiveness: 42
-    price: 20
+    price: 8
     people_limit: 30
     time_needed: 20
     time_open: '08:00'
@@ -366,7 +366,7 @@ Muzeum Uniwersytetu Jagiellonskiego:
     x: -835
     y: 960
     attractiveness: 46
-    price: 0
+    price: 7
     people_limit: 40
     time_needed: 30
     time_open: '10:00'

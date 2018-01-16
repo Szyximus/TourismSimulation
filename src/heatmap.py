@@ -13,7 +13,7 @@ class Heatmap:
         self.array = np.zeros((height, width))
         self.image = Image.fromarray(self.array, 'L')
         self.krakow_map = Image.open('./graphics/Krk.png')
-        self.timer = 10
+        self.timer = 10 #to prevent spawning to many maps
         self.multiplier = multiplier
 
 
@@ -324,9 +324,6 @@ class Heatmap:
             255, 4, 0,
             255, 0, 0,
         ])
-
-        #self.image.save('output/temp/temp.png')
-        #self.image = Image.open('output/temp/temp.png')
 
         self.image = Image.blend(self.image.convert("RGBA"), self.krakow_map.convert("RGBA"), 0.25)
 
