@@ -1,5 +1,7 @@
 import pyglet
 from random import randint
+
+from src import schedules_generator
 from src.path_finding.walkpath import Walkpath
 from src.path_finding.point import Point
 from src.path_finding.grid import Grid
@@ -7,7 +9,7 @@ from src.path_finding.grid import Grid
 
 class Agent:
 
-    def __init__(self, simulation, posx, posy, age, wealth, domestic, education, strictness, intoxication, fear, schedule):
+    def __init__(self, simulation, posx, posy, age, wealth, domestic, education, strictness, intoxication, fear):
         self.posx = posx
         self.posy = posy
 
@@ -20,14 +22,16 @@ class Agent:
         self.strictness = strictness
         self.intoxication = intoxication
         self.fear = fear
-        self.schedule = schedule
-
         self.speed = self.compute_speed()
-        self.current_poi = self.schedule.pop()
+
         self.previous_move = (0, 0)
         self.grid = Grid(self.simulation.grid, self.simulation.size_x, self.simulation.size_y)
-        self.walkpath = Walkpath.from_agent(self)
 
+        self.schedule = None
+        self.current_poi = None
+        self.walkpath = None
+
+        self.pixels_walked = 0
         self.inside_poi = False
         self.time_to_spend = None
 
@@ -38,14 +42,35 @@ class Agent:
         self.img.anchor_y = self.img.height // 2
         self.sprite = pyglet.sprite.Sprite(self.img, x=self.posx, y=self.posy)
 
+    @staticmethod
+    def generate(simulation, x, y):
+        age = randint(5, 70)
+        wealth = randint(0, 10)
+        intoxication = randint(0, 10)
+        domestic = randint(0, 10)
+        education = randint(0, 10)
+        strictness = randint(0, 10)
+        fear = randint(0, 3)
+
+        agent = Agent(simulation, x, y, age, wealth, domestic, education, strictness, intoxication, fear)
+        agent._generate_schedule(simulation.scheduler.generate(agent))
+        return agent
+
+    def _generate_schedule(self, schedule):
+        self.schedule = schedule
+        self.current_poi = self.schedule.pop()
+        self.walkpath = Walkpath.from_agent(self)
+
     def compute_speed(self):
-        # normal speed is about 1.4 meters per second
+        """ Returns amount of pixels that the agent should move in one simulation second
+            Normal speed is about 1.4 meters per second
+        """
         speed = 1.4
         if self.age < 14 or self.age > 60:
             speed -= 0.7
         if 18 < self.age < 24:
             speed += 0.7
-        return round(speed * self.simulation.pixels_per_meter * self.simulation.time_speed)
+        return round(speed * self.simulation.pixels_per_meter)
 
     def poi_reached(self):
         self.posx = self.current_poi.x
@@ -82,38 +107,7 @@ class Agent:
         self.sprite.y = windowy + self.posy
         self.sprite.draw()
 
-    def calculate_direction(self, new_tmp_target):
-        min_distance_to_walk = randint(5, 100)
-
-        direction_x = 0
-        precision = 10
-        if new_tmp_target[0] - precision > self.posx:
-            direction_x = 1
-        elif new_tmp_target[0] < self.posx - precision:
-            direction_x = -1
-
-        direction_y = 0
-        if new_tmp_target[1] - precision > self.posy:
-            direction_y = 1
-        elif new_tmp_target[1] < self.posy - precision:
-            direction_y = -1
-
-        destination = (direction_x*min_distance_to_walk, direction_y*min_distance_to_walk)
-        if self.simulation.grid[destination[1]][destination[0]] == 0:
-            if abs(self.posx - self.current_poi.x) > abs(self.posy - self.current_poi.y):
-                if randint(0, 3) != 0:
-                    direction_y = (direction_y + 1) % 2
-                else:
-                    direction_x = (direction_x + 1) % 2
-            else:
-                if randint(0, 4) != 0:
-                    direction_x = (direction_x + 1) % 2
-                else:
-                    direction_y = (direction_y + 1) % 2
-        return direction_x, direction_y
-
-    def update(self, dt):
-
+    def update(self, simulation_delta_time):
         if self.inside_poi:
             if self.time_to_spend == 1:
                 self.poi_leaved()
@@ -124,25 +118,23 @@ class Agent:
             self.poi_reached()
             return
 
-        direction_x, direction_y = self.walkpath.get_direction(self.posx, self.posy)
+        next_x = self.posx
+        next_y = self.posy
+        seconds_counter = 0
+        while seconds_counter < simulation_delta_time:
+            seconds_counter += 1
+            direction_x, direction_y = self.walkpath.get_direction(next_x, next_y)
+            next_x += self.speed * direction_x
+            next_y += self.speed * direction_y
 
-        new_pos_x = round(self.posx + self.speed * direction_x)
-        new_pos_y = round(self.posy + self.speed * direction_y)
-
-        self.posx = new_pos_x
-        self.posy = new_pos_y
+        # (sqrt((self.posx - next_x)**2 + (self.posy - next_y)**2)) ~= self.speed * simulation_delta_time
+        # print(sqrt((self.posx - next_x)**2 + (self.posy - next_y)**2), self.speed * simulation_delta_time)
+        self.pixels_walked += self.speed * simulation_delta_time
+        self.posx = round(next_x)
+        self.posy = round(next_y)
 
     def is_poi_reached(self):
         distance_from_poi = Point(self.posx, self.posy).distance_from(Point(self.current_poi.x, self.current_poi.y))
         # TODO hardcoded precision, may be moved to configs
         # cannot be lower than step in path-finding-algorithm
         return distance_from_poi < 16
-
-
-def random_true(probability):
-    if probability > 1 or probability < 0:
-        raise ValueError('Value of probability is out of 0 and 1.')
-    if randint(0,100) < probability*100:
-            return True
-    else:
-        return False

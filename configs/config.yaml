@@ -1,5 +1,7 @@
 pois_file: configs/pois.yaml
 spawn_points_file: configs/spawn_points.yaml
 start_time: '12:00'
-speed_multiplier: 3
+speed_multiplier: 5
+time_density: 1
+pixels_per_meter: 1.5
 heatmap_multiplier: 1.5

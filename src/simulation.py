@@ -1,28 +1,25 @@
-from src.spawn_point import SpawnPoint
-from src.point_of_interest import PointOfInterest
-from src.timebox import Timebox
-
+import time
 from math import floor
-import pyglet
-from src.agent import Agent
-from src.spawn_point import SpawnPoint
-from src.point_of_interest import PointOfInterest
-from src.heatmap import Heatmap
+
 import numpy as np
 import yaml
-import datetime
-import time
-
 from PIL import Image
+
+from src.heatmap import Heatmap
+from src.point_of_interest import PointOfInterest
+from src.schedules_generator import SchedulesGenerator
+from src.spawn_point import SpawnPoint
+from src.timebox import Timebox
 
 
 class Simulation:
     DEBUG = True
 
     def __init__(self, size_x, size_y, window_width, window_height, config_file):
+        # load yaml configuration files with objects
         try:
             with open(config_file, 'r') as config:
-                config =  yaml.safe_load(config)
+                config = yaml.safe_load(config)
         except FileNotFoundError as e:
             raise FileNotFoundError("Config file not found")
         except yaml.YAMLError as e:
@@ -39,36 +36,38 @@ class Simulation:
             pois = yaml.safe_load(pois)
         self.pois = [PointOfInterest.from_dict(poi_name, pois[poi_name]) for poi_name in pois.keys()]
 
-        self.agents = []
-
-
-        self.size_x, self.size_y = size_x, size_y
-        self.grid = None
-        self.prepare_grid()
-
+        # load configuration parameters
         # one meter is 1.5 pixels
-        self.pixels_per_meter = 1.5
+        self.pixels_per_meter = float(config['pixels_per_meter'])
 
         # time speed multiplier. 2 means that one second in real is two seconds in simulation
         self.time_speed = int(config['speed_multiplier'])
-        ## TODO: Walking is bugged if time_speed > 3
 
         # how often (in simulation time) update will take place
-        self.time_density = 1.0 / self.time_speed
-        self.simulation_delta_time = 0
-        self.real_time = 0
-
-        # timestamp = 1516298340
-        timestamp = int(time.mktime(time.strptime('18/01/2018 ' + config['start_time'], "%d/%m/%Y %H:%M")))
-        self.timebox = Timebox(timestamp, window_width, window_height)
+        self.time_density = int(config['time_density'])
 
         # how much grid is smaller than map
         # not used, probably won't help efficiency
         self.grid_scale = 1
 
-        multiplier = config['heatmap_multiplier']
+        # initialize some required variables
+        self.agents = []
+        self.simulation_delta_time = 0
+        self.real_time = 0
 
+        self.size_x, self.size_y = size_x, size_y
+        self.grid = None
+        self.prepare_grid()
+
+        self.scheduler = SchedulesGenerator(self.pois)
+
+        timestamp = int(time.mktime(time.strptime('18/01/2018 ' + config['start_time'], "%d/%m/%Y %H:%M")))
+        self.timebox = Timebox(timestamp, window_width, window_height)
+
+        multiplier = config['heatmap_multiplier']
         self.heatmap = Heatmap(size_x, size_y, multiplier)
+
+
 
     def prepare_grid(self):
         krakow_map_gray = Image.open('./graphics/Navigation.png')
@@ -89,15 +88,16 @@ class Simulation:
         self.real_time += dt
 
         if self.simulation_delta_time >= self.time_density:
+            simulation_delta_time_rounded = round(self.simulation_delta_time)
             if Simulation.DEBUG:
                 print("Real time:", round(self.real_time, 2),
                       "  |  Simulation time:", round(self.real_time * self.time_speed, 2),
                       "  |  Time delta: ", round(self.simulation_delta_time, 2))
 
-            list(map(lambda spawn_point: spawn_point.update(self.simulation_delta_time, self), self.spawn_points))
-            list(map(lambda agent: agent.update(self.simulation_delta_time), self.agents))
+            list(map(lambda spawn_point: spawn_point.update(simulation_delta_time_rounded, self), self.spawn_points))
+            list(map(lambda agent: agent.update(simulation_delta_time_rounded), self.agents))
             self.timebox.update(self.simulation_delta_time)
-            self.simulation_delta_time = 0
+            self.simulation_delta_time -= simulation_delta_time_rounded
 
         self.heatmap.update(self.agents, self.timebox.timestamp)
 
