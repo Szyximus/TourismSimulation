@@ -1,5 +1,6 @@
 import pyglet
 from src.poilabel import PoiLabel
+import datetime
 
 
 class PointOfInterest:
@@ -18,9 +19,12 @@ class PointOfInterest:
         self.type = poi_type
 
         self.img = pyglet.image.load('./graphics/POI.png')
+        self.imgClosed = pyglet.image.load('./graphics/POI_closed.png')
         self.img.anchor_x = self.img.width // 2
         self.img.anchor_y = self.img.height // 2
-        self.sprite = pyglet.sprite.Sprite(self.img, x=self.x, y=self.y)
+        self.spriteOpen = pyglet.sprite.Sprite(self.img, x=self.x, y=self.y)
+        self.spriteClosed = pyglet.sprite.Sprite(self.imgClosed, x=self.x, y=self.y)
+        self.sprite = self.spriteOpen
 
         self.label = PoiLabel(name, x, y)
 
@@ -36,6 +40,15 @@ class PointOfInterest:
         attributes["name"] = name
         
         return PointOfInterest(**attributes)
+
+    def update(self, timestamp):
+
+        #This is dumb and bug-prone, could use fixing and logic outside graphics ofc
+        if datetime.datetime.fromtimestamp(timestamp).strftime('%H:%M') == self.time_open:
+            self.sprite = self.spriteOpen
+
+        if datetime.datetime.fromtimestamp(timestamp).strftime('%H:%M') == self.time_close:
+            self.sprite = self.spriteClosed
 
     def draw(self, windowx, windowy):
         self.sprite.x = windowx + self.x

@@ -60,8 +60,8 @@ Pomnik Adama Mickiewicza:
     price: 0
     people_limit: 80
     time_needed: 5
-    time_open: '00:00'
-    time_close: '00:05'
+    time_open: '00:02'
+    time_close: '00:00'
     poi_type: 'Heritage'
 
 Pijalnia Czekolady E. Wedel:
@@ -93,7 +93,7 @@ Wieza Ratuszowa:
     price: 0
     people_limit: 20
     time_needed: 5
-    time_open: '00:05'
+    time_open: '00:02'
     time_close: '00:00'
     poi_type: 'Heritage'
     
@@ -148,7 +148,7 @@ Plac Szczepanski:
     price: 0
     people_limit: 50
     time_needed: 5
-    time_open: '00:05'
+    time_open: '00:02'
     time_close: '00:00'
     poi_type: 'Heritage'
     
@@ -270,7 +270,7 @@ Barbakan Krakowski:
     price: 0
     people_limit: 40
     time_needed: 5
-    time_open: '00:05'
+    time_open: '00:02'
     time_close: '00:00'
     poi_type: 'Heritage'
     
@@ -303,7 +303,7 @@ Planty:
     price: 0
     people_limit: 100
     time_needed: 10
-    time_open: '00:05'
+    time_open: '00:02'
     time_close: '0:00'
     poi_type: 'Heritage'
     
@@ -314,7 +314,7 @@ Rynek Glowny:
     price: 0
     people_limit: 150
     time_needed: 20
-    time_open: '00:05'
+    time_open: '00:02'
     time_close: '00:00'
     poi_type: 'Heritage'
     
@@ -380,6 +380,6 @@ Posag Mikolaja Kopernika:
     price: 0
     people_limit: 20
     time_needed: 5
-    time_open: '00:05'
+    time_open: '00:02'
     time_close: '00:00'
     poi_type: 'Museum'
