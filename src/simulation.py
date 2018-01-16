@@ -13,7 +13,6 @@ from src.timebox import Timebox
 
 
 class Simulation:
-    DEBUG = True
 
     def __init__(self, size_x, size_y, window_width, window_height, config_file):
         # load yaml configuration files with objects
@@ -35,6 +34,8 @@ class Simulation:
         with open(config["pois_file"], 'r') as pois:
             pois = yaml.safe_load(pois)
         self.pois = [PointOfInterest.from_dict(poi_name, pois[poi_name]) for poi_name in pois.keys()]
+
+        self.DEBUG = config['DEBUG']
 
         # load configuration parameters
         # one meter is 1.5 pixels
@@ -59,15 +60,13 @@ class Simulation:
         self.grid = None
         self.prepare_grid()
 
-        self.scheduler = SchedulesGenerator(self.pois)
+        self.scheduler = SchedulesGenerator(self.pois, config['DEBUG_SCHEDULER'])
 
         timestamp = int(time.mktime(time.strptime('18/01/2018 ' + config['start_time'], "%d/%m/%Y %H:%M")))
         self.timebox = Timebox(timestamp, window_width, window_height)
 
         multiplier = config['heatmap_multiplier']
         self.heatmap = Heatmap(size_x, size_y, multiplier)
-
-
 
     def prepare_grid(self):
         krakow_map_gray = Image.open('./graphics/Navigation.png')
@@ -89,7 +88,7 @@ class Simulation:
 
         if self.simulation_delta_time >= self.time_density:
             simulation_delta_time_rounded = round(self.simulation_delta_time)
-            if Simulation.DEBUG:
+            if self.DEBUG:
                 print("Real time:", round(self.real_time, 2),
                       "  |  Simulation time:", round(self.real_time * self.time_speed, 2),
                       "  |  Time delta: ", round(self.simulation_delta_time, 2))

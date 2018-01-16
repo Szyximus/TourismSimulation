@@ -1,0 +1,9 @@
+pois_file: configs/default/pois.yaml
+spawn_points_file: configs/one_agent/spawn_points.yaml
+start_time: '12:00'
+speed_multiplier: 5
+time_density: 1
+pixels_per_meter: 1.5
+heatmap_multiplier: 1.5
+DEBUG: True
+DEBUG_SCHEDULER: True

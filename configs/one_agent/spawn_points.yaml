@@ -1,0 +1,6 @@
+Teatr Bagatela:
+    x: -990
+    y: 1300
+    agents_per_min: 0.5
+    bus_frequency: 6000
+    bus_average_number_of_passengers: 1

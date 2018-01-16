@@ -1,10 +1,10 @@
-import pyglet
 from random import randint
 
-from src import schedules_generator
-from src.path_finding.walkpath import Walkpath
-from src.path_finding.point import Point
+import pyglet
+
 from src.path_finding.grid import Grid
+from src.path_finding.point import Point
+from src.path_finding.walkpath import Walkpath
 
 
 class Agent:
@@ -27,7 +27,7 @@ class Agent:
         self.previous_move = (0, 0)
         self.grid = Grid(self.simulation.grid, self.simulation.size_x, self.simulation.size_y)
 
-        self.schedule = None
+        self.schedule = []
         self.current_poi = None
         self.walkpath = None
 
@@ -43,17 +43,18 @@ class Agent:
         self.sprite = pyglet.sprite.Sprite(self.img, x=self.posx, y=self.posy)
 
     @staticmethod
-    def generate(simulation, x, y):
+    def generate(simulation, x, y, spawn_point):
         age = randint(5, 70)
         wealth = randint(0, 10)
         intoxication = randint(0, 10)
-        domestic = randint(0, 10)
+        domestic = randint(0, 1)
         education = randint(0, 10)
         strictness = randint(0, 10)
         fear = randint(0, 3)
 
         agent = Agent(simulation, x, y, age, wealth, domestic, education, strictness, intoxication, fear)
-        agent._generate_schedule(simulation.scheduler.generate(agent))
+        agent._generate_schedule(simulation.scheduler.generate(agent, simulation.timebox.timestamp))
+        agent.schedule.insert(0, spawn_point)
         return agent
 
     def _generate_schedule(self, schedule):
@@ -76,14 +77,9 @@ class Agent:
         self.posx = self.current_poi.x
         self.posy = self.current_poi.y
 
-        base_probability_to_enter_poi = 80
-        if (self.wealth - self.current_poi.price)*10 < base_probability_to_enter_poi:
-            self.next_poi()
-            return
-
         self.inside_poi = True
         print("Inside poi " + self.current_poi.name)
-        self.time_to_spend = round(self.current_poi.time_needed / self.simulation.time_speed)
+        self.time_to_spend = self.current_poi.time_needed * 60  # in seconds
         #self.img = self.inside_poi_img
         self.sprite = pyglet.sprite.Sprite(self.img, x=self.posx, y=self.posy)
 
@@ -97,7 +93,7 @@ class Agent:
         print("Leave poi " + self.current_poi.name)
         if len(self.schedule) > 0:
             self.current_poi = self.schedule.pop()
-        else:
+        else: # shouldn't occur, last poi in schedule should be spawn_point
             self.current_poi = self.simulation.pois[randint(0, len(self.simulation.pois)-1)]
         #self.img = self.walking_img
         self.sprite = pyglet.sprite.Sprite(self.img, x=self.posx, y=self.posy)
@@ -109,9 +105,9 @@ class Agent:
 
     def update(self, simulation_delta_time):
         if self.inside_poi:
-            if self.time_to_spend == 1:
+            if self.time_to_spend <= 1:
                 self.poi_leaved()
-            self.time_to_spend -= 1
+            self.time_to_spend -= simulation_delta_time
             return
 
         if self.is_poi_reached():
@@ -137,4 +133,8 @@ class Agent:
         distance_from_poi = Point(self.posx, self.posy).distance_from(Point(self.current_poi.x, self.current_poi.y))
         # TODO hardcoded precision, may be moved to configs
         # cannot be lower than step in path-finding-algorithm
-        return distance_from_poi < 16
+        if distance_from_poi < 16:
+            if self.current_poi.is_end_point:
+                self.simulation.agents.remove(self)
+            return True
+        return False

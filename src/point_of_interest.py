@@ -7,8 +7,9 @@ class PointOfInterest:
     def __init__(self, x, y, name, attractiveness, price, people_limit, time_needed, time_open, time_close, poi_type):
         self.x = x
         self.y = y
-
         self.name = name
+        self.is_end_point = False
+
         self.attractiveness = attractiveness
         self.price = price
         self.people_limit = people_limit
