@@ -39,13 +39,15 @@ class Agent:
         self.sprite = pyglet.sprite.Sprite(self.img, x=self.posx, y=self.posy)
 
     def compute_speed(self):
-        # normal speed is about 1.4 meters per second
+        """ Returns amount of pixels that the agent should move in one simulation second
+            Normal speed is about 1.4 meters per second
+        """
         speed = 1.4
         if self.age < 14 or self.age > 60:
             speed -= 0.7
         if 18 < self.age < 24:
             speed += 0.7
-        return round(speed * self.simulation.pixels_per_meter * self.simulation.time_speed)
+        return round(speed * self.simulation.pixels_per_meter)
 
     def poi_reached(self):
         self.posx = self.current_poi.x
@@ -112,8 +114,7 @@ class Agent:
                     direction_y = (direction_y + 1) % 2
         return direction_x, direction_y
 
-    def update(self, dt):
-
+    def update(self, simulation_delta_time):
         if self.inside_poi:
             if self.time_to_spend == 1:
                 self.poi_leaved()
@@ -124,13 +125,28 @@ class Agent:
             self.poi_reached()
             return
 
-        direction_x, direction_y = self.walkpath.get_direction(self.posx, self.posy)
+        next_x = self.posx
+        next_y = self.posy
+        seconds_counter = 0
 
-        new_pos_x = round(self.posx + self.speed * direction_x)
-        new_pos_y = round(self.posy + self.speed * direction_y)
+        print(simulation_delta_time, self.speed)
+        while seconds_counter < simulation_delta_time:
+            # simulation_delta_time is seconds from last update, speed is pixels per second, so we move agent
+            # as much we can in computed direction until seconds pass or we hit wall (then we compute new direction)
+            direction_x, direction_y = self.walkpath.get_direction(next_x, next_y)
+            print(direction_x, direction_y)
+            while True:
+                seconds_counter += 1
+                next_x += self.speed * direction_x
+                next_y += self.speed * direction_y
+                if self.simulation.grid[round(next_y)][round(next_x)] == 1 or seconds_counter >= simulation_delta_time:
+                    break
 
-        self.posx = new_pos_x
-        self.posy = new_pos_y
+        print(abs(self.posx - next_x), abs(self.posy - next_y))
+        print(next_x, next_y)
+        self.posx = round(next_x)
+        self.posy = round(next_y)
+        print('_-----------------')
 
     def is_poi_reached(self):
         distance_from_poi = Point(self.posx, self.posy).distance_from(Point(self.current_poi.x, self.current_poi.y))
