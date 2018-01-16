@@ -41,7 +41,6 @@ class Simulation:
 
         self.agents = []
 
-
         self.size_x, self.size_y = size_x, size_y
         self.grid = None
         self.prepare_grid()
@@ -51,10 +50,10 @@ class Simulation:
 
         # time speed multiplier. 2 means that one second in real is two seconds in simulation
         self.time_speed = int(config['speed_multiplier'])
-        ## TODO: Walking is bugged if time_speed > 3
 
         # how often (in simulation time) update will take place
-        self.time_density = 1.0 / self.time_speed
+        self.time_density = int(config['time_density'])
+
         self.simulation_delta_time = 0
         self.real_time = 0
 
@@ -89,15 +88,16 @@ class Simulation:
         self.real_time += dt
 
         if self.simulation_delta_time >= self.time_density:
+            simulation_delta_time_rounded = round(self.simulation_delta_time)
             if Simulation.DEBUG:
                 print("Real time:", round(self.real_time, 2),
                       "  |  Simulation time:", round(self.real_time * self.time_speed, 2),
                       "  |  Time delta: ", round(self.simulation_delta_time, 2))
 
-            list(map(lambda spawn_point: spawn_point.update(self.simulation_delta_time, self), self.spawn_points))
-            list(map(lambda agent: agent.update(self.simulation_delta_time), self.agents))
+            list(map(lambda spawn_point: spawn_point.update(simulation_delta_time_rounded, self), self.spawn_points))
+            list(map(lambda agent: agent.update(simulation_delta_time_rounded), self.agents))
             self.timebox.update(self.simulation_delta_time)
-            self.simulation_delta_time = 0
+            self.simulation_delta_time -= simulation_delta_time_rounded
 
         self.heatmap.update(self.agents, self.timebox.timestamp)
 

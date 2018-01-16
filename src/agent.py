@@ -3,7 +3,7 @@ from random import randint
 from src.path_finding.walkpath import Walkpath
 from src.path_finding.point import Point
 from src.path_finding.grid import Grid
-
+from math import  sqrt
 
 class Agent:
 
@@ -27,6 +27,8 @@ class Agent:
         self.previous_move = (0, 0)
         self.grid = Grid(self.simulation.grid, self.simulation.size_x, self.simulation.size_y)
         self.walkpath = Walkpath.from_agent(self)
+
+        self.pixels_walked = 0
 
         self.inside_poi = False
         self.time_to_spend = None
@@ -128,25 +130,17 @@ class Agent:
         next_x = self.posx
         next_y = self.posy
         seconds_counter = 0
-
-        print(simulation_delta_time, self.speed)
         while seconds_counter < simulation_delta_time:
-            # simulation_delta_time is seconds from last update, speed is pixels per second, so we move agent
-            # as much we can in computed direction until seconds pass or we hit wall (then we compute new direction)
+            seconds_counter += 1
             direction_x, direction_y = self.walkpath.get_direction(next_x, next_y)
-            print(direction_x, direction_y)
-            while True:
-                seconds_counter += 1
-                next_x += self.speed * direction_x
-                next_y += self.speed * direction_y
-                if self.simulation.grid[round(next_y)][round(next_x)] == 1 or seconds_counter >= simulation_delta_time:
-                    break
+            next_x += self.speed * direction_x
+            next_y += self.speed * direction_y
 
-        print(abs(self.posx - next_x), abs(self.posy - next_y))
-        print(next_x, next_y)
+        # (sqrt((self.posx - next_x)**2 + (self.posy - next_y)**2)) ~= self.speed * simulation_delta_time
+        # print(sqrt((self.posx - next_x)**2 + (self.posy - next_y)**2), self.speed * simulation_delta_time)
+        self.pixels_walked += self.speed * simulation_delta_time
         self.posx = round(next_x)
         self.posy = round(next_y)
-        print('_-----------------')
 
     def is_poi_reached(self):
         distance_from_poi = Point(self.posx, self.posy).distance_from(Point(self.current_poi.x, self.current_poi.y))
