@@ -86,36 +86,6 @@ class Agent:
         self.sprite.y = windowy + self.posy
         self.sprite.draw()
 
-    def calculate_direction(self, new_tmp_target):
-        min_distance_to_walk = randint(5, 100)
-
-        direction_x = 0
-        precision = 10
-        if new_tmp_target[0] - precision > self.posx:
-            direction_x = 1
-        elif new_tmp_target[0] < self.posx - precision:
-            direction_x = -1
-
-        direction_y = 0
-        if new_tmp_target[1] - precision > self.posy:
-            direction_y = 1
-        elif new_tmp_target[1] < self.posy - precision:
-            direction_y = -1
-
-        destination = (direction_x*min_distance_to_walk, direction_y*min_distance_to_walk)
-        if self.simulation.grid[destination[1]][destination[0]] == 0:
-            if abs(self.posx - self.current_poi.x) > abs(self.posy - self.current_poi.y):
-                if randint(0, 3) != 0:
-                    direction_y = (direction_y + 1) % 2
-                else:
-                    direction_x = (direction_x + 1) % 2
-            else:
-                if randint(0, 4) != 0:
-                    direction_x = (direction_x + 1) % 2
-                else:
-                    direction_y = (direction_y + 1) % 2
-        return direction_x, direction_y
-
     def update(self, simulation_delta_time):
         if self.inside_poi:
             if self.time_to_spend == 1:
@@ -147,12 +117,3 @@ class Agent:
         # TODO hardcoded precision, may be moved to configs
         # cannot be lower than step in path-finding-algorithm
         return distance_from_poi < 16
-
-
-def random_true(probability):
-    if probability > 1 or probability < 0:
-        raise ValueError('Value of probability is out of 0 and 1.')
-    if randint(0,100) < probability*100:
-            return True
-    else:
-        return False
