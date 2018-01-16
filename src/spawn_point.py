@@ -73,5 +73,5 @@ class SpawnPoint:
         agents_amount = 0
         while self.last_foot_agent >= self.agents_frequency:
             self.last_foot_agent -= self.agents_frequency
-            agents_amount += 3 + randint(-2, 2)
+            agents_amount += randint(1, 2)
         self._spawn_agents(simulation, agents_amount)
