@@ -2,6 +2,7 @@ import numpy as np
 from PIL import Image
 from PIL import ImageFilter
 import datetime
+import keyboard
 
 
 class Heatmap:
@@ -12,7 +13,7 @@ class Heatmap:
         self.array = np.zeros((height, width))
         self.image = Image.fromarray(self.array, 'L')
         self.krakow_map = Image.open('./graphics/Krk.png')
-        self.timer = 1000
+        self.timer = 10
         self.multiplier = multiplier
 
 
@@ -57,11 +58,9 @@ class Heatmap:
         if self.timer > 0:
             self.timer -= 1
 
-        # Print at 18:00, 18:30 etc, timer prevents from printing to many maps
-        #if (int(datetime.datetime.fromtimestamp(timestamp).minute) == 0) or (int(datetime.datetime.fromtimestamp(timestamp).minute) == 30):
-        if self.timer <= 0:
+        if self.timer <= 0 and keyboard.is_pressed('space'):
             self.draw(timestamp)
-            self.timer = 1000
+            self.timer = 10
 
     def draw(self, timestamp):
         self.image = Image.fromarray(np.uint8(self.array)).filter(ImageFilter.GaussianBlur(radius=7))
