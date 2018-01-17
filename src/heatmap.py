@@ -330,5 +330,5 @@ class Heatmap:
 
         self.image = Image.blend(self.image.convert("RGBA"), self.krakow_map.convert("RGBA"), 0.25)
 
-        self.image.save('output\HeatMap_' + datetime.datetime.fromtimestamp(timestamp).strftime('%H_%M') + '.png')
+        self.image.save('output/HeatMap_' + datetime.datetime.fromtimestamp(timestamp).strftime('%H_%M') + '.png')
 
