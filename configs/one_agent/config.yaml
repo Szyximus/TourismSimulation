@@ -6,4 +6,4 @@ time_density: 1
 pixels_per_meter: 1.5
 heatmap_multiplier: 2
 DEBUG: False
-DEBUG_SCHEDULER: False
+DEBUG_SCHEDULER: TRUE

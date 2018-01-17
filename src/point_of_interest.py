@@ -1,5 +1,9 @@
 import pyglet
-from src.poilabel import PoiLabel
+from poilabel import PoiLabel
+from poilabelclosed import PoiLabelClosed
+from datetime import datetime
+from time import strptime
+
 
 
 class PointOfInterest:
@@ -19,11 +23,16 @@ class PointOfInterest:
         self.type = poi_type
 
         self.img = pyglet.image.load('./graphics/POI.png')
+        self.imgClosed = pyglet.image.load('./graphics/POI_closed.png')
         self.img.anchor_x = self.img.width // 2
         self.img.anchor_y = self.img.height // 2
+        self.imgClosed.anchor_x = self.img.width // 2
+        self.imgClosed.anchor_y = self.img.height // 2
         self.sprite = pyglet.sprite.Sprite(self.img, x=self.x, y=self.y)
 
-        self.label = PoiLabel(name, x, y)
+        self.labelOpen = PoiLabel(name, x, y)
+        self.labelClosed = PoiLabelClosed(name, x, y)
+        self.label = self.labelOpen
 
     @classmethod
     def from_dict(cls, name, attributes):
@@ -37,6 +46,23 @@ class PointOfInterest:
         attributes["name"] = name
         
         return PointOfInterest(**attributes)
+
+    def _time_from_timestamp(self, timestamp):
+        tmp = datetime.fromtimestamp(timestamp)
+        return (tmp.hour * 60) + tmp.minute
+
+    def _time_from_string(self, time_string):
+        tmp = strptime(time_string, '%H:%M')
+        return (tmp.tm_hour * 60) + tmp.tm_min
+
+    def update(self, timestamp):
+        if self._time_from_timestamp(timestamp) < self._time_from_string(self.time_open) or \
+                        self._time_from_timestamp(timestamp) > self._time_from_string(self.time_close):
+            self.sprite = pyglet.sprite.Sprite(self.imgClosed, x=self.x, y=self.y)
+            self.label = self.labelClosed
+        else:
+            self.sprite = pyglet.sprite.Sprite(self.img, x=self.x, y=self.y)
+            self.label = self.labelOpen
 
     def draw(self, windowx, windowy):
         self.sprite.x = windowx + self.x

@@ -95,6 +95,7 @@ class Simulation:
 
             list(map(lambda spawn_point: spawn_point.update(simulation_delta_time_rounded, self), self.spawn_points))
             list(map(lambda agent: agent.update(simulation_delta_time_rounded), self.agents))
+            list(map(lambda poi: poi.update(self.timebox.timestamp), self.pois))
             self.timebox.update(self.simulation_delta_time)
             self.simulation_delta_time -= simulation_delta_time_rounded
 

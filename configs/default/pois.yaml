@@ -4,9 +4,9 @@ McDonald's:
     attractiveness: 6 #(google maps rating -2.5) * 4
     price: 2 #1-10
     people_limit: 80
-    time_needed: 10 #in minutes
-    time_open: '08:00'
-    time_close: '05:00'
+    time_needed: 20 #in minutes
+    time_open: '00:01'
+    time_close: '23:59'
     poi_type: 'Restaurant'
     
 Sukiennice:
@@ -26,7 +26,7 @@ Polonia Wax Museum:
     attractiveness: 2
     price: 8
     people_limit: 50
-    time_needed: 30
+    time_needed: 50
     time_open: '09:00'
     time_close: '22:00'
     poi_type: 'Museum'
@@ -36,10 +36,10 @@ Bobby Burger:
     y: 1195
     attractiveness: 5
     price: 5
-    people_limit: 20
+    people_limit: 30
     time_needed: 20
     time_open: '11:00'
-    time_close: '03:00'
+    time_close: '23:59'
     poi_type: 'Restaurant'
 
 Bazylika Mariacka:
@@ -48,7 +48,7 @@ Bazylika Mariacka:
     attractiveness: 9
     price: 0
     people_limit: 30
-    time_needed: 10
+    time_needed: 20
     time_open: '11:00'
     time_close: '18:00'
     poi_type: 'Heritage'
@@ -59,9 +59,9 @@ Pomnik Adama Mickiewicza:
     attractiveness: 8
     price: 0
     people_limit: 80
-    time_needed: 5
-    time_open: '00:00'
-    time_close: '00:05'
+    time_needed: 10
+    time_open: '00:01'
+    time_close: '23:59'
     poi_type: 'Heritage'
 
 Pijalnia Czekolady E. Wedel:
@@ -70,7 +70,7 @@ Pijalnia Czekolady E. Wedel:
     attractiveness: 7
     price: 7
     people_limit: 80
-    time_needed: 30
+    time_needed: 60
     time_open: '09:00'
     time_close: '23:59'
     poi_type: 'Restaurant'
@@ -81,7 +81,7 @@ Kosciol Swietego Wojciecha:
     attractiveness: 9
     price: 0
     people_limit: 40
-    time_needed: 10
+    time_needed: 20
     time_open: '11:00'
     time_close: '18:00'
     poi_type: 'Heritage'
@@ -92,8 +92,8 @@ Wieza Ratuszowa:
     attractiveness: 8
     price: 0
     people_limit: 20
-    time_needed: 5
-    time_open: '00:05'
+    time_needed: 10
+    time_open: '00:01'
     time_close: '23:59'
     poi_type: 'Heritage'
     
@@ -104,8 +104,8 @@ Klub Kulturalny:
     price: 3
     people_limit: 50
     time_needed: 120
-    time_open: '15:00'
-    time_close: '04:00'
+    time_open: '00:01'
+    time_close: '07:00'
     poi_type: 'Club'
     
 BaniaLuka:
@@ -114,9 +114,9 @@ BaniaLuka:
     attractiveness: 7
     price: 2
     people_limit: 70
-    time_needed: 20
-    time_open: '09:00'
-    time_close: '06:00'
+    time_needed: 30
+    time_open: '12:00'
+    time_close: '23:59'
     poi_type: 'Club'
     
 Teatro Cubano:
@@ -125,9 +125,9 @@ Teatro Cubano:
     attractiveness: 7
     price: 6
     people_limit: 100
-    time_needed: 100
-    time_open: '14:00'
-    time_close: '05:00'
+    time_needed: 140
+    time_open: '00:01'
+    time_close: '07:00'
     poi_type: 'Club'
 
 Galeria Sztuki Bunkier:
@@ -136,9 +136,9 @@ Galeria Sztuki Bunkier:
     attractiveness: 7
     price: 7
     people_limit: 40
-    time_needed: 60
+    time_needed: 80
     time_open: '11:00'
-    time_close: '09:00'
+    time_close: '21:00'
     poi_type: 'Museum'
     
 Plac Szczepanski:
@@ -147,8 +147,8 @@ Plac Szczepanski:
     attractiveness: 8
     price: 0
     people_limit: 50
-    time_needed: 5
-    time_open: '00:05'
+    time_needed: 10
+    time_open: '00:01'
     time_close: '23:59'
     poi_type: 'Heritage'
     
@@ -158,7 +158,7 @@ Muzeum Bursztynu:
     attractiveness: 8
     price: 8
     people_limit: 20
-    time_needed: 30
+    time_needed: 60
     time_open: '10:00'
     time_close: '20:00'
     poi_type: 'Museum'
@@ -169,7 +169,7 @@ Lost Souls Alley:
     attractiveness: 9
     price: 0
     people_limit: 50
-    time_needed: 20
+    time_needed: 30
     time_open: '12:00'
     time_close: '20:00'
     poi_type: 'Heritage'
@@ -180,7 +180,7 @@ Kamienica Hipolitow:
     attractiveness: 9
     price: 0
     people_limit: 50
-    time_needed: 20
+    time_needed: 30
     time_open: '10:00'
     time_close: '17:30'
     poi_type: 'Museum'
@@ -191,7 +191,7 @@ Auschwitz Tours:
     attractiveness: 6
     price: 10
     people_limit: 20
-    time_needed: 440
+    time_needed: 360
     time_open: '09:00'
     time_close: '21:00'
     poi_type: 'Museum'
@@ -202,7 +202,7 @@ Milkbar Tomasza:
     attractiveness: 8
     price: 4
     people_limit: 50
-    time_needed: 20
+    time_needed: 40
     time_open: '09:00'
     time_close: '20:00'
     poi_type: 'Restaurant'
@@ -213,7 +213,7 @@ Muzeum Historyczne Miasta Krakowa:
     attractiveness: 9
     price: 4
     people_limit: 20
-    time_needed: 30
+    time_needed: 80
     time_open: '10:00'
     time_close: '20:00'
     poi_type: 'Museum'
@@ -246,7 +246,7 @@ Muzeum XX. Czartoryskich:
     attractiveness: 9
     price: 6
     people_limit: 40
-    time_needed: 60
+    time_needed: 70
     time_open: '10:00'
     time_close: '15:30'
     poi_type: 'Museum'
@@ -257,7 +257,7 @@ Brama Florianska:
     attractiveness: 9
     price: 0
     people_limit: 20
-    time_needed: 10
+    time_needed: 15
     time_open: '08:00'
     time_close: '18:00'
     poi_type: 'Heritage'
@@ -269,8 +269,8 @@ Barbakan Krakowski:
     attractiveness: 8
     price: 0
     people_limit: 40
-    time_needed: 5
-    time_open: '00:05'
+    time_needed: 10
+    time_open: '00:01'
     time_close: '23:59'
     poi_type: 'Heritage'
     
@@ -302,9 +302,9 @@ Planty:
     attractiveness: 8
     price: 0
     people_limit: 100
-    time_needed: 10
-    time_open: '00:05'
-    time_close: '0:00'
+    time_needed: 20
+    time_open: '00:01'
+    time_close: '23:59'
     poi_type: 'Heritage'
     
 Rynek Glowny:
@@ -313,8 +313,8 @@ Rynek Glowny:
     attractiveness: 10
     price: 0
     people_limit: 150
-    time_needed: 20
-    time_open: '00:05'
+    time_needed: 10
+    time_open: '00:01'
     time_close: '23:59'
     poi_type: 'Heritage'
     
@@ -324,7 +324,7 @@ Starbucks:
     attractiveness: 7
     price: 8
     people_limit: 30
-    time_needed: 20
+    time_needed: 30
     time_open: '08:00'
     time_close: '22:00'
     poi_type: 'Restaurant'
@@ -335,7 +335,7 @@ Lustrzany Labirynt:
     attractiveness: 5
     price: 0
     people_limit: 40
-    time_needed: 20
+    time_needed: 30
     time_open: '10:00'
     time_close: '22:00'
     poi_type: 'Other'
@@ -357,7 +357,7 @@ Okno Papieskie:
     attractiveness: 6
     price: 0
     people_limit: 20
-    time_needed: 20
+    time_needed: 10
     time_open: '11:00'
     time_close: '18:00'
     poi_type: 'Heritage'
@@ -379,7 +379,7 @@ Posag Mikolaja Kopernika:
     attractiveness: 6
     price: 0
     people_limit: 20
-    time_needed: 5
-    time_open: '00:05'
+    time_needed: 10
+    time_open: '00:01'
     time_close: '23:59'
-    poi_type: 'Museum'
+    poi_type: 'Heritage'

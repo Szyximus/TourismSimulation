@@ -1,7 +1,0 @@
-pois_file: configs/pois.yaml
-spawn_points_file: configs/spawn_points.yaml
-start_time: '12:00'
-speed_multiplier: 20
-time_density: 1
-pixels_per_meter: 1.5 #for the default map = 1.5
-heatmap_multiplier: 2 #for adjusting colours

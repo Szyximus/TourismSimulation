@@ -29,7 +29,7 @@ class SchedulesGenerator:
             5. Add or substract "points" based on agent's age, domestic, education, intoxication and poi type
             6. Get as much as agent is able to rich in his time, taking only pois that will be open
         """
-        time_to_spend = np.random.poisson(3) * 3600  # in seconds
+        time_to_spend = np.random.poisson(4) * 3600  # in seconds
         if self.debug:
             print("Scheduling start\nTime to spend: {}h".format(time_to_spend / 3600))
             print("Agent:")
