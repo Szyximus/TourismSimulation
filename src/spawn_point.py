@@ -10,6 +10,7 @@ class SpawnPoint:
         self.x = x
         self.y = y
         self.name = name
+        self.is_end_point = True
 
         # how many agents arrives on foot in one minute
         self.agents_per_min = agents_per_min
@@ -49,7 +50,7 @@ class SpawnPoint:
 
     def _spawn_agents(self, simulation, agents_amount):
         for _ in range(agents_amount):
-            simulation.agents.append(Agent.generate(simulation, self.x, self.y))
+            simulation.agents.append(Agent.generate(simulation, self.x, self.y, self))
 
     def _agents_in_bus(self, simulation):
         agents_amount = self.bus_average_number_of_passengers + randint(-1, 1)

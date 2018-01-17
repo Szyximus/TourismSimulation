@@ -1,8 +1,13 @@
 McDonald's:
     x: -660
     y: 1077
+<<<<<<< HEAD:configs/pois.yaml
     attractiveness: 40 #0-50 in google maps scale
     price: 2 #0-10
+=======
+    attractiveness: 8
+    price: 10
+>>>>>>> e2699acea5d4e1d5e21685398d4e281211343dbd:configs/default/pois.yaml
     people_limit: 80
     time_needed: 10
     time_open: '08:00'
@@ -12,7 +17,7 @@ McDonald's:
 Sukiennice:
     x: -480
     y: 990
-    attractiveness: 46
+    attractiveness: 6
     price: 0
     people_limit: 50
     time_needed: 20
@@ -34,8 +39,13 @@ Polonia Wax Museum:
 Bobby Burger:
     x: -540
     y: 1195
+<<<<<<< HEAD:configs/pois.yaml
     attractiveness: 38
     price: 5
+=======
+    attractiveness: 8
+    price: 20
+>>>>>>> e2699acea5d4e1d5e21685398d4e281211343dbd:configs/default/pois.yaml
     people_limit: 20
     time_needed: 20
     time_open: '11:00'
@@ -45,7 +55,7 @@ Bobby Burger:
 Bazylika Mariacka:
     x: -315
     y: 982
-    attractiveness: 48
+    attractiveness: 7
     price: 0
     people_limit: 30
     time_needed: 10
@@ -56,7 +66,7 @@ Bazylika Mariacka:
 Pomnik Adama Mickiewicza:
     x: -410
     y: 955
-    attractiveness: 46
+    attractiveness: 9
     price: 0
     people_limit: 80
     time_needed: 5
@@ -67,18 +77,23 @@ Pomnik Adama Mickiewicza:
 Pijalnia Czekolady E. Wedel:
     x: -315
     y: 1075
+<<<<<<< HEAD:configs/pois.yaml
     attractiveness: 43
     price: 6
+=======
+    attractiveness: 6
+    price: 30
+>>>>>>> e2699acea5d4e1d5e21685398d4e281211343dbd:configs/default/pois.yaml
     people_limit: 80
     time_needed: 30
     time_open: '09:00'
-    time_close: '00:00'
+    time_close: '23:59'
     poi_type: 'Restaurant'
 
 Kosciol Swietego Wojciecha:
     x: -440
     y: 851
-    attractiveness: 47
+    attractiveness: 4
     price: 0
     people_limit: 40
     time_needed: 10
@@ -89,19 +104,29 @@ Kosciol Swietego Wojciecha:
 Wieza Ratuszowa:
     x: -584
     y: 954
-    attractiveness: 46
+    attractiveness: 4
     price: 0
     people_limit: 20
     time_needed: 5
+<<<<<<< HEAD:configs/pois.yaml
     time_open: '00:02'
     time_close: '00:00'
+=======
+    time_open: '00:05'
+    time_close: '23:59'
+>>>>>>> e2699acea5d4e1d5e21685398d4e281211343dbd:configs/default/pois.yaml
     poi_type: 'Heritage'
     
 Klub Kulturalny:
     x: -835
     y: 1206
+<<<<<<< HEAD:configs/pois.yaml
     attractiveness: 44
     price: 3
+=======
+    attractiveness: 7
+    price: 15
+>>>>>>> e2699acea5d4e1d5e21685398d4e281211343dbd:configs/default/pois.yaml
     people_limit: 50
     time_needed: 120
     time_open: '15:00'
@@ -111,8 +136,13 @@ Klub Kulturalny:
 BaniaLuka:
     x: -735
     y: 1140
+<<<<<<< HEAD:configs/pois.yaml
     attractiveness: 43
     price: 3
+=======
+    attractiveness: 7
+    price: 10
+>>>>>>> e2699acea5d4e1d5e21685398d4e281211343dbd:configs/default/pois.yaml
     people_limit: 70
     time_needed: 20
     time_open: '09:00'
@@ -122,8 +152,13 @@ BaniaLuka:
 Teatro Cubano:
     x: -745
     y: 1102
+<<<<<<< HEAD:configs/pois.yaml
     attractiveness: 42
     price: 6
+=======
+    attractiveness: 5
+    price: 25
+>>>>>>> e2699acea5d4e1d5e21685398d4e281211343dbd:configs/default/pois.yaml
     people_limit: 100
     time_needed: 100
     time_open: '14:00'
@@ -133,8 +168,13 @@ Teatro Cubano:
 Galeria Sztuki Bunkier:
     x: -842
     y: 1272
+<<<<<<< HEAD:configs/pois.yaml
     attractiveness: 43
     price: 7
+=======
+    attractiveness: 6
+    price: 30
+>>>>>>> e2699acea5d4e1d5e21685398d4e281211343dbd:configs/default/pois.yaml
     people_limit: 40
     time_needed: 60
     time_open: '11:00'
@@ -144,19 +184,29 @@ Galeria Sztuki Bunkier:
 Plac Szczepanski:
     x: -690
     y: 1350
-    attractiveness: 46
+    attractiveness: 4
     price: 0
     people_limit: 50
     time_needed: 5
+<<<<<<< HEAD:configs/pois.yaml
     time_open: '00:02'
     time_close: '00:00'
+=======
+    time_open: '00:05'
+    time_close: '23:59'
+>>>>>>> e2699acea5d4e1d5e21685398d4e281211343dbd:configs/default/pois.yaml
     poi_type: 'Heritage'
     
 Muzeum Bursztynu:
     x: -372
     y: 1175
+<<<<<<< HEAD:configs/pois.yaml
     attractiveness: 44
     price: 10
+=======
+    attractiveness: 2
+    price: 20
+>>>>>>> e2699acea5d4e1d5e21685398d4e281211343dbd:configs/default/pois.yaml
     people_limit: 20
     time_needed: 30
     time_open: '10:00'
@@ -166,7 +216,7 @@ Muzeum Bursztynu:
 Lost Souls Alley:
     x: -215
     y: 1180
-    attractiveness: 47
+    attractiveness: 6
     price: 0
     people_limit: 50
     time_needed: 20
@@ -177,7 +227,7 @@ Lost Souls Alley:
 Kamienica Hipolitow:
     x: -164
     y: 1003
-    attractiveness: 47
+    attractiveness: 5
     price: 0
     people_limit: 50
     time_needed: 20
@@ -188,8 +238,13 @@ Kamienica Hipolitow:
 Auschwitz Tours:
     x: -78
     y: 960
+<<<<<<< HEAD:configs/pois.yaml
     attractiveness: 40
     price: 10
+=======
+    attractiveness: 5
+    price: 50
+>>>>>>> e2699acea5d4e1d5e21685398d4e281211343dbd:configs/default/pois.yaml
     people_limit: 20
     time_needed: 440
     time_open: '09:00'
@@ -199,8 +254,13 @@ Auschwitz Tours:
 Milkbar Tomasza:
     x: -20
     y: 1096
+<<<<<<< HEAD:configs/pois.yaml
     attractiveness: 45
     price: 2
+=======
+    attractiveness: 5
+    price: 50
+>>>>>>> e2699acea5d4e1d5e21685398d4e281211343dbd:configs/default/pois.yaml
     people_limit: 50
     time_needed: 20
     time_open: '09:00'
@@ -210,8 +270,13 @@ Milkbar Tomasza:
 Muzeum Historyczne Miasta Krakowa:
     x: -416
     y: 1050
+<<<<<<< HEAD:configs/pois.yaml
     attractiveness: 45
     price: 6
+=======
+    attractiveness: 6
+    price: 10
+>>>>>>> e2699acea5d4e1d5e21685398d4e281211343dbd:configs/default/pois.yaml
     people_limit: 20
     time_needed: 30
     time_open: '10:00'
@@ -221,8 +286,13 @@ Muzeum Historyczne Miasta Krakowa:
 Kamienica Szolayskich:
     x: -620
     y: 1310
+<<<<<<< HEAD:configs/pois.yaml
     attractiveness: 45
     price: 6
+=======
+    attractiveness: 4
+    price: 30
+>>>>>>> e2699acea5d4e1d5e21685398d4e281211343dbd:configs/default/pois.yaml
     people_limit: 25
     time_needed: 5
     time_open: '10:00'
@@ -232,8 +302,13 @@ Kamienica Szolayskich:
 Kuchnia U Babci Maliny:
     x: -374
     y: 1465
+<<<<<<< HEAD:configs/pois.yaml
     attractiveness: 38
     price: 4
+=======
+    attractiveness: 5
+    price: 30
+>>>>>>> e2699acea5d4e1d5e21685398d4e281211343dbd:configs/default/pois.yaml
     people_limit: 30
     time_needed: 40
     time_open: '11:00'
@@ -243,8 +318,13 @@ Kuchnia U Babci Maliny:
 Muzeum XX. Czartoryskich:
     x: -208
     y: 1508
+<<<<<<< HEAD:configs/pois.yaml
     attractiveness: 45
     price: 6
+=======
+    attractiveness: 5
+    price: 20
+>>>>>>> e2699acea5d4e1d5e21685398d4e281211343dbd:configs/default/pois.yaml
     people_limit: 40
     time_needed: 60
     time_open: '10:00'
@@ -254,7 +334,7 @@ Muzeum XX. Czartoryskich:
 Brama Florianska:
     x: -35
     y: 1522
-    attractiveness: 47
+    attractiveness: 6
     price: 0
     people_limit: 20
     time_needed: 10
@@ -266,18 +346,23 @@ Brama Florianska:
 Barbakan Krakowski:
     x: 17
     y: 1640
-    attractiveness: 46
+    attractiveness: 6
     price: 0
     people_limit: 40
     time_needed: 5
+<<<<<<< HEAD:configs/pois.yaml
     time_open: '00:02'
     time_close: '00:00'
+=======
+    time_open: '00:05'
+    time_close: '23:59'
+>>>>>>> e2699acea5d4e1d5e21685398d4e281211343dbd:configs/default/pois.yaml
     poi_type: 'Heritage'
     
 Teatr im. Juliusza Slowackiego:
     x: 105
     y: 1380
-    attractiveness: 47
+    attractiveness: 6
     price: 0
     people_limit: 40
     time_needed: 20
@@ -288,7 +373,7 @@ Teatr im. Juliusza Slowackiego:
 Klasztor Siostr Dominikanek:
     x: 102
     y: 870
-    attractiveness: 46
+    attractiveness: 4
     price: 0
     people_limit: 30
     time_needed: 20
@@ -299,7 +384,7 @@ Klasztor Siostr Dominikanek:
 Planty:
     x: 108
     y: 765
-    attractiveness: 46
+    attractiveness: 7
     price: 0
     people_limit: 100
     time_needed: 10
@@ -310,19 +395,29 @@ Planty:
 Rynek Glowny:
     x: -525
     y: 1040
-    attractiveness: 48
+    attractiveness: 8
     price: 0
     people_limit: 150
     time_needed: 20
+<<<<<<< HEAD:configs/pois.yaml
     time_open: '00:02'
     time_close: '00:00'
+=======
+    time_open: '00:05'
+    time_close: '23:59'
+>>>>>>> e2699acea5d4e1d5e21685398d4e281211343dbd:configs/default/pois.yaml
     poi_type: 'Heritage'
     
 Starbucks:
     x: -675
     y: 951
+<<<<<<< HEAD:configs/pois.yaml
     attractiveness: 42
     price: 8
+=======
+    attractiveness: 7
+    price: 20
+>>>>>>> e2699acea5d4e1d5e21685398d4e281211343dbd:configs/default/pois.yaml
     people_limit: 30
     time_needed: 20
     time_open: '08:00'
@@ -332,7 +427,7 @@ Starbucks:
 Lustrzany Labirynt:
     x: -432
     y: 660
-    attractiveness: 38
+    attractiveness: 6
     price: 0
     people_limit: 40
     time_needed: 20
@@ -343,7 +438,7 @@ Lustrzany Labirynt:
 Klasztor Ojcow Dominikanow:
     x: -318
     y: 625
-    attractiveness: 48
+    attractiveness: 6
     price: 0
     people_limit: 20
     time_needed: 20
@@ -354,7 +449,7 @@ Klasztor Ojcow Dominikanow:
 Okno Papieskie:
     x: -700
     y: 612
-    attractiveness: 41
+    attractiveness: 7
     price: 0
     people_limit: 20
     time_needed: 20
@@ -365,8 +460,13 @@ Okno Papieskie:
 Muzeum Uniwersytetu Jagiellonskiego:
     x: -835
     y: 960
+<<<<<<< HEAD:configs/pois.yaml
     attractiveness: 46
     price: 7
+=======
+    attractiveness: 6
+    price: 0
+>>>>>>> e2699acea5d4e1d5e21685398d4e281211343dbd:configs/default/pois.yaml
     people_limit: 40
     time_needed: 30
     time_open: '10:00'
@@ -376,10 +476,15 @@ Muzeum Uniwersytetu Jagiellonskiego:
 Posag Mikolaja Kopernika:
     x: -940
     y: 918
-    attractiveness: 41
+    attractiveness: 5
     price: 0
     people_limit: 20
     time_needed: 5
+<<<<<<< HEAD:configs/pois.yaml
     time_open: '00:02'
     time_close: '00:00'
+=======
+    time_open: '00:05'
+    time_close: '23:59'
+>>>>>>> e2699acea5d4e1d5e21685398d4e281211343dbd:configs/default/pois.yaml
     poi_type: 'Museum'
