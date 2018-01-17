@@ -155,8 +155,8 @@ Plac Szczepanski:
 Muzeum Bursztynu:
     x: -372
     y: 1175
-    attractiveness: 8
-    price: 8
+    attractiveness: 7
+    price: 9
     people_limit: 20
     time_needed: 60
     time_open: '10:00'
@@ -258,8 +258,8 @@ Brama Florianska:
     price: 0
     people_limit: 25
     time_needed: 15
-    time_open: '08:00'
-    time_close: '18:00'
+    time_open: '00:01'
+    time_close: '23:59'
     poi_type: 'Heritage'
     
 

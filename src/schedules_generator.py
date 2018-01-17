@@ -85,13 +85,18 @@ class SchedulesGenerator:
             elif agent.intoxication > 5 and pois_with_points[i][0].type == "Club":
                 pois_with_points[i][1] *= 2
 
+            if agent.intoxication > 7 and pois_with_points[i][0].type == "Restaurant":
+                pois_with_points[i][1] *= 2
+            elif agent.intoxication > 4 and pois_with_points[i][0].type == "Restaurant":
+                pois_with_points[i][1] *= 1.5
+
             if agent.education > 8 and pois_with_points[i][0].type in ("Heritage", "Museum"):
                 pois_with_points[i][1] *= 1.5
-            elif agent.education > 5 and pois_with_points[i][0].type in ("Heritage", "Museum"):
+            elif agent.education > 6 and pois_with_points[i][0].type in ("Heritage", "Museum"):
                 pois_with_points[i][1] *= 1.2
 
             if agent.domestic == 1 and pois_with_points[i][0].type == "Heritage":
-                pois_with_points[i][1] *= 1.2
+                pois_with_points[i][1] *= 3
         if self.debug:
             print("After custom modifications points:")
             print([poi.name + " - " + str(points) for poi, points in
