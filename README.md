@@ -1,8 +1,10 @@
-# TourismSimulation
+# Tourism Simulation
 
-A simulation of a group of tourists in a large city written in Python.
+## Overview
 
-##How to run
+It is an simple simulation project of tourist traffic in Krakow.
+
+## How to run
 
 This project requires:
 - Python 3.6.3
@@ -16,7 +18,7 @@ Run following script:
 sudo ./launch.sh
 ```
 
-##Authors
+## Authors
 - Szymon Jakóbczyk
 - Mateusz Kuźmik
 - Paweł Płatek
