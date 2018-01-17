@@ -80,8 +80,6 @@ class Agent:
         if 16 < self.age < 25:
             speed = 2.0 + round(np.random.random_sample() / 5, 2)
 
-        print(self.age, speed)
-
         return round(speed * self.simulation.pixels_per_meter)
 
     def poi_reached(self):
@@ -94,7 +92,7 @@ class Agent:
             self.current_poi.labelClosed = PoiLabelClosed(self.current_poi.peopleToStr() + self.current_poi.name,
                                                           self.current_poi.x, self.current_poi.y)
             self.inside_poi = True
-            print("Inside poi " + self.current_poi.name)
+            # print("Inside poi " + self.current_poi.name)
             self.time_to_spend = self.current_poi.time_needed * 60  # in seconds
             self.sprite = pyglet.sprite.Sprite(self.inside_poi_img, x=self.posx, y=self.posy)
         else:
@@ -114,7 +112,7 @@ class Agent:
         self.current_poi.labelClosed = PoiLabelClosed(self.current_poi.peopleToStr() + self.current_poi.name,
                                                       self.current_poi.x, self.current_poi.y)
         self.inside_poi = False
-        print("Leave poi " + self.current_poi.name)
+        # print("Leave poi " + self.current_poi.name)
         if len(self.schedule) > 0:
             self.current_poi = self.schedule.pop()
         else:  # shouldn't occur, last poi in schedule should be spawn_point
