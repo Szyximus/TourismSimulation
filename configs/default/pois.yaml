@@ -161,7 +161,7 @@ Muzeum Bursztynu:
     time_needed: 60
     time_open: '10:00'
     time_close: '20:00'
-    poi_type: 'Museum'
+    poi_type: 'Other'
     
 Lost Souls Alley:
     x: -215
@@ -305,7 +305,7 @@ Planty:
     time_needed: 20
     time_open: '00:01'
     time_close: '23:59'
-    poi_type: 'Heritage'
+    poi_type: 'Other'
     
 Rynek Glowny:
     x: -525
