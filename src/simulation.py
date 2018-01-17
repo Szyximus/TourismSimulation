@@ -24,7 +24,7 @@ class Simulation:
         except yaml.YAMLError as e:
             raise yaml.YAMLError("Config file error: {}".format(e))
 
-        if any(required not in config.keys() for required in ("pois_file", "spawn_points_file")):
+        if any(required not in config.keys() for required in ("pois_file", "spawn_points_file", "agents_file")):
             raise ValueError("Required keys in config file not found")
 
         with open(config["spawn_points_file"], 'r') as spawn_points:
@@ -34,6 +34,11 @@ class Simulation:
         with open(config["pois_file"], 'r') as pois:
             pois = yaml.safe_load(pois)
         self.pois = [PointOfInterest.from_dict(poi_name, pois[poi_name]) for poi_name in pois.keys()]
+
+        with open(config["agents_file"], 'r') as agent_stats:
+            agent_stats = yaml.safe_load(agent_stats)
+
+        self.agent_stats = agent_stats
 
         self.DEBUG = config['DEBUG']
 

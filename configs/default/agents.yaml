@@ -1,0 +1,4 @@
+mean_age: 37 #In Kraków: 37
+domestic: 0.7 #fraction of domestic tourists, in Kraków: 0.7
+education: 5 # percentage of people with higher education scaled 0-10, in Kraków: 53
+mean_wealth: 7 # percentage of people who identify as wealthy scaled 0-10, in Kraków: 7

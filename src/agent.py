@@ -1,4 +1,4 @@
-from random import randint
+import numpy as np
 
 import pyglet
 
@@ -46,13 +46,18 @@ class Agent:
 
     @staticmethod
     def generate(simulation, x, y, spawn_point):
-        age = randint(5, 70)
-        wealth = randint(0, 10)
-        intoxication = randint(0, 10)
-        domestic = randint(0, 1)
-        education = randint(0, 10)
-        strictness = randint(0, 10)
-        fear = randint(0, 3)
+        mean_age = simulation.agent_stats['mean_age']
+        age = np.clip(round(np.random.normal(mean_age, np.floor(mean_age / 4))), 5, 70)
+        mean_wealth = simulation.agent_stats['mean_wealth']
+        wealth = np.clip(round(np.random.normal(mean_wealth, np.floor(mean_wealth / 3))), 0, 10)
+        intoxication = np.random.randint(0, 10)
+        mean_domestic = simulation.agent_stats['domestic']
+        domestic = np.clip(round(np.random.normal(mean_domestic, mean_domestic / 2)), 0, 1)
+        mean_education = simulation.agent_stats['education']
+        education = np.clip(round(np.random.normal(mean_education, np.floor(mean_education / 2))), 0, 10)
+        strictness = np.random.randint(0, 10)
+        fear = np.random.randint(0, 3)
+        #simulation.agent_stats
 
         agent = Agent(simulation, x, y, age, wealth, domestic, education, strictness, intoxication, fear)
         agent._generate_schedule(simulation.scheduler.generate(agent, simulation.timebox.timestamp))
