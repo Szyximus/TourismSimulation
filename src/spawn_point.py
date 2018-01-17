@@ -12,8 +12,11 @@ class SpawnPoint:
         self.name = name
         self.is_end_point = True
         self.open = True
+
+        # this is just for avoiding bugs when bus stop is treated as a POI
         self.people_in = 0
         self.people_limit = 100
+        #---------------------------------------------------------------
 
         # how many agents arrives on foot in one minute
         self.agents_per_min = agents_per_min

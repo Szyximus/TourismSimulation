@@ -87,7 +87,7 @@ class Agent:
     def poi_reached(self):
         self.posx = self.current_poi.x
         self.posy = self.current_poi.y
-        if self.current_poi.open:
+        if (not self.current_poi.is_end_point) and self.current_poi.open:
             self.current_poi.people_in += 1
             self.current_poi.labelOpen = PoiLabel( self.current_poi.peopleToStr() +  self.current_poi.name,  self.current_poi.x,  self.current_poi.y)
             self.current_poi.labelClosed = PoiLabelClosed( self.current_poi.peopleToStr() +  self.current_poi.name,  self.current_poi.x,  self.current_poi.y)
