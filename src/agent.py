@@ -36,11 +36,13 @@ class Agent:
         self.time_to_spend = None
 
         self.walking_img = pyglet.image.load('./graphics/Pin.png')
-        #self.inside_poi_img = pyglet.image.load('./graphics/Pin2.png')
-        self.img = self.walking_img
-        self.img.anchor_x = self.img.width // 2
-        self.img.anchor_y = self.img.height // 2
-        self.sprite = pyglet.sprite.Sprite(self.img, x=self.posx, y=self.posy)
+        self.walking_img.anchor_x = self.walking_img.width // 2
+        self.walking_img.anchor_y = self.walking_img.height // 2
+        self.inside_poi_img = pyglet.image.load('./graphics/Pin2.png')
+        self.inside_poi_img.anchor_x = self.inside_poi_img.width // 2
+        self.inside_poi_img.anchor_y = self.inside_poi_img.height // 2
+
+        self.sprite = pyglet.sprite.Sprite(self.walking_img, x=self.posx, y=self.posy)
 
     @staticmethod
     def generate(simulation, x, y, spawn_point):
@@ -80,8 +82,7 @@ class Agent:
         self.inside_poi = True
         print("Inside poi " + self.current_poi.name)
         self.time_to_spend = self.current_poi.time_needed * 60  # in seconds
-        #self.img = self.inside_poi_img
-        self.sprite = pyglet.sprite.Sprite(self.img, x=self.posx, y=self.posy)
+        self.sprite = pyglet.sprite.Sprite(self.inside_poi_img, x=self.posx, y=self.posy)
 
     def next_poi(self):
         if len(self.schedule) > 0:
@@ -95,8 +96,7 @@ class Agent:
             self.current_poi = self.schedule.pop()
         else: # shouldn't occur, last poi in schedule should be spawn_point
             self.current_poi = self.simulation.pois[randint(0, len(self.simulation.pois)-1)]
-        #self.img = self.walking_img
-        self.sprite = pyglet.sprite.Sprite(self.img, x=self.posx, y=self.posy)
+        self.sprite = pyglet.sprite.Sprite(self.walking_img, x=self.posx, y=self.posy)
 
     def draw(self, windowx, windowy):
         self.sprite.x = windowx + self.posx
