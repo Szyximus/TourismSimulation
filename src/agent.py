@@ -9,7 +9,7 @@ from src.path_finding.walkpath import Walkpath
 
 class Agent:
 
-    def __init__(self, simulation, posx, posy, age, wealth, domestic, education, strictness, intoxication, fear):
+    def __init__(self, simulation, posx, posy, age, wealth, domestic, education, intoxication):
         self.posx = posx
         self.posy = posy
 
@@ -19,9 +19,7 @@ class Agent:
         self.wealth = wealth
         self.domestic = domestic
         self.education = education
-        self.strictness = strictness
         self.intoxication = intoxication
-        self.fear = fear
         self.speed = self.compute_speed()
 
         self.previous_move = (0, 0)
@@ -55,11 +53,8 @@ class Agent:
         domestic = np.clip(round(np.random.normal(mean_domestic, mean_domestic / 2)), 0, 1)
         mean_education = simulation.agent_stats['education']
         education = np.clip(round(np.random.normal(mean_education, np.floor(mean_education / 2))), 0, 10)
-        strictness = np.random.randint(0, 10)
-        fear = np.random.randint(0, 3)
-        #simulation.agent_stats
 
-        agent = Agent(simulation, x, y, age, wealth, domestic, education, strictness, intoxication, fear)
+        agent = Agent(simulation, x, y, age, wealth, domestic, education, intoxication)
         agent._generate_schedule(simulation.scheduler.generate(agent, simulation.timebox.timestamp))
         agent.schedule.insert(0, spawn_point)
         return agent
@@ -100,7 +95,7 @@ class Agent:
         if len(self.schedule) > 0:
             self.current_poi = self.schedule.pop()
         else: # shouldn't occur, last poi in schedule should be spawn_point
-            self.current_poi = self.simulation.pois[randint(0, len(self.simulation.pois)-1)]
+            self.current_poi = self.simulation.pois[np.random.randint(0, len(self.simulation.pois)-1)]
         self.sprite = pyglet.sprite.Sprite(self.walking_img, x=self.posx, y=self.posy)
 
     def draw(self, windowx, windowy):

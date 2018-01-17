@@ -12,6 +12,10 @@ class Window(pyglet.window.Window):
         self.set_maximum_size(2260, 3540)
         self.frame_rate = 1/60.0
 
+        self.icon1 = pyglet.image.load('./graphics/Icon1.png')
+        self.icon2 = pyglet.image.load('./graphics/Icon2.png')
+        self.set_icon(self.icon1, self.icon2)
+
         self.map = Map(self.width, self.height, map_file)
         self.set_visible(True)
 
