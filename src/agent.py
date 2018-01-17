@@ -5,6 +5,8 @@ import pyglet
 from src.path_finding.grid import Grid
 from src.path_finding.point import Point
 from src.path_finding.walkpath import Walkpath
+from poilabel import PoiLabel
+from poilabelclosed import PoiLabelClosed
 
 
 class Agent:
@@ -47,7 +49,7 @@ class Agent:
         mean_age = simulation.agent_stats['mean_age']
         age = np.clip(round(np.random.normal(mean_age, np.floor(mean_age / 4))), 5, 70)
         mean_wealth = simulation.agent_stats['mean_wealth']
-        wealth = np.clip(round(np.random.normal(mean_wealth, np.floor(mean_wealth / 3))), 0, 10)
+        wealth = np.clip(round(np.random.normal(mean_wealth, np.floor(mean_wealth / 2))), 0, 10)
         intoxication = np.random.randint(0, 10)
         mean_domestic = simulation.agent_stats['domestic']
         domestic = np.clip(round(np.random.normal(mean_domestic, mean_domestic / 2)), 0, 1)
@@ -68,21 +70,35 @@ class Agent:
         """ Returns amount of pixels that the agent should move in one simulation second
             Normal speed is about 1.4 meters per second
         """
-        speed = 1.4
-        if self.age < 14 or self.age > 60:
-            speed -= 0.7
-        if 18 < self.age < 24:
-            speed += 0.7
+        speed = 1.4 + round(np.random.random_sample() / 5, 2)
+        if self.age <7 or self.age > 60:
+            speed = 0.8 + round(np.random.random_sample() / 5, 2)
+
+        if self.age <10 or self.age > 45:
+            speed = 1.2 + round(np.random.random_sample() / 5, 2)
+
+        if self.age >16 and self.age < 25:
+            speed = 2.0 + round(np.random.random_sample() / 5, 2)
+
+        print(self.age, speed)
+
         return round(speed * self.simulation.pixels_per_meter)
 
     def poi_reached(self):
         self.posx = self.current_poi.x
         self.posy = self.current_poi.y
-
-        self.inside_poi = True
-        print("Inside poi " + self.current_poi.name)
-        self.time_to_spend = self.current_poi.time_needed * 60  # in seconds
-        self.sprite = pyglet.sprite.Sprite(self.inside_poi_img, x=self.posx, y=self.posy)
+        if self.current_poi.open:
+            self.current_poi.people_in += 1
+            self.current_poi.labelOpen = PoiLabel( self.current_poi.peopleToStr() +  self.current_poi.name,  self.current_poi.x,  self.current_poi.y)
+            self.current_poi.labelClosed = PoiLabelClosed( self.current_poi.peopleToStr() +  self.current_poi.name,  self.current_poi.x,  self.current_poi.y)
+            self.inside_poi = True
+            print("Inside poi " + self.current_poi.name)
+            self.time_to_spend = self.current_poi.time_needed * 60  # in seconds
+            self.sprite = pyglet.sprite.Sprite(self.inside_poi_img, x=self.posx, y=self.posy)
+        else:
+            self.inside_poi = True
+            self.time_to_spend = 20
+            self.sprite = pyglet.sprite.Sprite(self.walking_img, x=self.posx, y=self.posy)
 
     def next_poi(self):
         if len(self.schedule) > 0:
@@ -90,6 +106,11 @@ class Agent:
             self.walkpath = Walkpath.from_agent(self)
 
     def poi_leaved(self):
+        self.current_poi.people_in -= 1
+        self.current_poi.labelOpen = PoiLabel(self.current_poi.peopleToStr() + self.current_poi.name,
+                                              self.current_poi.x, self.current_poi.y)
+        self.current_poi.labelClosed = PoiLabelClosed(self.current_poi.peopleToStr() + self.current_poi.name,
+                                                      self.current_poi.x, self.current_poi.y)
         self.inside_poi = False
         print("Leave poi " + self.current_poi.name)
         if len(self.schedule) > 0:

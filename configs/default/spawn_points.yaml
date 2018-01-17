@@ -1,42 +1,42 @@
 Teatr Bagatela:
     x: -990
     y: 1300
-    agents_per_min: 0.5
-    bus_frequency: 60
-    bus_average_number_of_passengers: 4
+    agents_per_min: 0.3
+    bus_frequency: 70
+    bus_average_number_of_passengers: 8
 
 Filharmonia:
     x: -900
     y: 540
-    agents_per_min: 0.1
-    bus_frequency: 45
-    bus_average_number_of_passengers: 3
+    agents_per_min: 0.2
+    bus_frequency: 50
+    bus_average_number_of_passengers: 6
 
 Plac Wszystkich Swietych:
     x: -430
     y: 555
-    agents_per_min: 0.1
-    bus_frequency: 65
-    bus_average_number_of_passengers: 5
+    agents_per_min: 0.2
+    bus_frequency: 75
+    bus_average_number_of_passengers: 8
 
 Poczta Glowna:
     x: 35
     y: 625
-    agents_per_min: 0.3
-    bus_frequency: 70
-    bus_average_number_of_passengers: 4
+    agents_per_min: 0.1
+    bus_frequency: 80
+    bus_average_number_of_passengers: 6
 
 Dworzec Glowny:
     x: 350
     y: 1450
-    agents_per_min: 0.2
-    bus_frequency: 65
-    bus_average_number_of_passengers: 6
+    agents_per_min: 0.1
+    bus_frequency: 70
+    bus_average_number_of_passengers: 9
 
 Stary Kleparz:
     x: -270
     y: 1750
-    agents_per_min: 0.1
-    bus_frequency: 80
-    bus_average_number_of_passengers: 2
+    agents_per_min: 0.2
+    bus_frequency: 90
+    bus_average_number_of_passengers: 5
     

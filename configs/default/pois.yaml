@@ -3,8 +3,8 @@ McDonald's:
     y: 1077
     attractiveness: 6 #(google maps rating -2.5) * 4
     price: 2 #1-10
-    people_limit: 80
-    time_needed: 20 #in minutes
+    people_limit: 30 # max number of tourists
+    time_needed: 15 #in minutes
     time_open: '00:01'
     time_close: '23:59'
     poi_type: 'Restaurant'
@@ -14,8 +14,8 @@ Sukiennice:
     y: 990
     attractiveness: 9
     price: 0
-    people_limit: 50
-    time_needed: 20
+    people_limit: 40
+    time_needed: 15
     time_open: '10:00'
     time_close: '18:00'
     poi_type: 'Heritage'
@@ -25,7 +25,7 @@ Polonia Wax Museum:
     y: 1125
     attractiveness: 2
     price: 8
-    people_limit: 50
+    people_limit: 30
     time_needed: 50
     time_open: '09:00'
     time_close: '22:00'
@@ -36,7 +36,7 @@ Bobby Burger:
     y: 1195
     attractiveness: 5
     price: 5
-    people_limit: 30
+    people_limit: 20
     time_needed: 20
     time_open: '11:00'
     time_close: '23:59'
@@ -47,7 +47,7 @@ Bazylika Mariacka:
     y: 982
     attractiveness: 9
     price: 0
-    people_limit: 30
+    people_limit: 20
     time_needed: 20
     time_open: '11:00'
     time_close: '18:00'
@@ -58,7 +58,7 @@ Pomnik Adama Mickiewicza:
     y: 955
     attractiveness: 8
     price: 0
-    people_limit: 80
+    people_limit: 40
     time_needed: 10
     time_open: '00:01'
     time_close: '23:59'
@@ -69,7 +69,7 @@ Pijalnia Czekolady E. Wedel:
     y: 1075
     attractiveness: 7
     price: 7
-    people_limit: 80
+    people_limit: 20
     time_needed: 60
     time_open: '09:00'
     time_close: '23:59'
@@ -80,7 +80,7 @@ Kosciol Swietego Wojciecha:
     y: 851
     attractiveness: 9
     price: 0
-    people_limit: 40
+    people_limit: 20
     time_needed: 20
     time_open: '11:00'
     time_close: '18:00'
@@ -102,7 +102,7 @@ Klub Kulturalny:
     y: 1206
     attractiveness: 8
     price: 3
-    people_limit: 50
+    people_limit: 40
     time_needed: 120
     time_open: '00:01'
     time_close: '07:00'
@@ -113,7 +113,7 @@ BaniaLuka:
     y: 1140
     attractiveness: 7
     price: 2
-    people_limit: 70
+    people_limit: 30
     time_needed: 30
     time_open: '12:00'
     time_close: '23:59'
@@ -124,7 +124,7 @@ Teatro Cubano:
     y: 1102
     attractiveness: 7
     price: 6
-    people_limit: 100
+    people_limit: 60
     time_needed: 140
     time_open: '00:01'
     time_close: '07:00'
@@ -135,7 +135,7 @@ Galeria Sztuki Bunkier:
     y: 1272
     attractiveness: 7
     price: 7
-    people_limit: 40
+    people_limit: 30
     time_needed: 80
     time_open: '11:00'
     time_close: '21:00'
@@ -168,8 +168,8 @@ Lost Souls Alley:
     y: 1180
     attractiveness: 9
     price: 0
-    people_limit: 50
-    time_needed: 30
+    people_limit: 20
+    time_needed: 20
     time_open: '12:00'
     time_close: '20:00'
     poi_type: 'Heritage'
@@ -179,7 +179,7 @@ Kamienica Hipolitow:
     y: 1003
     attractiveness: 9
     price: 0
-    people_limit: 50
+    people_limit: 30
     time_needed: 30
     time_open: '10:00'
     time_close: '17:30'
@@ -201,7 +201,7 @@ Milkbar Tomasza:
     y: 1096
     attractiveness: 8
     price: 4
-    people_limit: 50
+    people_limit: 20
     time_needed: 40
     time_open: '09:00'
     time_close: '20:00'
@@ -234,7 +234,7 @@ Kuchnia U Babci Maliny:
     y: 1465
     attractiveness: 5
     price: 6
-    people_limit: 30
+    people_limit: 15
     time_needed: 40
     time_open: '11:00'
     time_close: '21:30'
@@ -245,7 +245,7 @@ Muzeum XX. Czartoryskich:
     y: 1508
     attractiveness: 9
     price: 6
-    people_limit: 40
+    people_limit: 30
     time_needed: 70
     time_open: '10:00'
     time_close: '15:30'
@@ -256,7 +256,7 @@ Brama Florianska:
     y: 1522
     attractiveness: 9
     price: 0
-    people_limit: 20
+    people_limit: 25
     time_needed: 15
     time_open: '08:00'
     time_close: '18:00'
@@ -268,7 +268,7 @@ Barbakan Krakowski:
     y: 1640
     attractiveness: 8
     price: 0
-    people_limit: 40
+    people_limit: 30
     time_needed: 10
     time_open: '00:01'
     time_close: '23:59'
@@ -290,7 +290,7 @@ Klasztor Siostr Dominikanek:
     y: 870
     attractiveness: 8
     price: 0
-    people_limit: 30
+    people_limit: 15
     time_needed: 20
     time_open: '11:00'
     time_close: '18:00'
@@ -301,7 +301,7 @@ Planty:
     y: 765
     attractiveness: 8
     price: 0
-    people_limit: 100
+    people_limit: 20
     time_needed: 20
     time_open: '00:01'
     time_close: '23:59'
@@ -312,7 +312,7 @@ Rynek Glowny:
     y: 1040
     attractiveness: 10
     price: 0
-    people_limit: 150
+    people_limit: 60
     time_needed: 10
     time_open: '00:01'
     time_close: '23:59'
@@ -323,7 +323,7 @@ Starbucks:
     y: 951
     attractiveness: 7
     price: 8
-    people_limit: 30
+    people_limit: 20
     time_needed: 30
     time_open: '08:00'
     time_close: '22:00'
@@ -334,7 +334,7 @@ Lustrzany Labirynt:
     y: 660
     attractiveness: 5
     price: 0
-    people_limit: 40
+    people_limit: 10
     time_needed: 30
     time_open: '10:00'
     time_close: '22:00'
@@ -345,7 +345,7 @@ Klasztor Ojcow Dominikanow:
     y: 625
     attractiveness: 9
     price: 0
-    people_limit: 20
+    people_limit: 15
     time_needed: 20
     time_open: '11:00'
     time_close: '18:00'
@@ -356,7 +356,7 @@ Okno Papieskie:
     y: 612
     attractiveness: 6
     price: 0
-    people_limit: 20
+    people_limit: 15
     time_needed: 10
     time_open: '11:00'
     time_close: '18:00'
@@ -367,7 +367,7 @@ Muzeum Uniwersytetu Jagiellonskiego:
     y: 960
     attractiveness: 8
     price: 0
-    people_limit: 40
+    people_limit: 15
     time_needed: 30
     time_open: '10:00'
     time_close: '17:40'
@@ -378,7 +378,7 @@ Posag Mikolaja Kopernika:
     y: 918
     attractiveness: 6
     price: 0
-    people_limit: 20
+    people_limit: 15
     time_needed: 10
     time_open: '00:01'
     time_close: '23:59'

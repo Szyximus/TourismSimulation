@@ -20,40 +20,41 @@ class Heatmap:
 
     def update (self, agents, timestamp):
         for agent in agents:
-            x = agent.posx + (self.width // 2)
-            y = (agent.posy - (self.height // 2)) * -1
+            x = int(agent.posx + (self.width // 2))
+            y = int((agent.posy - (self.height // 2)) * -1)
+            if x >=2 and x < self.width - 2 and y >=2 and y < self.height - 2:
 
-            #Pseudo Gaussian to prettify
+                #Pseudo Gaussian to prettify
 
-            self.array[y + 2][x - 2] += 1
-            self.array[y + 2][x - 1] += 4
-            self.array[y + 2][x] += 6
-            self.array[y + 2][x + 1] += 4
-            self.array[y + 2][x + 2] += 1
+                self.array[y + 2][x - 2] += 1
+                self.array[y + 2][x - 1] += 4
+                self.array[y + 2][x] += 6
+                self.array[y + 2][x + 1] += 4
+                self.array[y + 2][x + 2] += 1
 
-            self.array[y + 1][x - 2] += 4
-            self.array[y + 1][x - 1] += 16
-            self.array[y + 1][x] += 20
-            self.array[y + 1][x + 1] += 16
-            self.array[y][x + 2] += 4
+                self.array[y + 1][x - 2] += 4
+                self.array[y + 1][x - 1] += 16
+                self.array[y + 1][x] += 20
+                self.array[y + 1][x + 1] += 16
+                self.array[y][x + 2] += 4
 
-            self.array[y][x - 2] += 6
-            self.array[y][x - 1] += 20
-            self.array[y][x] += 24
-            self.array[y][x + 1] += 20
-            self.array[y][x + 2] += 6
+                self.array[y][x - 2] += 6
+                self.array[y][x - 1] += 20
+                self.array[y][x] += 24
+                self.array[y][x + 1] += 20
+                self.array[y][x + 2] += 6
 
-            self.array[y - 2][x - 2] += 4
-            self.array[y - 1][x - 1] += 16
-            self.array[y][x] += 20
-            self.array[y + 1][x + 1] += 16
-            self.array[y + 2][x + 2] += 4
+                self.array[y - 2][x - 2] += 4
+                self.array[y - 1][x - 1] += 16
+                self.array[y][x] += 20
+                self.array[y + 1][x + 1] += 16
+                self.array[y + 2][x + 2] += 4
 
-            self.array[y - 2][x - 2] += 1
-            self.array[y - 2][x - 1] += 4
-            self.array[y - 2][x] += 6
-            self.array[y - 2][x + 1] += 4
-            self.array[y - 2][x + 2] += 1
+                self.array[y - 2][x - 2] += 1
+                self.array[y - 2][x - 1] += 4
+                self.array[y - 2][x] += 6
+                self.array[y - 2][x + 1] += 4
+                self.array[y - 2][x + 2] += 1
 
         if self.timer > 0:
             self.timer -= 1

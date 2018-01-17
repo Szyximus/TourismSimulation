@@ -5,7 +5,6 @@ from datetime import datetime
 from time import strptime
 
 
-
 class PointOfInterest:
 
     def __init__(self, x, y, name, attractiveness, price, people_limit, time_needed, time_open, time_close, poi_type):
@@ -13,6 +12,7 @@ class PointOfInterest:
         self.y = y
         self.name = name
         self.is_end_point = False
+        self.open = False
 
         self.attractiveness = attractiveness
         self.price = price
@@ -21,6 +21,7 @@ class PointOfInterest:
         self.time_open = time_open
         self.time_close = time_close
         self.type = poi_type
+        self.people_in = 0
 
         self.img = pyglet.image.load('./graphics/POI.png')
         self.imgClosed = pyglet.image.load('./graphics/POI_closed.png')
@@ -28,10 +29,10 @@ class PointOfInterest:
         self.img.anchor_y = self.img.height // 2
         self.imgClosed.anchor_x = self.img.width // 2
         self.imgClosed.anchor_y = self.img.height // 2
-        self.sprite = pyglet.sprite.Sprite(self.img, x=self.x, y=self.y)
+        self.sprite = pyglet.sprite.Sprite(self.imgClosed, x=self.x, y=self.y)
 
-        self.labelOpen = PoiLabel(name, x, y)
-        self.labelClosed = PoiLabelClosed(name, x, y)
+        self.labelOpen = PoiLabel(self.peopleToStr() + name , x, y)
+        self.labelClosed = PoiLabelClosed(self.peopleToStr() + name, x, y)
         self.label = self.labelOpen
 
     @classmethod
@@ -55,14 +56,23 @@ class PointOfInterest:
         tmp = strptime(time_string, '%H:%M')
         return (tmp.tm_hour * 60) + tmp.tm_min
 
+    def peopleToStr(self):
+        string = "  "
+        if self.people_in > 0:
+            string = str(self.people_in) + " "
+        return string
+
     def update(self, timestamp):
         if self._time_from_timestamp(timestamp) < self._time_from_string(self.time_open) or \
-                        self._time_from_timestamp(timestamp) > self._time_from_string(self.time_close):
+                self._time_from_timestamp(timestamp) > self._time_from_string(self.time_close) or \
+                self.people_in >= self.people_limit:
             self.sprite = pyglet.sprite.Sprite(self.imgClosed, x=self.x, y=self.y)
             self.label = self.labelClosed
+            self.open = False
         else:
             self.sprite = pyglet.sprite.Sprite(self.img, x=self.x, y=self.y)
             self.label = self.labelOpen
+            self.open = True
 
     def draw(self, windowx, windowy):
         self.sprite.x = windowx + self.x

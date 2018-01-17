@@ -1,5 +1,5 @@
 pois_file: configs/default/pois.yaml
-spawn_points_file: configs/default/spawn_points.yaml
+spawn_points_file: configs/one_agent/spawn_points.yaml
 agents_file: configs/default/agents.yaml
 start_time: '12:00'
 speed_multiplier: 25
