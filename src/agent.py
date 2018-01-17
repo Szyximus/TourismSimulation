@@ -10,7 +10,6 @@ from poilabelclosed import PoiLabelClosed
 
 
 class Agent:
-
     def __init__(self, simulation, posx, posy, age, wealth, domestic, education, intoxication):
         self.posx = posx
         self.posy = posy
@@ -46,6 +45,7 @@ class Agent:
 
     @staticmethod
     def generate(simulation, x, y, spawn_point):
+        # Base the parameters on real-life values and normal distribution
         mean_age = simulation.agent_stats['mean_age']
         age = np.clip(round(np.random.normal(mean_age, np.floor(mean_age / 4))), 5, 70)
         mean_wealth = simulation.agent_stats['mean_wealth']
@@ -71,13 +71,13 @@ class Agent:
             Normal speed is about 1.4 meters per second
         """
         speed = 1.4 + round(np.random.random_sample() / 5, 2)
-        if self.age <7 or self.age > 60:
+        if self.age < 7 or self.age > 60:
             speed = 0.8 + round(np.random.random_sample() / 5, 2)
 
-        if self.age <10 or self.age > 45:
+        if self.age < 10 or self.age > 45:
             speed = 1.2 + round(np.random.random_sample() / 5, 2)
 
-        if self.age >16 and self.age < 25:
+        if 16 < self.age < 25:
             speed = 2.0 + round(np.random.random_sample() / 5, 2)
 
         print(self.age, speed)
@@ -89,8 +89,10 @@ class Agent:
         self.posy = self.current_poi.y
         if (not self.current_poi.is_end_point) and self.current_poi.open:
             self.current_poi.people_in += 1
-            self.current_poi.labelOpen = PoiLabel( self.current_poi.peopleToStr() +  self.current_poi.name,  self.current_poi.x,  self.current_poi.y)
-            self.current_poi.labelClosed = PoiLabelClosed( self.current_poi.peopleToStr() +  self.current_poi.name,  self.current_poi.x,  self.current_poi.y)
+            self.current_poi.labelOpen = PoiLabel(self.current_poi.peopleToStr() + self.current_poi.name,
+                                                  self.current_poi.x, self.current_poi.y)
+            self.current_poi.labelClosed = PoiLabelClosed(self.current_poi.peopleToStr() + self.current_poi.name,
+                                                          self.current_poi.x, self.current_poi.y)
             self.inside_poi = True
             print("Inside poi " + self.current_poi.name)
             self.time_to_spend = self.current_poi.time_needed * 60  # in seconds
@@ -115,8 +117,8 @@ class Agent:
         print("Leave poi " + self.current_poi.name)
         if len(self.schedule) > 0:
             self.current_poi = self.schedule.pop()
-        else: # shouldn't occur, last poi in schedule should be spawn_point
-            self.current_poi = self.simulation.pois[np.random.randint(0, len(self.simulation.pois)-1)]
+        else:  # shouldn't occur, last poi in schedule should be spawn_point
+            self.current_poi = self.simulation.pois[np.random.randint(0, len(self.simulation.pois) - 1)]
         self.walkpath = Walkpath.from_agent(self)
         self.sprite = pyglet.sprite.Sprite(self.walking_img, x=self.posx, y=self.posy)
 
@@ -145,8 +147,6 @@ class Agent:
             next_x += self.speed * direction_x
             next_y += self.speed * direction_y
 
-        # (sqrt((self.posx - next_x)**2 + (self.posy - next_y)**2)) ~= self.speed * simulation_delta_time
-        # print(sqrt((self.posx - next_x)**2 + (self.posy - next_y)**2), self.speed * simulation_delta_time)
         self.pixels_walked += self.speed * simulation_delta_time
         self.posx = round(next_x)
         self.posy = round(next_y)

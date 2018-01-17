@@ -6,25 +6,22 @@ import keyboard
 
 
 class Heatmap:
-
     def __init__(self, width, height, multiplier):
         self.width = width
         self.height = height
         self.array = np.zeros((height, width))
         self.image = Image.fromarray(self.array, 'L')
         self.krakow_map = Image.open('./graphics/Krk.png')
+        # timer prevents printing too many maps when space is held for longer
         self.timer = 10
         self.multiplier = multiplier
 
-
-
-    def update (self, agents, timestamp):
+    def update(self, agents, timestamp):
         for agent in agents:
             x = int(agent.posx + (self.width // 2))
             y = int((agent.posy - (self.height // 2)) * -1)
-            if x >=2 and x < self.width - 2 and y >=2 and y < self.height - 2:
-
-                #Pseudo Gaussian to prettify
+            if 2 <= x < self.width - 2 and 2 <= y < self.height - 2:
+                # Pseudo Gaussian to prettify
 
                 self.array[y + 2][x - 2] += 1
                 self.array[y + 2][x - 1] += 4
@@ -65,7 +62,8 @@ class Heatmap:
 
     def draw(self, timestamp):
         self.image = Image.fromarray(np.uint8(self.array)).filter(ImageFilter.GaussianBlur(radius=7))
-        self.image = Image.eval(self.image, lambda px: round(px * self.multiplier) if round(px * self.multiplier) <= 255 else 255 )
+        self.image = Image.eval(self.image,
+                                lambda px: round(px * self.multiplier) if round(px * self.multiplier) <= 255 else 255)
         # LUT table for coloring:
         self.image.putpalette([
             0, 0, 128,
@@ -325,8 +323,7 @@ class Heatmap:
             255, 4, 0,
             255, 0, 0,
         ])
-
+        # mix the heatmap with town map
         self.image = Image.blend(self.image.convert("RGBA"), self.krakow_map.convert("RGBA"), 0.25)
 
         self.image.save('output/HeatMap_' + datetime.datetime.fromtimestamp(timestamp).strftime('%H_%M') + '.png')
-

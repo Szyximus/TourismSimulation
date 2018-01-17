@@ -6,7 +6,6 @@ from time import strptime
 
 
 class PointOfInterest:
-
     def __init__(self, x, y, name, attractiveness, price, people_limit, time_needed, time_open, time_close, poi_type):
         self.x = x
         self.y = y
@@ -31,7 +30,7 @@ class PointOfInterest:
         self.imgClosed.anchor_y = self.img.height // 2
         self.sprite = pyglet.sprite.Sprite(self.imgClosed, x=self.x, y=self.y)
 
-        self.labelOpen = PoiLabel(self.peopleToStr() + name , x, y)
+        self.labelOpen = PoiLabel(self.peopleToStr() + name, x, y)
         self.labelClosed = PoiLabelClosed(self.peopleToStr() + name, x, y)
         self.label = self.labelOpen
 
@@ -45,7 +44,7 @@ class PointOfInterest:
         if name == "" or name is None:
             raise ValueError("Name can't be empty")
         attributes["name"] = name
-        
+
         return PointOfInterest(**attributes)
 
     def _time_from_timestamp(self, timestamp):
@@ -63,9 +62,10 @@ class PointOfInterest:
         return string
 
     def update(self, timestamp):
+        # shows proper icons and labels depending on it being open/closed/stuffed
         if self._time_from_timestamp(timestamp) < self._time_from_string(self.time_open) or \
-                self._time_from_timestamp(timestamp) > self._time_from_string(self.time_close) or \
-                self.people_in >= self.people_limit:
+                        self._time_from_timestamp(timestamp) > self._time_from_string(self.time_close) or \
+                        self.people_in >= self.people_limit:
             self.sprite = pyglet.sprite.Sprite(self.imgClosed, x=self.x, y=self.y)
             self.label = self.labelClosed
             self.open = False
@@ -79,12 +79,3 @@ class PointOfInterest:
         self.sprite.y = windowy + self.y
         self.sprite.draw()
         self.label.draw(self.sprite.x, self.sprite.y)
-
-
-
-
-
-
-
-
-

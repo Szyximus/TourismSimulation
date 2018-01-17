@@ -6,7 +6,6 @@ from time import strptime
 
 
 class SchedulesGenerator:
-
     def __init__(self, pois, debug):
         self.pois = pois
         self.debug = debug
@@ -43,34 +42,39 @@ class SchedulesGenerator:
             print("    speed:", agent.speed)
             print("")
 
-        pois_with_distances = sorted([(poi, (agent.posx - poi.x)**2 + (agent.posy - poi.y)**2) for poi in self.pois],
-                                     key=itemgetter(1))
+        pois_with_distances = sorted(
+            [(poi, (agent.posx - poi.x) ** 2 + (agent.posy - poi.y) ** 2) for poi in self.pois],
+            key=itemgetter(1))
         if self.debug:
             print("Distances:")
             print([poi.name + " - " + str(distance) for poi, distance in pois_with_distances])
             print("")
 
         x1, x2 = pois_with_distances[0][1], pois_with_distances[-1][1]
-        linear_func_a, linear_func_b = 2. / (x1 - x2), 1 - ((2.*x2) / (x1-x2))
+        linear_func_a, linear_func_b = 2. / (x1 - x2), 1 - ((2. * x2) / (x1 - x2))
 
-        pois_with_points = map(lambda pwd: (pwd[0], linear_func_a*pwd[1] + linear_func_b), pois_with_distances)
+        pois_with_points = map(lambda pwd: (pwd[0], linear_func_a * pwd[1] + linear_func_b), pois_with_distances)
         if self.debug:
             pois_with_points = list(pois_with_points)
             print("After distance points:")
-            print([poi.name + " - " + str(points) for poi, points in sorted(pois_with_points, key=itemgetter(1), reverse=True)])
+            print([poi.name + " - " + str(points) for poi, points in
+                   sorted(pois_with_points, key=itemgetter(1), reverse=True)])
             print("")
 
         pois_with_points = map(lambda pwd: (pwd[0], pwd[1] * pwd[0].attractiveness), pois_with_points)
         if self.debug:
             pois_with_points = list(pois_with_points)
             print("After attractiveness points:")
-            print([poi.name + " - " + str(points) for poi, points in sorted(pois_with_points, key=itemgetter(1), reverse=True)])
+            print([poi.name + " - " + str(points) for poi, points in
+                   sorted(pois_with_points, key=itemgetter(1), reverse=True)])
             print("")
 
-        pois_with_points = list(map(lambda pwd: [pwd[0], pwd[1] / (1 + abs(agent.wealth - pwd[0].price))], pois_with_points))
+        pois_with_points = list(
+            map(lambda pwd: [pwd[0], pwd[1] / (1 + abs(agent.wealth - pwd[0].price))], pois_with_points))
         if self.debug:
             print("After wealth-price points:")
-            print([poi.name + " - " + str(points) for poi, points in sorted(pois_with_points, key=itemgetter(1), reverse=True)])
+            print([poi.name + " - " + str(points) for poi, points in
+                   sorted(pois_with_points, key=itemgetter(1), reverse=True)])
             print("")
 
         # poi points should be in range <10/11 - 30>
@@ -90,7 +94,8 @@ class SchedulesGenerator:
                 pois_with_points[i][1] *= 1.2
         if self.debug:
             print("After custom modifications points:")
-            print([poi.name + " - " + str(points) for poi, points in sorted(pois_with_points, key=itemgetter(1), reverse=True)])
+            print([poi.name + " - " + str(points) for poi, points in
+                   sorted(pois_with_points, key=itemgetter(1), reverse=True)])
             print("")
 
         pois_sorted_with_points = sorted(pois_with_points, key=itemgetter(1), reverse=True)
@@ -100,24 +105,29 @@ class SchedulesGenerator:
         schedule = []
         time_approximation = 0
         for poi, points in pois_sorted_with_points:
-            distance = np.sqrt((agent.posx - poi.x)**2 + (agent.posy - poi.y)**2)
+            distance = np.sqrt((agent.posx - poi.x) ** 2 + (agent.posy - poi.y) ** 2)
             time_approximation_tmp = time_approximation + (distance / agent.speed)
 
             if self.debug:
-                print("Poi {} ({}): distance = {}  | arrival_time = {}".format(poi.name, points, distance, time_approximation_tmp))
+                print("Poi {} ({}): distance = {}  | arrival_time = {}".format(poi.name, points, distance,
+                                                                               time_approximation_tmp))
                 print("Time arrival:", self._time_from_timestamp(timestamp + time_approximation_tmp),
                       datetime.fromtimestamp(timestamp + time_approximation_tmp).strftime('%Y-%m-%d %H:%M:%S'))
                 print("Time open:", self._time_from_string(poi.time_open),
                       datetime.fromtimestamp(self._time_from_string(poi.time_open)).strftime('%Y-%m-%d %H:%M:%S'))
-                print("Time leave:", self._time_from_timestamp(timestamp + time_approximation_tmp + (poi.time_needed * 60)),
-                      datetime.fromtimestamp(timestamp + time_approximation_tmp + (poi.time_needed * 60)).strftime('%Y-%m-%d %H:%M:%S'))
+                print("Time leave:",
+                      self._time_from_timestamp(timestamp + time_approximation_tmp + (poi.time_needed * 60)),
+                      datetime.fromtimestamp(timestamp + time_approximation_tmp + (poi.time_needed * 60)).strftime(
+                          '%Y-%m-%d %H:%M:%S'))
                 print("Time close:", self._time_from_string(poi.time_close),
                       datetime.fromtimestamp(self._time_from_string(poi.time_close)).strftime('%Y-%m-%d %H:%M:%S'))
                 print("")
 
             # check if agent will be there after open and before close
-            if self._time_from_timestamp(timestamp + time_approximation_tmp) >= self._time_from_string(poi.time_open) and \
-                self._time_from_timestamp(timestamp + time_approximation_tmp + (poi.time_needed * 60)) <= self._time_from_string(poi.time_close):
+            if self._time_from_timestamp(timestamp + time_approximation_tmp) >= self._time_from_string(
+                    poi.time_open) and \
+                            self._time_from_timestamp(timestamp + time_approximation_tmp + (
+                                        poi.time_needed * 60)) <= self._time_from_string(poi.time_close):
                 schedule.append(poi)
                 time_approximation += (distance / agent.speed) + (poi.time_needed * 60)
 

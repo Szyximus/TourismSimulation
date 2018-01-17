@@ -5,7 +5,6 @@ from src.poilabel import PoiLabel
 
 
 class SpawnPoint:
-
     def __init__(self, x, y, name, agents_per_min, bus_frequency, bus_average_number_of_passengers):
         self.x = x
         self.y = y
@@ -16,7 +15,7 @@ class SpawnPoint:
         # this is just for avoiding bugs when bus stop is treated as a POI
         self.people_in = 0
         self.people_limit = 100
-        #---------------------------------------------------------------
+        # ---------------------------------------------------------------
 
         # how many agents arrives on foot in one minute
         self.agents_per_min = agents_per_min
@@ -46,7 +45,7 @@ class SpawnPoint:
         if name == "" or name is None:
             raise ValueError("Name can't be empty")
         attributes["name"] = name
-        
+
         return SpawnPoint(**attributes)
 
     def draw(self, windowx, windowy):

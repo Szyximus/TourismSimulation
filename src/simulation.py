@@ -13,7 +13,6 @@ from src.timebox import Timebox
 
 
 class Simulation:
-
     def __init__(self, size_x, size_y, window_width, window_height, config_file):
         # load yaml configuration files with objects
         try:
@@ -111,4 +110,3 @@ class Simulation:
         list(map(lambda spawn: spawn.draw(windowx, windowy), self.spawn_points))
         list(map(lambda poi: poi.draw(windowx, windowy), self.pois))
         self.timebox.draw(window_width, window_height)
-
