@@ -96,6 +96,7 @@ class Agent:
             self.current_poi = self.schedule.pop()
         else: # shouldn't occur, last poi in schedule should be spawn_point
             self.current_poi = self.simulation.pois[np.random.randint(0, len(self.simulation.pois)-1)]
+        self.walkpath = Walkpath.from_agent(self)
         self.sprite = pyglet.sprite.Sprite(self.walking_img, x=self.posx, y=self.posy)
 
     def draw(self, windowx, windowy):

@@ -28,6 +28,7 @@ class SpawnPoint:
         self.sprite = pyglet.sprite.Sprite(self.img, x=self.x, y=self.y)
 
         self.label = PoiLabel(name, x, y)
+        self.time_needed = 0
 
     @classmethod
     def from_dict(cls, name, attributes):
