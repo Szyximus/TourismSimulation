@@ -57,5 +57,6 @@ class Window(pyglet.window.Window):
 if __name__ == '__main__':
 
     window = Window('./graphics/Krk.png', 'configs/default/config.yaml')
+    # Map based on map by Miejski System Informacji Przestrzennej
     pyglet.clock.schedule_interval(window.update, window.frame_rate)
     pyglet.app.run()
